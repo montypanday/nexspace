@@ -8,8 +8,12 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Account'
-export type * from './models/Session'
 export type * from './models/User'
-export type * from './models/VerificationToken'
+export type * from './models/UserOrganization'
+export type * from './models/Organization'
+export type * from './models/Location'
+export type * from './models/Building'
+export type * from './models/Floor'
+export type * from './models/Space'
+export type * from './models/Booking'
 export type * from './commonInputTypes'

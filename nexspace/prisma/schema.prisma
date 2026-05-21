@@ -11,3 +11,115 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  userId        String             @id @default(uuid())
+  externalId    String
+  organizations UserOrganization[]
+  bookings      Booking[]
+
+  @@index([externalId])
+  @@map("user")
+}
+
+model UserOrganization {
+  userId    String
+  orgId     String
+  createdAt DateTime @default(now())
+
+  user         User         @relation(fields: [userId], references: [userId])
+  organization Organization @relation(fields: [orgId], references: [orgId])
+
+  @@id([userId, orgId]) // Composite Primary Key
+  @@map("user_organization")
+}
+
+model Organization {
+  orgId      String             @id @default(uuid())
+  name       String
+  createdAt  DateTime           @default(now())
+  externalId String
+  locations  Location[]
+  buildings  Building[]
+  floors     Floor[]
+  users      UserOrganization[]
+  bookings   Booking[]
+  spaces     Space[]
+
+  @@index([externalId])
+  @@map("organization")
+}
+
+model Location {
+  locationId String     @id @default(uuid())
+  name       String
+  address    String?
+  tz         String?
+  createdAt  DateTime   @default(now())
+  orgId      String
+  buildings  Building[]
+
+  org Organization @relation(fields: [orgId], references: [orgId])
+
+  @@index([orgId])
+  @@map("location")
+}
+
+model Building {
+  buildingId String  @id @default(uuid())
+  name       String
+  address    String?
+  locationId String
+  orgId      String
+  floors     Floor[]
+
+  location Location     @relation(fields: [locationId], references: [locationId])
+  org      Organization @relation(fields: [orgId], references: [orgId])
+
+  @@index([locationId, orgId])
+  @@map("building")
+}
+
+model Floor {
+  floorId      String       @id @default(uuid())
+  name         String
+  orgId        String
+  buildingId   String
+  spaces       Space[]
+  building     Building     @relation(fields: [buildingId], references: [buildingId])
+  organization Organization @relation(fields: [orgId], references: [orgId])
+
+  @@index([buildingId, orgId])
+  @@map("floor")
+}
+
+model Space {
+  spaceId      String       @id @default(uuid())
+  name         String
+  orgId        String
+  bookings     Booking[]
+  organization Organization @relation(fields: [orgId], references: [orgId])
+  floor        Floor?       @relation(fields: [floorId], references: [floorId])
+  floorId      String?
+
+  @@map("space")
+}
+
+model Booking {
+  bookingId String   @id @default(uuid())
+  orgId     String
+  spaceId   String
+  userId    String
+  startTs   DateTime
+  endTs     DateTime
+  createdAt DateTime @default(now())
+
+  organization Organization @relation(fields: [orgId], references: [orgId])
+  space        Space        @relation(fields: [spaceId], references: [spaceId])
+  user         User         @relation(fields: [userId], references: [userId])
+
+  @@index([orgId])
+  @@index([spaceId, startTs, endTs])
+  @@index([orgId, userId, startTs, endTs])
+  @@map("booking")
+}

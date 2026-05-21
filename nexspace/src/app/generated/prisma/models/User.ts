@@ -25,53 +25,35 @@ export type AggregateUser = {
 }
 
 export type UserMinAggregateOutputType = {
-  id: string | null
-  name: string | null
-  email: string | null
-  emailVerified: Date | null
-  image: string | null
+  userId: string | null
+  externalId: string | null
 }
 
 export type UserMaxAggregateOutputType = {
-  id: string | null
-  name: string | null
-  email: string | null
-  emailVerified: Date | null
-  image: string | null
+  userId: string | null
+  externalId: string | null
 }
 
 export type UserCountAggregateOutputType = {
-  id: number
-  name: number
-  email: number
-  emailVerified: number
-  image: number
+  userId: number
+  externalId: number
   _all: number
 }
 
 
 export type UserMinAggregateInputType = {
-  id?: true
-  name?: true
-  email?: true
-  emailVerified?: true
-  image?: true
+  userId?: true
+  externalId?: true
 }
 
 export type UserMaxAggregateInputType = {
-  id?: true
-  name?: true
-  email?: true
-  emailVerified?: true
-  image?: true
+  userId?: true
+  externalId?: true
 }
 
 export type UserCountAggregateInputType = {
-  id?: true
-  name?: true
-  email?: true
-  emailVerified?: true
-  image?: true
+  userId?: true
+  externalId?: true
   _all?: true
 }
 
@@ -148,11 +130,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 export type UserGroupByOutputType = {
-  id: string
-  name: string | null
-  email: string | null
-  emailVerified: Date | null
-  image: string | null
+  userId: string
+  externalId: string
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -177,44 +156,32 @@ export type UserWhereInput = {
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  id?: Prisma.StringFilter<"User"> | string
-  name?: Prisma.StringNullableFilter<"User"> | string | null
-  email?: Prisma.StringNullableFilter<"User"> | string | null
-  emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  image?: Prisma.StringNullableFilter<"User"> | string | null
-  accounts?: Prisma.AccountListRelationFilter
-  sessions?: Prisma.SessionListRelationFilter
+  userId?: Prisma.StringFilter<"User"> | string
+  externalId?: Prisma.StringFilter<"User"> | string
+  organizations?: Prisma.UserOrganizationListRelationFilter
+  bookings?: Prisma.BookingListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
-  id?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
-  email?: Prisma.SortOrderInput | Prisma.SortOrder
-  emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
-  accounts?: Prisma.AccountOrderByRelationAggregateInput
-  sessions?: Prisma.SessionOrderByRelationAggregateInput
+  userId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
+  organizations?: Prisma.UserOrganizationOrderByRelationAggregateInput
+  bookings?: Prisma.BookingOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
-  id?: string
-  email?: string
+  userId?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  name?: Prisma.StringNullableFilter<"User"> | string | null
-  emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  image?: Prisma.StringNullableFilter<"User"> | string | null
-  accounts?: Prisma.AccountListRelationFilter
-  sessions?: Prisma.SessionListRelationFilter
-}, "id" | "email">
+  externalId?: Prisma.StringFilter<"User"> | string
+  organizations?: Prisma.UserOrganizationListRelationFilter
+  bookings?: Prisma.BookingListRelationFilter
+}, "userId">
 
 export type UserOrderByWithAggregationInput = {
-  id?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
-  email?: Prisma.SortOrderInput | Prisma.SortOrder
-  emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -224,75 +191,66 @@ export type UserScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"User"> | string
-  name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  email?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  emailVerified?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-  image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  userId?: Prisma.StringWithAggregatesFilter<"User"> | string
+  externalId?: Prisma.StringWithAggregatesFilter<"User"> | string
 }
 
 export type UserCreateInput = {
-  id?: string
-  name?: string | null
-  email?: string | null
-  emailVerified?: Date | string | null
-  image?: string | null
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userId?: string
+  externalId: string
+  organizations?: Prisma.UserOrganizationCreateNestedManyWithoutUserInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
-  id?: string
-  name?: string | null
-  email?: string | null
-  emailVerified?: Date | string | null
-  image?: string | null
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userId?: string
+  externalId: string
+  organizations?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutUserInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizations?: Prisma.UserOrganizationUpdateManyWithoutUserNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizations?: Prisma.UserOrganizationUncheckedUpdateManyWithoutUserNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
-  id?: string
-  name?: string | null
-  email?: string | null
-  emailVerified?: Date | string | null
-  image?: string | null
+  userId?: string
+  externalId: string
 }
 
 export type UserUpdateManyMutationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UserUncheckedUpdateManyInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type UserCountOrderByAggregateInput = {
+  userId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
+}
+
+export type UserMaxOrderByAggregateInput = {
+  userId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
+}
+
+export type UserMinOrderByAggregateInput = {
+  userId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -300,164 +258,116 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
-export type UserCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  email?: Prisma.SortOrder
-  emailVerified?: Prisma.SortOrder
-  image?: Prisma.SortOrder
+export type StringFieldUpdateOperationsInput = {
+  set?: string
 }
 
-export type UserMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  email?: Prisma.SortOrder
-  emailVerified?: Prisma.SortOrder
-  image?: Prisma.SortOrder
-}
-
-export type UserMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  email?: Prisma.SortOrder
-  emailVerified?: Prisma.SortOrder
-  image?: Prisma.SortOrder
-}
-
-export type UserCreateNestedOneWithoutAccountsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAccountsInput, Prisma.UserUncheckedCreateWithoutAccountsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAccountsInput
+export type UserCreateNestedOneWithoutOrganizationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrganizationsInput, Prisma.UserUncheckedCreateWithoutOrganizationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizationsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAccountsInput, Prisma.UserUncheckedCreateWithoutAccountsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAccountsInput
-  upsert?: Prisma.UserUpsertWithoutAccountsInput
+export type UserUpdateOneRequiredWithoutOrganizationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrganizationsInput, Prisma.UserUncheckedCreateWithoutOrganizationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizationsInput
+  upsert?: Prisma.UserUpsertWithoutOrganizationsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrganizationsInput, Prisma.UserUpdateWithoutOrganizationsInput>, Prisma.UserUncheckedUpdateWithoutOrganizationsInput>
 }
 
-export type UserCreateNestedOneWithoutSessionsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+export type UserCreateNestedOneWithoutBookingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBookingsInput, Prisma.UserUncheckedCreateWithoutBookingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBookingsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
-  upsert?: Prisma.UserUpsertWithoutSessionsInput
+export type UserUpdateOneRequiredWithoutBookingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBookingsInput, Prisma.UserUncheckedCreateWithoutBookingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBookingsInput
+  upsert?: Prisma.UserUpsertWithoutBookingsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBookingsInput, Prisma.UserUpdateWithoutBookingsInput>, Prisma.UserUncheckedUpdateWithoutBookingsInput>
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
+export type UserCreateWithoutOrganizationsInput = {
+  userId?: string
+  externalId: string
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateWithoutAccountsInput = {
-  id?: string
-  name?: string | null
-  email?: string | null
-  emailVerified?: Date | string | null
-  image?: string | null
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+export type UserUncheckedCreateWithoutOrganizationsInput = {
+  userId?: string
+  externalId: string
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutAccountsInput = {
-  id?: string
-  name?: string | null
-  email?: string | null
-  emailVerified?: Date | string | null
-  image?: string | null
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutAccountsInput = {
+export type UserCreateOrConnectWithoutOrganizationsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutAccountsInput, Prisma.UserUncheckedCreateWithoutAccountsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrganizationsInput, Prisma.UserUncheckedCreateWithoutOrganizationsInput>
 }
 
-export type UserUpsertWithoutAccountsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutAccountsInput, Prisma.UserUncheckedUpdateWithoutAccountsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutAccountsInput, Prisma.UserUncheckedCreateWithoutAccountsInput>
+export type UserUpsertWithoutOrganizationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOrganizationsInput, Prisma.UserUncheckedUpdateWithoutOrganizationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrganizationsInput, Prisma.UserUncheckedCreateWithoutOrganizationsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutAccountsInput = {
+export type UserUpdateToOneWithWhereWithoutOrganizationsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutAccountsInput, Prisma.UserUncheckedUpdateWithoutAccountsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOrganizationsInput, Prisma.UserUncheckedUpdateWithoutOrganizationsInput>
 }
 
-export type UserUpdateWithoutAccountsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+export type UserUpdateWithoutOrganizationsInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutAccountsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+export type UserUncheckedUpdateWithoutOrganizationsInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutSessionsInput = {
-  id?: string
-  name?: string | null
-  email?: string | null
-  emailVerified?: Date | string | null
-  image?: string | null
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+export type UserCreateWithoutBookingsInput = {
+  userId?: string
+  externalId: string
+  organizations?: Prisma.UserOrganizationCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutSessionsInput = {
-  id?: string
-  name?: string | null
-  email?: string | null
-  emailVerified?: Date | string | null
-  image?: string | null
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+export type UserUncheckedCreateWithoutBookingsInput = {
+  userId?: string
+  externalId: string
+  organizations?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutSessionsInput = {
+export type UserCreateOrConnectWithoutBookingsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBookingsInput, Prisma.UserUncheckedCreateWithoutBookingsInput>
 }
 
-export type UserUpsertWithoutSessionsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+export type UserUpsertWithoutBookingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBookingsInput, Prisma.UserUncheckedUpdateWithoutBookingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBookingsInput, Prisma.UserUncheckedCreateWithoutBookingsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutSessionsInput = {
+export type UserUpdateToOneWithWhereWithoutBookingsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBookingsInput, Prisma.UserUncheckedUpdateWithoutBookingsInput>
 }
 
-export type UserUpdateWithoutSessionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+export type UserUpdateWithoutBookingsInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizations?: Prisma.UserOrganizationUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutSessionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+export type UserUncheckedUpdateWithoutBookingsInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizations?: Prisma.UserOrganizationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -466,13 +376,13 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
  */
 
 export type UserCountOutputType = {
-  accounts: number
-  sessions: number
+  organizations: number
+  bookings: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  accounts?: boolean | UserCountOutputTypeCountAccountsArgs
-  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  organizations?: boolean | UserCountOutputTypeCountOrganizationsArgs
+  bookings?: boolean | UserCountOutputTypeCountBookingsArgs
 }
 
 /**
@@ -488,57 +398,45 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AccountWhereInput
+export type UserCountOutputTypeCountOrganizationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserOrganizationWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SessionWhereInput
+export type UserCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookingWhereInput
 }
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  name?: boolean
-  email?: boolean
-  emailVerified?: boolean
-  image?: boolean
-  accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  userId?: boolean
+  externalId?: boolean
+  organizations?: boolean | Prisma.User$organizationsArgs<ExtArgs>
+  bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  name?: boolean
-  email?: boolean
-  emailVerified?: boolean
-  image?: boolean
+  userId?: boolean
+  externalId?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  name?: boolean
-  email?: boolean
-  emailVerified?: boolean
-  image?: boolean
+  userId?: boolean
+  externalId?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
-  id?: boolean
-  name?: boolean
-  email?: boolean
-  emailVerified?: boolean
-  image?: boolean
+  userId?: boolean
+  externalId?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "externalId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  organizations?: boolean | Prisma.User$organizationsArgs<ExtArgs>
+  bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -547,15 +445,12 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    accounts: Prisma.$AccountPayload<ExtArgs>[]
-    sessions: Prisma.$SessionPayload<ExtArgs>[]
+    organizations: Prisma.$UserOrganizationPayload<ExtArgs>[]
+    bookings: Prisma.$BookingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: string
-    name: string | null
-    email: string | null
-    emailVerified: Date | null
-    image: string | null
+    userId: string
+    externalId: string
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -639,8 +534,8 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    * // Get first 10 Users
    * const users = await prisma.user.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
+   * // Only select the `userId`
+   * const userWithUserIdOnly = await prisma.user.findMany({ select: { userId: true } })
    * 
    */
   findMany<T extends UserFindManyArgs>(args?: Prisma.SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -684,9 +579,9 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    *   ]
    * })
    * 
-   * // Create many Users and only return the `id`
-   * const userWithIdOnly = await prisma.user.createManyAndReturn({
-   *   select: { id: true },
+   * // Create many Users and only return the `userId`
+   * const userWithUserIdOnly = await prisma.user.createManyAndReturn({
+   *   select: { userId: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -775,9 +670,9 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    *   ]
    * })
    * 
-   * // Update zero or more Users and only return the `id`
-   * const userWithIdOnly = await prisma.user.updateManyAndReturn({
-   *   select: { id: true },
+   * // Update zero or more Users and only return the `userId`
+   * const userWithUserIdOnly = await prisma.user.updateManyAndReturn({
+   *   select: { userId: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -950,8 +845,8 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  organizations<T extends Prisma.User$organizationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$organizationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserOrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bookings<T extends Prisma.User$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -981,11 +876,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  * Fields of the User model
  */
 export interface UserFieldRefs {
-  readonly id: Prisma.FieldRef<"User", 'String'>
-  readonly name: Prisma.FieldRef<"User", 'String'>
-  readonly email: Prisma.FieldRef<"User", 'String'>
-  readonly emailVerified: Prisma.FieldRef<"User", 'DateTime'>
-  readonly image: Prisma.FieldRef<"User", 'String'>
+  readonly userId: Prisma.FieldRef<"User", 'String'>
+  readonly externalId: Prisma.FieldRef<"User", 'String'>
 }
     
 
@@ -1209,7 +1101,7 @@ export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   /**
    * The data needed to create a User.
    */
-  data?: Prisma.XOR<Prisma.UserCreateInput, Prisma.UserUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.UserCreateInput, Prisma.UserUncheckedCreateInput>
 }
 
 /**
@@ -1379,51 +1271,51 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.accounts
+ * User.organizations
  */
-export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$organizationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Account
+   * Select specific fields to fetch from the UserOrganization
    */
-  select?: Prisma.AccountSelect<ExtArgs> | null
+  select?: Prisma.UserOrganizationSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Account
+   * Omit specific fields from the UserOrganization
    */
-  omit?: Prisma.AccountOmit<ExtArgs> | null
+  omit?: Prisma.UserOrganizationOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AccountInclude<ExtArgs> | null
-  where?: Prisma.AccountWhereInput
-  orderBy?: Prisma.AccountOrderByWithRelationInput | Prisma.AccountOrderByWithRelationInput[]
-  cursor?: Prisma.AccountWhereUniqueInput
+  include?: Prisma.UserOrganizationInclude<ExtArgs> | null
+  where?: Prisma.UserOrganizationWhereInput
+  orderBy?: Prisma.UserOrganizationOrderByWithRelationInput | Prisma.UserOrganizationOrderByWithRelationInput[]
+  cursor?: Prisma.UserOrganizationWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
+  distinct?: Prisma.UserOrganizationScalarFieldEnum | Prisma.UserOrganizationScalarFieldEnum[]
 }
 
 /**
- * User.sessions
+ * User.bookings
  */
-export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$bookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Session
+   * Select specific fields to fetch from the Booking
    */
-  select?: Prisma.SessionSelect<ExtArgs> | null
+  select?: Prisma.BookingSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Session
+   * Omit specific fields from the Booking
    */
-  omit?: Prisma.SessionOmit<ExtArgs> | null
+  omit?: Prisma.BookingOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SessionInclude<ExtArgs> | null
-  where?: Prisma.SessionWhereInput
-  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
-  cursor?: Prisma.SessionWhereUniqueInput
+  include?: Prisma.BookingInclude<ExtArgs> | null
+  where?: Prisma.BookingWhereInput
+  orderBy?: Prisma.BookingOrderByWithRelationInput | Prisma.BookingOrderByWithRelationInput[]
+  cursor?: Prisma.BookingWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+  distinct?: Prisma.BookingScalarFieldEnum | Prisma.BookingScalarFieldEnum[]
 }
 
 /**
