@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
 // 1. Specify protected and public routes
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)', '/(.*)'])
+const isProtectedRoute = createRouteMatcher(['/admin(.*)', '/bookings(.*)'])
 // const publicRoutes = ['/login', '/signup', '/']
 
 // function extractSubdomain(request: NextRequest): string | null {

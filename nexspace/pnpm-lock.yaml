@@ -17,6 +17,24 @@ importers:
       '@clerk/nextjs':
         specifier: ^7.3.7
         version: 7.3.7(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@fullcalendar/core':
+        specifier: 7.0.0-rc.3
+        version: 7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2)
+      '@fullcalendar/daygrid':
+        specifier: 7.0.0-rc.0
+        version: 7.0.0-rc.0(@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2))
+      '@fullcalendar/list':
+        specifier: 7.0.0-rc.0
+        version: 7.0.0-rc.0(@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2))
+      '@fullcalendar/multimonth':
+        specifier: 7.0.0-rc.0
+        version: 7.0.0-rc.0(@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2))
+      '@fullcalendar/react':
+        specifier: 7.0.0-rc.3
+        version: 7.0.0-rc.3(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(temporal-polyfill@0.3.2)
+      '@fullcalendar/timegrid':
+        specifier: 7.0.0-rc.0
+        version: 7.0.0-rc.0(@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2))
       '@prisma/adapter-pg':
         specifier: ^7.5.0
         version: 7.5.0
@@ -35,6 +53,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      date-fns:
+        specifier: ^4.2.1
+        version: 4.2.1
       dotenv:
         specifier: ^17.3.1
         version: 17.3.1
@@ -47,6 +68,9 @@ importers:
       next-auth:
         specifier: ^4.24.13
         version: 4.24.13(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      next-themes:
+        specifier: ^0.4.6
+        version: 0.4.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       pg:
         specifier: ^8.20.0
         version: 8.20.0
@@ -56,6 +80,9 @@ importers:
       react:
         specifier: 19.2.3
         version: 19.2.3
+      react-day-picker:
+        specifier: ^10.0.1
+        version: 10.0.1(@types/react@19.2.14)(react@19.2.3)
       react-dom:
         specifier: 19.2.3
         version: 19.2.3(react@19.2.3)
@@ -65,6 +92,9 @@ importers:
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
+      temporal-polyfill:
+        specifier: ^0.3.2
+        version: 0.3.2
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
@@ -332,6 +362,9 @@ packages:
       react-dom:
         optional: true
 
+  '@date-fns/tz@1.4.1':
+    resolution: {integrity: sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA==}
+
   '@dotenvx/dotenvx@1.54.1':
     resolution: {integrity: sha512-41gU3q7v05GM92QPuPUf4CmUw+mmF8p4wLUh6MCRlxpCkJ9ByLcY9jUf6MwrMNmiKyG/rIckNxj9SCfmNCmCqw==}
     hasBin: true
@@ -573,6 +606,44 @@ packages:
 
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
+
+  '@full-ui/headless-calendar@7.0.0-rc.3':
+    resolution: {integrity: sha512-1UOZJZ8hp2r+AmjHRmjScacAxjS+28PmPGh/QBaCIXvRE/mIONGOj+eipbrw7WUt/LOr508nD7TP6e2rgChy9w==}
+    peerDependencies:
+      temporal-polyfill: ^0.3.2
+
+  '@fullcalendar/core@7.0.0-rc.3':
+    resolution: {integrity: sha512-hOBG9/Ty5rrmuAxd8HpBEvYIQW04zjtP6RRI2K+XzcvdH5H+q0AZiRohwdIfNBx5ZiClcIuayDcLTXD4v2bjPg==}
+    peerDependencies:
+      '@full-ui/headless-calendar': 7.0.0-rc.3
+      temporal-polyfill: ^0.3.2
+
+  '@fullcalendar/daygrid@7.0.0-rc.0':
+    resolution: {integrity: sha512-Nccd2AxCiMuE+G6eqzniehBGZy0LQqzf8KgfXSgfDrg6v4PDV13sqSo1db7rxVeyLVnb0KQX8pv2zcZ1Cwugag==}
+    peerDependencies:
+      '@fullcalendar/core': 7.0.0-rc.0
+
+  '@fullcalendar/list@7.0.0-rc.0':
+    resolution: {integrity: sha512-UGWA3kLNktDlmbgc7Wf6PFCGUX26bADGp4OoZUAKHqltrtsvm2dPLtzbIDg5z3IgI3jsyVvljd21EoEEgfr8Yw==}
+    peerDependencies:
+      '@fullcalendar/core': 7.0.0-rc.0
+
+  '@fullcalendar/multimonth@7.0.0-rc.0':
+    resolution: {integrity: sha512-fozBhzfF3/nrRLhHVcsvxUGK+dVMY6QJFzsSUJtZig0Xjaw0DCxpcSPDXhHDaJmX1Zaa+fDPZ3zsMvB5Ir3X0Q==}
+    peerDependencies:
+      '@fullcalendar/core': 7.0.0-rc.0
+
+  '@fullcalendar/react@7.0.0-rc.3':
+    resolution: {integrity: sha512-W7AQMuvpBJH6NNRZfzpWX2FjvsR2MfQ4hHsf9LQvb2J29D3WX5GIkpHxQRuC2vribDlr07O4caDBouSlCH4bMg==}
+    peerDependencies:
+      react: ^17 || ^18 || ^19
+      react-dom: ^17 || ^18 || ^19
+      temporal-polyfill: ^0.3.2
+
+  '@fullcalendar/timegrid@7.0.0-rc.0':
+    resolution: {integrity: sha512-O7FKvs2bxY3FjWZqV6M2n3LiqO82+86gYMgGEAipNMIgApJEeiTEP0HfW6fgRjGmTyCnHFf+ZPuu0XFDpgBRhg==}
+    peerDependencies:
+      '@fullcalendar/core': 7.0.0-rc.0
 
   '@hono/node-server@1.19.11':
     resolution: {integrity: sha512-dr8/3zEaB+p0D2n/IUrlPF1HZm586qgJNXK1a9fhg/PzdtkK7Ksd5l312tJX2yBuALqDYBlG20QEbayqPyxn+g==}
@@ -1634,6 +1705,9 @@ packages:
   data-view-byte-offset@1.0.1:
     resolution: {integrity: sha512-BS8PfmtDGnrgYdOonGZQdLZslWIeCGFP9tpan0hi1Co2Zr2NKADsvGYA8XxuG/4UWgJ6Cjtv+YJnB6MM69QGlQ==}
     engines: {node: '>= 0.4'}
+
+  date-fns@4.2.1:
+    resolution: {integrity: sha512-37RhSdxaG1suen6VDCza6rNrQfooyQh57HFVPwQGEq2QWliVLzPQZ8Oa017weOu+HZCnzI7N3Pf/wyoBKfEqrA==}
 
   debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
@@ -2777,6 +2851,12 @@ packages:
       nodemailer:
         optional: true
 
+  next-themes@0.4.6:
+    resolution: {integrity: sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+
   next@16.1.6:
     resolution: {integrity: sha512-hkyRkcu5x/41KoqnROkfTm2pZVbKxvbZRuNvKXLRXxs3VfyO0WhY50TQS40EuKO9SW3rBj/sF3WbVwDACeMZyw==}
     engines: {node: '>=20.9.0'}
@@ -3178,6 +3258,16 @@ packages:
   rc9@2.1.2:
     resolution: {integrity: sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==}
 
+  react-day-picker@10.0.1:
+    resolution: {integrity: sha512-eNh6BlwcYInWaJtRv18mXQ06Ys/H6rdTZAnTaSdOYJuTpwP1JMCHNd1FDRadA+gbeinq+psdULN5Xnowy9mV8w==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/react': '>=16.8.0'
+      react: '>=16.8.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
   react-dom@19.2.3:
     resolution: {integrity: sha512-yELu4WmLPw5Mr/lmeEpox5rw3RETacE++JgHqQzd2dg+YbJuat3jH4ingc+WPZhxaoFzdv9y33G+F7Nl5O0GBg==}
     peerDependencies:
@@ -3500,6 +3590,12 @@ packages:
   tapable@2.3.0:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
     engines: {node: '>=6'}
+
+  temporal-polyfill@0.3.2:
+    resolution: {integrity: sha512-TzHthD/heRK947GNiSu3Y5gSPpeUDH34+LESnfsq8bqpFhsB79HFBX8+Z834IVX68P3EUyRPZK5bL/1fh437Eg==}
+
+  temporal-spec@0.3.1:
+    resolution: {integrity: sha512-B4TUhezh9knfSIMwt7RVggApDRJZo73uZdj8AacL2mZ8RP5KtLianh2MXxL06GN9ESYiIsiuoLQhgVfwe55Yhw==}
 
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
@@ -4056,6 +4152,8 @@ snapshots:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
 
+  '@date-fns/tz@1.4.1': {}
+
   '@dotenvx/dotenvx@1.54.1':
     dependencies:
       commander: 11.1.0
@@ -4238,6 +4336,41 @@ snapshots:
       react-dom: 19.2.3(react@19.2.3)
 
   '@floating-ui/utils@0.2.11': {}
+
+  '@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2)':
+    dependencies:
+      temporal-polyfill: 0.3.2
+
+  '@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2)':
+    dependencies:
+      '@full-ui/headless-calendar': 7.0.0-rc.3(temporal-polyfill@0.3.2)
+      temporal-polyfill: 0.3.2
+
+  '@fullcalendar/daygrid@7.0.0-rc.0(@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2))':
+    dependencies:
+      '@fullcalendar/core': 7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2)
+
+  '@fullcalendar/list@7.0.0-rc.0(@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2))':
+    dependencies:
+      '@fullcalendar/core': 7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2)
+
+  '@fullcalendar/multimonth@7.0.0-rc.0(@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2))':
+    dependencies:
+      '@fullcalendar/core': 7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2)
+      '@fullcalendar/daygrid': 7.0.0-rc.0(@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2))
+
+  '@fullcalendar/react@7.0.0-rc.3(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(temporal-polyfill@0.3.2)':
+    dependencies:
+      '@full-ui/headless-calendar': 7.0.0-rc.3(temporal-polyfill@0.3.2)
+      '@fullcalendar/core': 7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2)
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+      temporal-polyfill: 0.3.2
+
+  '@fullcalendar/timegrid@7.0.0-rc.0(@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2))':
+    dependencies:
+      '@fullcalendar/core': 7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2)
+      '@fullcalendar/daygrid': 7.0.0-rc.0(@fullcalendar/core@7.0.0-rc.3(@full-ui/headless-calendar@7.0.0-rc.3(temporal-polyfill@0.3.2))(temporal-polyfill@0.3.2))
 
   '@hono/node-server@1.19.11(hono@4.12.7)':
     dependencies:
@@ -5223,6 +5356,8 @@ snapshots:
       call-bound: 1.0.4
       es-errors: 1.3.0
       is-data-view: 1.0.2
+
+  date-fns@4.2.1: {}
 
   debug@3.2.7:
     dependencies:
@@ -6460,6 +6595,11 @@ snapshots:
       react-dom: 19.2.3(react@19.2.3)
       uuid: 8.3.2
 
+  next-themes@0.4.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+    dependencies:
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+
   next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
       '@next/env': 16.1.6
@@ -6866,6 +7006,14 @@ snapshots:
     dependencies:
       defu: 6.1.4
       destr: 2.0.5
+
+  react-day-picker@10.0.1(@types/react@19.2.14)(react@19.2.3):
+    dependencies:
+      '@date-fns/tz': 1.4.1
+      date-fns: 4.2.1
+      react: 19.2.3
+    optionalDependencies:
+      '@types/react': 19.2.14
 
   react-dom@19.2.3(react@19.2.3):
     dependencies:
@@ -7292,6 +7440,12 @@ snapshots:
   tailwindcss@4.2.1: {}
 
   tapable@2.3.0: {}
+
+  temporal-polyfill@0.3.2:
+    dependencies:
+      temporal-spec: 0.3.1
+
+  temporal-spec@0.3.1: {}
 
   tiny-invariant@1.3.3: {}
 

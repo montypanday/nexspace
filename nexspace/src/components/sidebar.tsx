@@ -35,12 +35,13 @@ import { NavMain } from "./nav-main"
 import { NavSecondary } from "./nav-secondary"
 import { NavUser } from "./nav-user"
 import { Calendar } from "lucide-react"
+import Link from "next/link"
 
 const data = {
     navMain: [
         {
             title: "My bookings",
-            url: "#",
+            url: "/bookings",
             icon: Calendar,
         }
     ],
@@ -48,7 +49,7 @@ const data = {
     navSecondary: [
         {
             title: "Settings",
-            url: "#",
+            url: "/admin",
             icon: IconSettings,
         }
     ],
@@ -62,10 +63,10 @@ export function Sidebar({ ...props }: React.ComponentProps<typeof UISidebar>) {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton
-                            render={<a href="#">
+                            render={<Link href="#">
                                 <IconInnerShadowTop className="size-5!" />
                                 <span className="text-base font-semibold">Nexspace</span>
-                            </a>}
+                            </Link>}
                             className="data-[slot=sidebar-menu-button]:p-1.5!"
                         >
 

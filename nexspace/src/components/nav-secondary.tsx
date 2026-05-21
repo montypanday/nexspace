@@ -10,6 +10,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { usePathname } from "next/navigation"
 
 export function NavSecondary({
     items,
@@ -21,6 +22,8 @@ export function NavSecondary({
         icon: Icon
     }[]
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+    const pathname = usePathname();
+    console.log(pathname)
     return (
         <SidebarGroup {...props}>
             <SidebarGroupContent>
@@ -30,7 +33,9 @@ export function NavSecondary({
                             <SidebarMenuButton render={<a href={item.url}>
                                 <item.icon />
                                 <span>{item.title}</span>
-                            </a>}>
+                            </a>}
+                                isActive={pathname === `${item.url}` ? true : false}
+                            >
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     ))}
