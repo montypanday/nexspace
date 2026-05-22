@@ -77,6 +77,6 @@ export default function RootLayout({
           </main>
         </ThemeProvider>
       </body>
-    </html>
+    </html >
   );
 }

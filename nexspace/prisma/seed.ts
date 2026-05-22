@@ -2,7 +2,8 @@
 // const prisma = new PrismaClient()
 
 import "dotenv/config";
-import { Pool } from "pg";
+
+import { Pool } from 'pg'
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/app/generated/prisma/client";
 
@@ -78,8 +79,24 @@ async function main() {
     ])
 
     const startDate1 = new Date();
+    startDate1.setHours(9, 0, 0, 0);
     const endDate1 = new Date();
-    endDate1.setHours(endDate1.getHours() + 8);
+    endDate1.setHours(startDate1.getHours() + 8);
+
+    const startDate2 = new Date();
+    startDate2.setDate(startDate2.getDate() + 7)
+    startDate2.setHours(9, 0, 0, 0);
+    const endDate2 = new Date();
+    endDate2.setDate(startDate2.getDate())
+    endDate2.setHours(startDate2.getHours() + 8);
+
+    // Event date in last calendar month
+    const startDate3 = new Date();
+    startDate3.setMonth(startDate3.getMonth() - 1)
+    startDate3.setHours(9, 0, 0, 0);
+    const endDate3 = new Date();
+    endDate3.setDate(startDate3.getDate());
+    endDate3.setHours(startDate3.getHours() + 8);
 
     const bookings = await prisma.$transaction([
 
@@ -90,8 +107,37 @@ async function main() {
                 orgId: org1.orgId,
                 spaceId: 'e8388736-e624-4a86-a64d-b5e98816e44a',
                 userId: user1.userId,
+                title: 'Desk Booking',
                 startTs: startDate1,
                 endTs: endDate1
+            }
+        }),
+
+        prisma.booking.create({
+            data:
+            {
+                bookingId: 'fc183310-16b4-4212-90c0-e17f11c71f39',
+                orgId: org1.orgId,
+                spaceId: 'e8388736-e624-4a86-a64d-b5e98816e44a',
+                userId: user1.userId,
+                title: 'Desk Booking (All Day)',
+                startTs: startDate2,
+                endTs: endDate2,
+                allDay: true
+            }
+        }),
+
+        prisma.booking.create({
+            data:
+            {
+                bookingId: 'f3ae50d1-2c4f-4363-9471-c443dba97525',
+                orgId: org1.orgId,
+                spaceId: 'e8388736-e624-4a86-a64d-b5e98816e44a',
+                userId: user1.userId,
+                title: 'Desk Booking (All Day)',
+                startTs: startDate3,
+                endTs: endDate3,
+                allDay: true
             }
         })
     ])

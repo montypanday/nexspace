@@ -110,8 +110,11 @@ model Booking {
   orgId     String
   spaceId   String
   userId    String
+  title     String
   startTs   DateTime
   endTs     DateTime
+  allDay    Boolean  @default(false)
+  url       String?
   createdAt DateTime @default(now())
 
   organization Organization @relation(fields: [orgId], references: [orgId])

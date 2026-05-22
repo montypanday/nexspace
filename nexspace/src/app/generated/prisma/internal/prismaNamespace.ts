@@ -1117,8 +1117,11 @@ export const BookingScalarFieldEnum = {
   orgId: 'orgId',
   spaceId: 'spaceId',
   userId: 'userId',
+  title: 'title',
   startTs: 'startTs',
   endTs: 'endTs',
+  allDay: 'allDay',
+  url: 'url',
   createdAt: 'createdAt'
 } as const
 
@@ -1180,6 +1183,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
