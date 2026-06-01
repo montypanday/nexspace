@@ -1,38 +1,72 @@
-"use client"
+'use client';
 
 import {
-    IconCreditCard,
-    IconDotsVertical,
-    IconLogout,
-    IconNotification,
-    IconUserCircle,
-} from "@tabler/icons-react"
+    BadgeCheckIcon,
+    BellIcon,
+    CreditCardIcon,
+    LogOutIcon,
+} from "lucide-react"
 
 import {
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    useSidebar,
-} from "@/components/ui/sidebar"
-import { Show, UserAvatar, UserButton, useUser } from "@clerk/nextjs"
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
-export function NavUser({ }: {}) {
-    const { isMobile } = useSidebar()
-    const { isSignedIn, user, isLoaded } = useUser()
+import { useSession } from "next-auth/react";
+
+export function NavUser() {
+    const { data: session, status } = useSession();
+
+    if (status === "loading") {
+        return <p>Loading...</p>;
+    }
+
+    if (status === "unauthenticated") {
+        return <p>Access Denied</p>;
+    }
     return (
-        <SidebarMenu>
-            <SidebarMenuItem>
-                <SidebarMenuButton>
-                    <Show when="signed-in">
-                        <UserAvatar />
-                        {(isLoaded && isSignedIn) && <div className="grid flex-1 text-left text-sm leading-tight"><span className="truncate font-medium">{user.fullName}</span>
-                            <span className="truncate text-xs">{user.primaryEmailAddress?.emailAddress}</span>
-                        </div>
-                        }
-                    </Show>
-                </SidebarMenuButton>
+        <DropdownMenu>
+            <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="rounded-full">
+                <Avatar>
+                    <AvatarImage src={session?.user?.image ?? 'https://github.com/shadcn.png'} alt="user" />
+                    <AvatarFallback>LR</AvatarFallback>
+                </Avatar>
+            </Button>}>
 
-            </SidebarMenuItem>
-        </SidebarMenu>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                {/* <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                        <BadgeCheckIcon />
+                        Account
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <CreditCardIcon />
+                        Billing
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <BellIcon />
+                        Notifications
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator /> */}
+                <DropdownMenuItem>
+                    <LogOutIcon />
+                    <a href="/api/auth/signout">
+                        Sign Out
+                    </a>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     )
 }

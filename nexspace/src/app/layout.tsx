@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider, OrganizationSwitcher, Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Sidebar } from "@/components/sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/theme-provider"
 import { ModeToggle } from "@/components/theme-toggle";
+import { NavUser } from "@/components/nav-user";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,42 +37,26 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main>
-            <ClerkProvider>
-              <header className="flex justify-end items-center p-4 gap-4 h-16">
-                <Show when="signed-out">
-                  <SignInButton />
-                  <SignUpButton>
-                    <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
-                      Sign Up
-                    </button>
-                  </SignUpButton>
-                </Show>
-                <Show when="signed-in">
+          <SessionProvider>
+            <main>
+              <header className="flex items-center p-4 gap-4 h-16 justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="bg-primary text-primary-foreground rounded-lg p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard h-6 w-6"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+                  </div>
+                  <div>
+                    <h1 className="text-2xl font-bold">NextSpace</h1>
+                    <p className="text-sm text-muted-foreground">Workspace Management</p>
+                  </div>
+                </div>
+                <div className="flex flex-row items-center gap-2">
                   <ModeToggle />
-                  <OrganizationSwitcher />
-                  <UserButton />
-                </Show>
+                  <NavUser />
+                </div>
               </header>
-              <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                <TooltipProvider>
-                  <SidebarProvider>
-                    <Sidebar />
-                    <main className="relative flex w-full flex-1 flex-col bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2">
-                      <SidebarTrigger />
-                      <div className="flex flex-1 flex-col">
-                        <div className="@container/main flex flex-1 flex-col gap-2">
-                          <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            {children}
-                          </div>
-                        </div>
-                      </div>
-                    </main>
-                  </SidebarProvider>
-                </TooltipProvider>
-              </div>
-            </ClerkProvider>
-          </main>
+              {children}
+            </main>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html >

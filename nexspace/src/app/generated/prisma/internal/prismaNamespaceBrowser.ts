@@ -52,6 +52,10 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Account: 'Account',
+  Session: 'Session',
+  VerificationToken: 'VerificationToken',
+  Authenticator: 'Authenticator',
   UserOrganization: 'UserOrganization',
   Organization: 'Organization',
   Location: 'Location',
@@ -78,11 +82,70 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 
 export const UserScalarFieldEnum = {
-  userId: 'userId',
-  externalId: 'externalId'
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  emailVerified: 'emailVerified',
+  password: 'password',
+  image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const AccountScalarFieldEnum = {
+  userId: 'userId',
+  type: 'type',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  refresh_token: 'refresh_token',
+  access_token: 'access_token',
+  expires_at: 'expires_at',
+  token_type: 'token_type',
+  scope: 'scope',
+  id_token: 'id_token',
+  session_state: 'session_state',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  sessionToken: 'sessionToken',
+  userId: 'userId',
+  expires: 'expires',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const VerificationTokenScalarFieldEnum = {
+  identifier: 'identifier',
+  token: 'token',
+  expires: 'expires'
+} as const
+
+export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
+
+
+export const AuthenticatorScalarFieldEnum = {
+  credentialID: 'credentialID',
+  userId: 'userId',
+  providerAccountId: 'providerAccountId',
+  credentialPublicKey: 'credentialPublicKey',
+  counter: 'counter',
+  credentialDeviceType: 'credentialDeviceType',
+  credentialBackedUp: 'credentialBackedUp',
+  transports: 'transports'
+} as const
+
+export type AuthenticatorScalarFieldEnum = (typeof AuthenticatorScalarFieldEnum)[keyof typeof AuthenticatorScalarFieldEnum]
 
 
 export const UserOrganizationScalarFieldEnum = {
@@ -95,7 +158,7 @@ export type UserOrganizationScalarFieldEnum = (typeof UserOrganizationScalarFiel
 
 
 export const OrganizationScalarFieldEnum = {
-  orgId: 'orgId',
+  id: 'id',
   name: 'name',
   createdAt: 'createdAt',
   externalId: 'externalId'
@@ -105,7 +168,7 @@ export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[k
 
 
 export const LocationScalarFieldEnum = {
-  locationId: 'locationId',
+  id: 'id',
   name: 'name',
   address: 'address',
   tz: 'tz',
@@ -117,7 +180,7 @@ export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typ
 
 
 export const BuildingScalarFieldEnum = {
-  buildingId: 'buildingId',
+  id: 'id',
   name: 'name',
   address: 'address',
   locationId: 'locationId',
@@ -128,7 +191,7 @@ export type BuildingScalarFieldEnum = (typeof BuildingScalarFieldEnum)[keyof typ
 
 
 export const FloorScalarFieldEnum = {
-  floorId: 'floorId',
+  id: 'id',
   name: 'name',
   orgId: 'orgId',
   buildingId: 'buildingId'
@@ -138,8 +201,9 @@ export type FloorScalarFieldEnum = (typeof FloorScalarFieldEnum)[keyof typeof Fl
 
 
 export const SpaceScalarFieldEnum = {
-  spaceId: 'spaceId',
+  id: 'id',
   name: 'name',
+  status: 'status',
   orgId: 'orgId',
   floorId: 'floorId'
 } as const
@@ -148,7 +212,7 @@ export type SpaceScalarFieldEnum = (typeof SpaceScalarFieldEnum)[keyof typeof Sp
 
 
 export const BookingScalarFieldEnum = {
-  bookingId: 'bookingId',
+  id: 'id',
   orgId: 'orgId',
   spaceId: 'spaceId',
   userId: 'userId',

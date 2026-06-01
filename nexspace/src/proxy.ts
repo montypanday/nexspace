@@ -1,105 +1,31 @@
+import { NextRequest, NextResponse } from "next/server";
+import authConfig from "./auth.config"
+import NextAuth from "next-auth"
 
-import { type NextRequest, NextResponse } from 'next/server';
-import { rootDomain } from '@/lib/utils';
-import { cookies } from 'next/headers'
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+// Use only one of the two proxy options below
+// 1. Use proxy directly
+// export const { auth: proxy } = NextAuth(authConfig)
 
-// 1. Specify protected and public routes
-const isProtectedRoute = createRouteMatcher(['/admin(.*)', '/bookings(.*)'])
-// const publicRoutes = ['/login', '/signup', '/']
+// 2. Wrapped proxy option
+const { auth } = NextAuth(authConfig)
+export const proxy = auth(async function proxy(req: NextRequest) {
+  const isLoggedIn = !!req.auth
+  const isOnAuth = req.nextUrl.pathname.startsWith('/api/auth/signin')
 
-// function extractSubdomain(request: NextRequest): string | null {
-//   const url = request.url;
-//   const host = request.headers.get('host') || '';
-//   const hostname = host.split(':')[0];
+  if (!isLoggedIn && !isOnAuth) {
+    return NextResponse.redirect(new URL('/api/auth/signin', req.nextUrl))
+  }
 
-//   // Local development environment
-//   if (url.includes('localhost') || url.includes('127.0.0.1')) {
-//     // Try to extract subdomain from the full URL
-//     const fullUrlMatch = url.match(/http:\/\/([^.]+)\.localhost/);
-//     if (fullUrlMatch && fullUrlMatch[1]) {
-//       return fullUrlMatch[1];
-//     }
+  if (isLoggedIn && isOnAuth) {
+    return NextResponse.redirect(new URL('/', req.nextUrl))
+  }
 
-//     // Fallback to host header approach
-//     if (hostname.includes('.localhost')) {
-//       return hostname.split('.')[0];
-//     }
-
-//     return null;
-//   }
-
-//   // Production environment
-//   const rootDomainFormatted = rootDomain.split(':')[0];
-
-//   // Handle preview deployment URLs (tenant---branch-name.vercel.app)
-//   if (hostname.includes('---') && hostname.endsWith('.vercel.app')) {
-//     const parts = hostname.split('---');
-//     return parts.length > 0 ? parts[0] : null;
-//   }
-
-//   // Regular subdomain detection
-//   const isSubdomain =
-//     hostname !== rootDomainFormatted &&
-//     hostname !== `www.${rootDomainFormatted}` &&
-//     hostname.endsWith(`.${rootDomainFormatted}`);
-
-//   return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, '') : null;
-// }
-
-// export async function proxy(request: NextRequest) {
-
-// // 2. Check if the current route is protected or public
-// const path = request.nextUrl.pathname
-// const isProtectedRoute = protectedRoutes.includes(path)
-// const isPublicRoute = publicRoutes.includes(path)
-//
-// // 3. Decrypt the session from the cookie
-// const cookie = (await cookies()).get('session')?.value
-// const session = await decrypt(cookie)
-//
-// const { pathname } = request.nextUrl;
-// const subdomain = extractSubdomain(request);
-//
-// if (subdomain) {
-//   // Block access to admin page from subdomains
-//   if (pathname.startsWith('/admin')) {
-//     return NextResponse.redirect(new URL('/', request.url));
-//   }
-//
-//   // For the root path on a subdomain, rewrite to the subdomain page
-//   if (pathname === '/') {
-//     return NextResponse.rewrite(new URL(`/s/${subdomain}`, request.url));
-//   }
-// }
-
-// On the root domain, allow normal access
-//   return NextResponse.next();
-// }
-
-export default clerkMiddleware(async (auth, req) => {
-  // pending users won't be able to access protected routes
-  // and will be redirected to the sign-in page
-  if (isProtectedRoute(req)) await auth.protect()
+  return NextResponse.next()
+  // Your custom proxy logic goes here
 })
-
 export const config = {
   matcher: [
-
-    /*
-     * Match all paths except for:
-     * 1. /api routes
-     * 2. /_next (Next.js internals)
-     * 3. all root files inside /public (e.g. /favicon.ico)
-     */
-    // '/((?!api|_next|[\\w-]+\\.\\w+).*)'
-
-
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-    // Always run for Clerk-specific frontend API routes
-    '/__clerk/(.*)',
-  ],
-}
+    // Exclude API routes, static files, image optimizations, and .png files
+    '/((?!api|_next/static|_next/image|.*\\.png$).*)'
+  ]
+};

@@ -323,10 +323,6 @@ export type UserOrganizationUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.UserOrganizationScalarWhereInput | Prisma.UserOrganizationScalarWhereInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type UserOrganizationCreateNestedManyWithoutOrganizationInput = {
   create?: Prisma.XOR<Prisma.UserOrganizationCreateWithoutOrganizationInput, Prisma.UserOrganizationUncheckedCreateWithoutOrganizationInput> | Prisma.UserOrganizationCreateWithoutOrganizationInput[] | Prisma.UserOrganizationUncheckedCreateWithoutOrganizationInput[]
   connectOrCreate?: Prisma.UserOrganizationCreateOrConnectWithoutOrganizationInput | Prisma.UserOrganizationCreateOrConnectWithoutOrganizationInput[]

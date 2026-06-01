@@ -25,21 +25,21 @@ export type AggregateOrganization = {
 }
 
 export type OrganizationMinAggregateOutputType = {
-  orgId: string | null
+  id: string | null
   name: string | null
   createdAt: Date | null
   externalId: string | null
 }
 
 export type OrganizationMaxAggregateOutputType = {
-  orgId: string | null
+  id: string | null
   name: string | null
   createdAt: Date | null
   externalId: string | null
 }
 
 export type OrganizationCountAggregateOutputType = {
-  orgId: number
+  id: number
   name: number
   createdAt: number
   externalId: number
@@ -48,21 +48,21 @@ export type OrganizationCountAggregateOutputType = {
 
 
 export type OrganizationMinAggregateInputType = {
-  orgId?: true
+  id?: true
   name?: true
   createdAt?: true
   externalId?: true
 }
 
 export type OrganizationMaxAggregateInputType = {
-  orgId?: true
+  id?: true
   name?: true
   createdAt?: true
   externalId?: true
 }
 
 export type OrganizationCountAggregateInputType = {
-  orgId?: true
+  id?: true
   name?: true
   createdAt?: true
   externalId?: true
@@ -142,10 +142,10 @@ export type OrganizationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 export type OrganizationGroupByOutputType = {
-  orgId: string
+  id: string
   name: string
   createdAt: Date
-  externalId: string
+  externalId: string | null
   _count: OrganizationCountAggregateOutputType | null
   _min: OrganizationMinAggregateOutputType | null
   _max: OrganizationMaxAggregateOutputType | null
@@ -170,10 +170,10 @@ export type OrganizationWhereInput = {
   AND?: Prisma.OrganizationWhereInput | Prisma.OrganizationWhereInput[]
   OR?: Prisma.OrganizationWhereInput[]
   NOT?: Prisma.OrganizationWhereInput | Prisma.OrganizationWhereInput[]
-  orgId?: Prisma.StringFilter<"Organization"> | string
+  id?: Prisma.StringFilter<"Organization"> | string
   name?: Prisma.StringFilter<"Organization"> | string
   createdAt?: Prisma.DateTimeFilter<"Organization"> | Date | string
-  externalId?: Prisma.StringFilter<"Organization"> | string
+  externalId?: Prisma.StringNullableFilter<"Organization"> | string | null
   locations?: Prisma.LocationListRelationFilter
   buildings?: Prisma.BuildingListRelationFilter
   floors?: Prisma.FloorListRelationFilter
@@ -183,10 +183,10 @@ export type OrganizationWhereInput = {
 }
 
 export type OrganizationOrderByWithRelationInput = {
-  orgId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  externalId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrderInput | Prisma.SortOrder
   locations?: Prisma.LocationOrderByRelationAggregateInput
   buildings?: Prisma.BuildingOrderByRelationAggregateInput
   floors?: Prisma.FloorOrderByRelationAggregateInput
@@ -196,26 +196,26 @@ export type OrganizationOrderByWithRelationInput = {
 }
 
 export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
-  orgId?: string
+  id?: string
   AND?: Prisma.OrganizationWhereInput | Prisma.OrganizationWhereInput[]
   OR?: Prisma.OrganizationWhereInput[]
   NOT?: Prisma.OrganizationWhereInput | Prisma.OrganizationWhereInput[]
   name?: Prisma.StringFilter<"Organization"> | string
   createdAt?: Prisma.DateTimeFilter<"Organization"> | Date | string
-  externalId?: Prisma.StringFilter<"Organization"> | string
+  externalId?: Prisma.StringNullableFilter<"Organization"> | string | null
   locations?: Prisma.LocationListRelationFilter
   buildings?: Prisma.BuildingListRelationFilter
   floors?: Prisma.FloorListRelationFilter
   users?: Prisma.UserOrganizationListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
   spaces?: Prisma.SpaceListRelationFilter
-}, "orgId">
+}, "id">
 
 export type OrganizationOrderByWithAggregationInput = {
-  orgId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  externalId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.OrganizationCountOrderByAggregateInput
   _max?: Prisma.OrganizationMaxOrderByAggregateInput
   _min?: Prisma.OrganizationMinOrderByAggregateInput
@@ -225,17 +225,17 @@ export type OrganizationScalarWhereWithAggregatesInput = {
   AND?: Prisma.OrganizationScalarWhereWithAggregatesInput | Prisma.OrganizationScalarWhereWithAggregatesInput[]
   OR?: Prisma.OrganizationScalarWhereWithAggregatesInput[]
   NOT?: Prisma.OrganizationScalarWhereWithAggregatesInput | Prisma.OrganizationScalarWhereWithAggregatesInput[]
-  orgId?: Prisma.StringWithAggregatesFilter<"Organization"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Organization"> | string
   name?: Prisma.StringWithAggregatesFilter<"Organization"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Organization"> | Date | string
-  externalId?: Prisma.StringWithAggregatesFilter<"Organization"> | string
+  externalId?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
 }
 
 export type OrganizationCreateInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationCreateNestedManyWithoutOrgInput
   buildings?: Prisma.BuildingCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorCreateNestedManyWithoutOrganizationInput
@@ -245,10 +245,10 @@ export type OrganizationCreateInput = {
 }
 
 export type OrganizationUncheckedCreateInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOrgInput
   buildings?: Prisma.BuildingUncheckedCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutOrganizationInput
@@ -258,10 +258,10 @@ export type OrganizationUncheckedCreateInput = {
 }
 
 export type OrganizationUpdateInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUpdateManyWithoutOrganizationNestedInput
@@ -271,10 +271,10 @@ export type OrganizationUpdateInput = {
 }
 
 export type OrganizationUncheckedUpdateInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUncheckedUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUncheckedUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -284,24 +284,24 @@ export type OrganizationUncheckedUpdateInput = {
 }
 
 export type OrganizationCreateManyInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
 }
 
 export type OrganizationUpdateManyMutationInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OrganizationUncheckedUpdateManyInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OrganizationScalarRelationFilter = {
@@ -310,21 +310,21 @@ export type OrganizationScalarRelationFilter = {
 }
 
 export type OrganizationCountOrderByAggregateInput = {
-  orgId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   externalId?: Prisma.SortOrder
 }
 
 export type OrganizationMaxOrderByAggregateInput = {
-  orgId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   externalId?: Prisma.SortOrder
 }
 
 export type OrganizationMinOrderByAggregateInput = {
-  orgId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   externalId?: Prisma.SortOrder
@@ -415,10 +415,10 @@ export type OrganizationUpdateOneRequiredWithoutBookingsNestedInput = {
 }
 
 export type OrganizationCreateWithoutUsersInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationCreateNestedManyWithoutOrgInput
   buildings?: Prisma.BuildingCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorCreateNestedManyWithoutOrganizationInput
@@ -427,10 +427,10 @@ export type OrganizationCreateWithoutUsersInput = {
 }
 
 export type OrganizationUncheckedCreateWithoutUsersInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOrgInput
   buildings?: Prisma.BuildingUncheckedCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutOrganizationInput
@@ -455,10 +455,10 @@ export type OrganizationUpdateToOneWithWhereWithoutUsersInput = {
 }
 
 export type OrganizationUpdateWithoutUsersInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUpdateManyWithoutOrganizationNestedInput
@@ -467,10 +467,10 @@ export type OrganizationUpdateWithoutUsersInput = {
 }
 
 export type OrganizationUncheckedUpdateWithoutUsersInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUncheckedUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUncheckedUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -479,10 +479,10 @@ export type OrganizationUncheckedUpdateWithoutUsersInput = {
 }
 
 export type OrganizationCreateWithoutLocationsInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   buildings?: Prisma.BuildingCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorCreateNestedManyWithoutOrganizationInput
   users?: Prisma.UserOrganizationCreateNestedManyWithoutOrganizationInput
@@ -491,10 +491,10 @@ export type OrganizationCreateWithoutLocationsInput = {
 }
 
 export type OrganizationUncheckedCreateWithoutLocationsInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   buildings?: Prisma.BuildingUncheckedCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutOrganizationInput
   users?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -519,10 +519,10 @@ export type OrganizationUpdateToOneWithWhereWithoutLocationsInput = {
 }
 
 export type OrganizationUpdateWithoutLocationsInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buildings?: Prisma.BuildingUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUpdateManyWithoutOrganizationNestedInput
   users?: Prisma.UserOrganizationUpdateManyWithoutOrganizationNestedInput
@@ -531,10 +531,10 @@ export type OrganizationUpdateWithoutLocationsInput = {
 }
 
 export type OrganizationUncheckedUpdateWithoutLocationsInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buildings?: Prisma.BuildingUncheckedUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUncheckedUpdateManyWithoutOrganizationNestedInput
   users?: Prisma.UserOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -543,10 +543,10 @@ export type OrganizationUncheckedUpdateWithoutLocationsInput = {
 }
 
 export type OrganizationCreateWithoutBuildingsInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorCreateNestedManyWithoutOrganizationInput
   users?: Prisma.UserOrganizationCreateNestedManyWithoutOrganizationInput
@@ -555,10 +555,10 @@ export type OrganizationCreateWithoutBuildingsInput = {
 }
 
 export type OrganizationUncheckedCreateWithoutBuildingsInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutOrganizationInput
   users?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -583,10 +583,10 @@ export type OrganizationUpdateToOneWithWhereWithoutBuildingsInput = {
 }
 
 export type OrganizationUpdateWithoutBuildingsInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUpdateManyWithoutOrganizationNestedInput
   users?: Prisma.UserOrganizationUpdateManyWithoutOrganizationNestedInput
@@ -595,10 +595,10 @@ export type OrganizationUpdateWithoutBuildingsInput = {
 }
 
 export type OrganizationUncheckedUpdateWithoutBuildingsInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUncheckedUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUncheckedUpdateManyWithoutOrganizationNestedInput
   users?: Prisma.UserOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -607,10 +607,10 @@ export type OrganizationUncheckedUpdateWithoutBuildingsInput = {
 }
 
 export type OrganizationCreateWithoutFloorsInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationCreateNestedManyWithoutOrgInput
   buildings?: Prisma.BuildingCreateNestedManyWithoutOrgInput
   users?: Prisma.UserOrganizationCreateNestedManyWithoutOrganizationInput
@@ -619,10 +619,10 @@ export type OrganizationCreateWithoutFloorsInput = {
 }
 
 export type OrganizationUncheckedCreateWithoutFloorsInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOrgInput
   buildings?: Prisma.BuildingUncheckedCreateNestedManyWithoutOrgInput
   users?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -647,10 +647,10 @@ export type OrganizationUpdateToOneWithWhereWithoutFloorsInput = {
 }
 
 export type OrganizationUpdateWithoutFloorsInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUpdateManyWithoutOrgNestedInput
   users?: Prisma.UserOrganizationUpdateManyWithoutOrganizationNestedInput
@@ -659,10 +659,10 @@ export type OrganizationUpdateWithoutFloorsInput = {
 }
 
 export type OrganizationUncheckedUpdateWithoutFloorsInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUncheckedUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUncheckedUpdateManyWithoutOrgNestedInput
   users?: Prisma.UserOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -671,10 +671,10 @@ export type OrganizationUncheckedUpdateWithoutFloorsInput = {
 }
 
 export type OrganizationCreateWithoutSpacesInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationCreateNestedManyWithoutOrgInput
   buildings?: Prisma.BuildingCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorCreateNestedManyWithoutOrganizationInput
@@ -683,10 +683,10 @@ export type OrganizationCreateWithoutSpacesInput = {
 }
 
 export type OrganizationUncheckedCreateWithoutSpacesInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOrgInput
   buildings?: Prisma.BuildingUncheckedCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutOrganizationInput
@@ -711,10 +711,10 @@ export type OrganizationUpdateToOneWithWhereWithoutSpacesInput = {
 }
 
 export type OrganizationUpdateWithoutSpacesInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUpdateManyWithoutOrganizationNestedInput
@@ -723,10 +723,10 @@ export type OrganizationUpdateWithoutSpacesInput = {
 }
 
 export type OrganizationUncheckedUpdateWithoutSpacesInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUncheckedUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUncheckedUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -735,10 +735,10 @@ export type OrganizationUncheckedUpdateWithoutSpacesInput = {
 }
 
 export type OrganizationCreateWithoutBookingsInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationCreateNestedManyWithoutOrgInput
   buildings?: Prisma.BuildingCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorCreateNestedManyWithoutOrganizationInput
@@ -747,10 +747,10 @@ export type OrganizationCreateWithoutBookingsInput = {
 }
 
 export type OrganizationUncheckedCreateWithoutBookingsInput = {
-  orgId?: string
+  id?: string
   name: string
   createdAt?: Date | string
-  externalId: string
+  externalId?: string | null
   locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOrgInput
   buildings?: Prisma.BuildingUncheckedCreateNestedManyWithoutOrgInput
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutOrganizationInput
@@ -775,10 +775,10 @@ export type OrganizationUpdateToOneWithWhereWithoutBookingsInput = {
 }
 
 export type OrganizationUpdateWithoutBookingsInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUpdateManyWithoutOrganizationNestedInput
@@ -787,10 +787,10 @@ export type OrganizationUpdateWithoutBookingsInput = {
 }
 
 export type OrganizationUncheckedUpdateWithoutBookingsInput = {
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUncheckedUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUncheckedUpdateManyWithoutOrgNestedInput
   floors?: Prisma.FloorUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -875,7 +875,7 @@ export type OrganizationCountOutputTypeCountSpacesArgs<ExtArgs extends runtime.T
 
 
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  orgId?: boolean
+  id?: boolean
   name?: boolean
   createdAt?: boolean
   externalId?: boolean
@@ -889,27 +889,27 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
 }, ExtArgs["result"]["organization"]>
 
 export type OrganizationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  orgId?: boolean
+  id?: boolean
   name?: boolean
   createdAt?: boolean
   externalId?: boolean
 }, ExtArgs["result"]["organization"]>
 
 export type OrganizationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  orgId?: boolean
+  id?: boolean
   name?: boolean
   createdAt?: boolean
   externalId?: boolean
 }, ExtArgs["result"]["organization"]>
 
 export type OrganizationSelectScalar = {
-  orgId?: boolean
+  id?: boolean
   name?: boolean
   createdAt?: boolean
   externalId?: boolean
 }
 
-export type OrganizationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"orgId" | "name" | "createdAt" | "externalId", ExtArgs["result"]["organization"]>
+export type OrganizationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "externalId", ExtArgs["result"]["organization"]>
 export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   locations?: boolean | Prisma.Organization$locationsArgs<ExtArgs>
   buildings?: boolean | Prisma.Organization$buildingsArgs<ExtArgs>
@@ -933,10 +933,10 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     spaces: Prisma.$SpacePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    orgId: string
+    id: string
     name: string
     createdAt: Date
-    externalId: string
+    externalId: string | null
   }, ExtArgs["result"]["organization"]>
   composites: {}
 }
@@ -1020,8 +1020,8 @@ export interface OrganizationDelegate<ExtArgs extends runtime.Types.Extensions.I
    * // Get first 10 Organizations
    * const organizations = await prisma.organization.findMany({ take: 10 })
    * 
-   * // Only select the `orgId`
-   * const organizationWithOrgIdOnly = await prisma.organization.findMany({ select: { orgId: true } })
+   * // Only select the `id`
+   * const organizationWithIdOnly = await prisma.organization.findMany({ select: { id: true } })
    * 
    */
   findMany<T extends OrganizationFindManyArgs>(args?: Prisma.SelectSubset<T, OrganizationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1065,9 +1065,9 @@ export interface OrganizationDelegate<ExtArgs extends runtime.Types.Extensions.I
    *   ]
    * })
    * 
-   * // Create many Organizations and only return the `orgId`
-   * const organizationWithOrgIdOnly = await prisma.organization.createManyAndReturn({
-   *   select: { orgId: true },
+   * // Create many Organizations and only return the `id`
+   * const organizationWithIdOnly = await prisma.organization.createManyAndReturn({
+   *   select: { id: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -1156,9 +1156,9 @@ export interface OrganizationDelegate<ExtArgs extends runtime.Types.Extensions.I
    *   ]
    * })
    * 
-   * // Update zero or more Organizations and only return the `orgId`
-   * const organizationWithOrgIdOnly = await prisma.organization.updateManyAndReturn({
-   *   select: { orgId: true },
+   * // Update zero or more Organizations and only return the `id`
+   * const organizationWithIdOnly = await prisma.organization.updateManyAndReturn({
+   *   select: { id: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1366,7 +1366,7 @@ export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends run
  * Fields of the Organization model
  */
 export interface OrganizationFieldRefs {
-  readonly orgId: Prisma.FieldRef<"Organization", 'String'>
+  readonly id: Prisma.FieldRef<"Organization", 'String'>
   readonly name: Prisma.FieldRef<"Organization", 'String'>
   readonly createdAt: Prisma.FieldRef<"Organization", 'DateTime'>
   readonly externalId: Prisma.FieldRef<"Organization", 'String'>
