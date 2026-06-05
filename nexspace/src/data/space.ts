@@ -1,6 +1,7 @@
 import 'server-only'
-import { requireAuth } from './auth'
+import { requireAuth, verifyOrgMembership } from './auth'
 import prisma from "@/lib/prisma"
+import { z } from "zod";
 import { SpaceGetPayload, SpaceSelect } from '@/app/generated/prisma/models'
 
 export type SpaceStatus = "available" | "occupied" | "reserved" | "maintenance";
@@ -22,6 +23,11 @@ export const spaceFieldsSelect = {
     id: true,
     name: true,
     status: true,
+    organization: {
+        select: {
+            id: true
+        }
+    },
     floor: {
         select: {
             id: true,
@@ -61,13 +67,35 @@ function toDto(space: SpaceSelectPayload): SpaceDto {
     }
 }
 
-
-export async function getAvailableSpaces(): Promise<SpaceDto[]> {
+export async function getSpace(spaceId: string): Promise<SpaceDto> {
+    z.uuid().parse(spaceId);
     const viewer = await requireAuth()
-    // TODO: restrict access to spaces available to this user
+
+    const space = await prisma.space.findUniqueOrThrow({
+        select: spaceFieldsSelect,
+        where: {
+            id: spaceId
+        }
+    });
+    await verifyOrgMembership(space.organization.id)
+    return toDto(space);
+}
+
+
+export async function getSpaces(floorId: string): Promise<SpaceDto[]> {
+    z.uuid().parse(floorId)
+    const viewer = await requireAuth()
+    const floor = await prisma.floor.findUniqueOrThrow({
+        where: { id: floorId },
+        select: { orgId: true }
+    })
+    await verifyOrgMembership(floor.orgId)
 
     const spaces = await prisma.space.findMany({
-        select: spaceFieldsSelect
+        select: spaceFieldsSelect,
+        where: {
+            floorId: floorId
+        }
     })
     return spaces.map((space) => toDto(space));
 }

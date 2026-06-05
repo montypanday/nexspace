@@ -1,8 +1,9 @@
 import { FullscreenIcon, MonitorIcon } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { SpaceDto } from "@/data/space";
+import Link from "next/link";
 
 export function SpaceCard({ space }: { space: SpaceDto }) {
     return (
@@ -47,18 +48,29 @@ export function SpaceCard({ space }: { space: SpaceDto }) {
               </div>
             ))} */}
                     </div>
-
-                    {space.status === "available" && (
-                        <Button
-                            //   onClick={() => onBook(desk)}
-                            className="w-full mt-2"
-                            size="sm"
-                        >
-                            Book Desk
-                        </Button>
-                    )}
                 </div>
             </CardContent>
+            {space.status === "available" && (
+                <CardFooter className="flex-col gap-2">
+                    <Button
+                        //   onClick={() => onBook(desk)}
+                        className="w-full"
+                        size="sm"
+                    >
+                        Book Desk
+                    </Button>
+                    <Link href={`/building/${space.buildingId}`} className="w-full">
+                        <Button
+                            className="w-full"
+                            size="sm"
+                            variant="outline"
+                        >
+                            {space.buildingName}
+                        </Button>
+                    </Link>
+
+                </CardFooter>
+            )}
         </Card>
         // <div className="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border hover:shadow-md transition-shadow">
         //     <div className="grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 pt-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6 pb-3">

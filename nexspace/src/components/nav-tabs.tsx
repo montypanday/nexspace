@@ -1,7 +1,6 @@
 'use client'
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, GroupIcon } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { IconDesk } from "@tabler/icons-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -12,8 +11,8 @@ export function TabsIcons() {
             <TabsList>
                 <TabsTrigger value="/" >
                     <Link href="/" className="flex items-center gap-2">
-                        <IconDesk className="h-4 w-4" />
-                        Desks
+                        <GroupIcon className="h-4 w-4" />
+                        Organizations
                     </Link>
                 </TabsTrigger>
                 <TabsTrigger value="/bookings">
