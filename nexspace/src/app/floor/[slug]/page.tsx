@@ -1,7 +1,5 @@
-import { TabsIcons } from "@/components/nav-tabs";
 import { getSpaces } from "@/data/space";
 import { SpaceCard } from "@/components/space-card";
-import BackButton from "@/components/back-button";
 import { getFloor } from "@/data/floor";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";

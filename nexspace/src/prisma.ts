@@ -10,4 +10,6 @@ export const prisma =
         adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
     }).$extends(withAccelerate())
 
+export default prisma
+
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma

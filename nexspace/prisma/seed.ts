@@ -42,10 +42,10 @@ async function main() {
     })
 
     const building1 = await prisma.building.upsert({
-        where: { id: '00af06df-4864-42a5-baf1-a582346a51d9' },
+        where: { id: '8faf06df-4864-42a5-baf1-a582346a51d9' },
         update: {},
         create: {
-            id: '00af06df-4864-42a5-baf1-a582346a51d9',
+            id: '8faf06df-4864-42a5-baf1-a582346a51d9',
             orgId: org1.id,
             locationId: location1.id,
             name: 'Building DA',
@@ -54,10 +54,10 @@ async function main() {
     })
 
     const floor1 = await prisma.floor.upsert({
-        where: { id: '00af06df-4864-42a5-baf1-a582346a51d9' },
+        where: { id: '8faf06df-4864-42a5-baf1-a582346a51d9' },
         update: {},
         create: {
-            id: '00af06df-4864-42a5-baf1-a582346a51d9',
+            id: '8faf06df-4864-42a5-baf1-a582346a51d9',
             orgId: org1.id,
             buildingId: building1.id,
             name: 'Level 1'

@@ -1,12 +1,10 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { TabsIcons } from "@/components/nav-tabs";
 import { getBuildings } from "@/data/building";
 import { BuildingCard } from "@/components/building-card";
-import BackButton from "@/components/back-button";
 import { getLocation } from "@/data/location";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { LocationBuildings } from "@/components/location-buildings";
 
 export default async function Page({
     params,
@@ -33,6 +31,7 @@ export default async function Page({
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
                     {buildings.map((building) => <BuildingCard key={building.id} building={building} />)}
                 </div>
+                <LocationBuildings />
             </main>
         </div>
     );
