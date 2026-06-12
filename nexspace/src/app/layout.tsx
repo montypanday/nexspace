@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, GroupIcon } from "lucide-react";
+import { Toaster } from 'sonner';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -77,6 +78,7 @@ export default function RootLayout({
             </main>
           </SessionProvider>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html >
   );

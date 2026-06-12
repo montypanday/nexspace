@@ -1,23 +1,24 @@
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { OrganizationDto } from "@/data/organization";
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
-import { Building2Icon, GroupIcon, MapPin, Users2Icon } from "lucide-react";
+import { BuildingDto } from "@/data/building";
+import { Building2, Layers, UserCheckIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
+import { IconDesk } from "@tabler/icons-react";
 
-export function OrganizationCard({ organization }: { organization: OrganizationDto }) {
+export function BuildingCard({ building }: { building: BuildingDto }) {
     return <Card className="hover:shadow-md transition-shadow">
         <CardHeader className="pb-3">
             <div className="flex items-start gap-3">
                 <div className="bg-primary/10 p-2.5 rounded-lg">
-                    <GroupIcon />
+                    <Building2 />
                 </div>
                 <div className="">
                     <CardTitle className="text-lg">
-                        {organization.name}
+                        {building.name}
                     </CardTitle>
                     <CardDescription>
-                        Sample Description
+                        {building.address}
                     </CardDescription>
                 </div>
             </div>
@@ -30,29 +31,29 @@ export function OrganizationCard({ organization }: { organization: OrganizationD
                 <div className="grid grid-cols-3 gap-4">
                     <div className="space-y-1">
                         <div className="flex items-center gap-1.5 text-muted-foreground">
-                            <MapPin width={24} height={24} />
+                            <Layers width={24} height={24} />
                             <span className="text-xs">
-                                Locations
-                            </span>
-                        </div>
-                        <p className="text-lg font-semibold">200</p>
-                    </div>
-                    <div className="space-y-1">
-                        <div className="flex items-center gap-1.5 text-muted-foreground">
-                            <Building2Icon width={24} height={24} />
-                            <span className="text-xs">
-                                Buildings
+                                Floors
                             </span>
                         </div>
                         <p className="text-lg font-semibold">8</p>
                     </div>
                     <div className="space-y-1">
                         <div className="flex items-center gap-1.5 text-muted-foreground">
-                            <Users2Icon width={24} height={24} />
-                            <span className="text-xs">Active members</span>
+                            <IconDesk width={24} height={24} />
+                            <span className="text-xs">
+                                Spaces
+                            </span>
                         </div>
-                        <p className="text-lg font-semibold">78</p>
+                        <p className="text-lg font-semibold">200</p>
                     </div>
+                    {/* <div className="space-y-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                        <UserCheckIcon width={24} height={24} />
+                        <span className="text-xs">Occupied</span>
+                    </div>
+                    <p className="text-lg font-semibold">78%</p>
+                </div> */}
                 </div>
                 <div className="space-y-2"><p className="text-sm font-medium">Amenities</p>
                     <div className="flex flex-wrap gap-1.5">
@@ -64,11 +65,13 @@ export function OrganizationCard({ organization }: { organization: OrganizationD
             </div>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-            <Link href={`/organization/${organization.id}`} className="w-full">
-                <Button className="w-full">
-                    Navigate buildings
-                </Button>
+            <Link href={`/building/${building.id}`} className="w-full">
+                <Button className="w-full">Navigate floors</Button>
             </Link>
+            {/* <Link href={`/location/${building.locationId}`} className="w-full">
+                <Button variant="outline" className="w-full">{building.locationName}</Button>
+            </Link> */}
         </CardFooter>
     </Card>
+
 }

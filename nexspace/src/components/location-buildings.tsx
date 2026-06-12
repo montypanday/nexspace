@@ -1,12 +1,15 @@
+"use client"
+
 import { Map, MapMarker, MapPolygon, MapPopup, MapTileLayer } from "@/components/ui/map"
 import type { LatLngExpression } from "leaflet"
+import { Tooltip } from "react-leaflet"
 
 export function LocationBuildings() {
     // 1. Structure data with coordinates and explicit building names
     const buildingsData = [
         {
             name: "Alpha Block",
-            positions: [
+            coordinates: [
                 { lat: -38.19718726092073, lng: -215.7064783573151 },
                 { lat: -38.196580179195855, lng: -215.70583462715152 },
                 { lat: -38.19671508668321, lng: -215.70556640625003 },
@@ -15,7 +18,7 @@ export function LocationBuildings() {
         },
         {
             name: "Bravo Complex",
-            positions: [
+            coordinates: [
                 {
                     "lat": -38.19718789326915,
                     "lng": -215.70572733879092
@@ -74,7 +77,7 @@ export function LocationBuildings() {
             {buildingsData.map((building, idx) => (
                 <MapPolygon
                     key={idx}
-                    positions={building.positions}
+                    positions={building.coordinates}
                     pathOptions={{ color: '#2563eb', fillColor: '#3b82f6', fillOpacity: 0.3 }}
                 >
                     {/* Choice A: Text that stays permanently centered inside the polygon */}
@@ -83,6 +86,15 @@ export function LocationBuildings() {
                             {building.name}
                         </span>
                     </Tooltip> */}
+                    <Tooltip
+                        permanent
+                        direction="center"
+                        className="custom-building-tooltip"
+                    >
+                        <span className="font-semibold text-xs tracking-tight bg-white/90 text-slate-800 px-1.5 py-0.5 rounded border border-slate-200 shadow-sm dark:bg-slate-950/90 dark:text-slate-200 dark:border-slate-800">
+                            {building.name} {/* Or building.number depending on your data schema */}
+                        </span>
+                    </Tooltip>
 
                     {/* Choice B: Context dialog that opens only when the building is clicked */}
                     <MapPopup className="w-56">

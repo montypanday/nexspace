@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import bcrypt from 'bcryptjs';
+import { PlaceFeature } from '@/components/ui/place-autocomplete';
 
 export const protocol =
   process.env.NODE_ENV === 'production' ? 'https' : 'http';
@@ -18,4 +19,55 @@ export async function hashPassword(password: string) {
 
 export async function comparePasswords(password: string, hash: string) {
   return await bcrypt.compare(password, hash);
+}
+
+interface PlaceFeatureProperties {
+  osm_id: number
+  osm_type: "N" | "W" | "R"
+  osm_key: string
+  osm_value: string
+  type: string
+  name?: string
+  housenumber?: string
+  street?: string
+  locality?: string
+  district?: string
+  postcode?: string
+  city?: string
+  county?: string
+  state?: string
+  country?: string
+  countrycode?: string
+  extent?: [number, number, number, number]
+  extra?: Record<string, string>
+}
+
+export function formatAddress(properties: PlaceFeatureProperties) {
+  const parts = []
+
+  if (properties.name) {
+    parts.push(properties.name)
+  }
+
+  if (properties.housenumber && properties.street) {
+    parts.push(`${properties.housenumber} ${properties.street}`)
+  } else if (properties.street) {
+    parts.push(properties.street)
+  }
+
+  if (properties.city) {
+    parts.push(properties.city)
+  } else if (properties.locality) {
+    parts.push(properties.locality)
+  }
+
+  if (properties.state && properties.state !== properties.city) {
+    parts.push(properties.state)
+  }
+
+  if (properties.country) {
+    parts.push(properties.country)
+  }
+
+  return [...new Set(parts)].join(", ")
 }

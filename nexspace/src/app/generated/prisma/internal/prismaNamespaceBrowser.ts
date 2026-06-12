@@ -173,7 +173,9 @@ export const LocationScalarFieldEnum = {
   address: 'address',
   tz: 'tz',
   createdAt: 'createdAt',
-  orgId: 'orgId'
+  orgId: 'orgId',
+  latitude: 'latitude',
+  longitude: 'longitude'
 } as const
 
 export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]

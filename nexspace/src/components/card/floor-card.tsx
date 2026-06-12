@@ -1,9 +1,9 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
 import { FloorDto } from "@/data/floor";
 import { ChevronRight, Layers } from "lucide-react";
-import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 import { IconDesk } from "@tabler/icons-react";
 
 export function FloorCard({ floor }: { floor: FloorDto }) {

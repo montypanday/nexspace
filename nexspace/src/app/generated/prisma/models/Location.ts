@@ -20,8 +20,20 @@ export type LocationModel = runtime.Types.Result.DefaultSelection<Prisma.$Locati
 
 export type AggregateLocation = {
   _count: LocationCountAggregateOutputType | null
+  _avg: LocationAvgAggregateOutputType | null
+  _sum: LocationSumAggregateOutputType | null
   _min: LocationMinAggregateOutputType | null
   _max: LocationMaxAggregateOutputType | null
+}
+
+export type LocationAvgAggregateOutputType = {
+  latitude: number | null
+  longitude: number | null
+}
+
+export type LocationSumAggregateOutputType = {
+  latitude: number | null
+  longitude: number | null
 }
 
 export type LocationMinAggregateOutputType = {
@@ -31,6 +43,8 @@ export type LocationMinAggregateOutputType = {
   tz: string | null
   createdAt: Date | null
   orgId: string | null
+  latitude: number | null
+  longitude: number | null
 }
 
 export type LocationMaxAggregateOutputType = {
@@ -40,6 +54,8 @@ export type LocationMaxAggregateOutputType = {
   tz: string | null
   createdAt: Date | null
   orgId: string | null
+  latitude: number | null
+  longitude: number | null
 }
 
 export type LocationCountAggregateOutputType = {
@@ -49,9 +65,21 @@ export type LocationCountAggregateOutputType = {
   tz: number
   createdAt: number
   orgId: number
+  latitude: number
+  longitude: number
   _all: number
 }
 
+
+export type LocationAvgAggregateInputType = {
+  latitude?: true
+  longitude?: true
+}
+
+export type LocationSumAggregateInputType = {
+  latitude?: true
+  longitude?: true
+}
 
 export type LocationMinAggregateInputType = {
   id?: true
@@ -60,6 +88,8 @@ export type LocationMinAggregateInputType = {
   tz?: true
   createdAt?: true
   orgId?: true
+  latitude?: true
+  longitude?: true
 }
 
 export type LocationMaxAggregateInputType = {
@@ -69,6 +99,8 @@ export type LocationMaxAggregateInputType = {
   tz?: true
   createdAt?: true
   orgId?: true
+  latitude?: true
+  longitude?: true
 }
 
 export type LocationCountAggregateInputType = {
@@ -78,6 +110,8 @@ export type LocationCountAggregateInputType = {
   tz?: true
   createdAt?: true
   orgId?: true
+  latitude?: true
+  longitude?: true
   _all?: true
 }
 
@@ -119,6 +153,18 @@ export type LocationAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inter
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: LocationAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: LocationSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: LocationMinAggregateInputType
@@ -149,6 +195,8 @@ export type LocationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   _count?: LocationCountAggregateInputType | true
+  _avg?: LocationAvgAggregateInputType
+  _sum?: LocationSumAggregateInputType
   _min?: LocationMinAggregateInputType
   _max?: LocationMaxAggregateInputType
 }
@@ -160,7 +208,11 @@ export type LocationGroupByOutputType = {
   tz: string | null
   createdAt: Date
   orgId: string
+  latitude: number
+  longitude: number
   _count: LocationCountAggregateOutputType | null
+  _avg: LocationAvgAggregateOutputType | null
+  _sum: LocationSumAggregateOutputType | null
   _min: LocationMinAggregateOutputType | null
   _max: LocationMaxAggregateOutputType | null
 }
@@ -190,6 +242,8 @@ export type LocationWhereInput = {
   tz?: Prisma.StringNullableFilter<"Location"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Location"> | Date | string
   orgId?: Prisma.StringFilter<"Location"> | string
+  latitude?: Prisma.FloatFilter<"Location"> | number
+  longitude?: Prisma.FloatFilter<"Location"> | number
   buildings?: Prisma.BuildingListRelationFilter
   org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
 }
@@ -201,6 +255,8 @@ export type LocationOrderByWithRelationInput = {
   tz?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   orgId?: Prisma.SortOrder
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
   buildings?: Prisma.BuildingOrderByRelationAggregateInput
   org?: Prisma.OrganizationOrderByWithRelationInput
 }
@@ -215,6 +271,8 @@ export type LocationWhereUniqueInput = Prisma.AtLeast<{
   tz?: Prisma.StringNullableFilter<"Location"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Location"> | Date | string
   orgId?: Prisma.StringFilter<"Location"> | string
+  latitude?: Prisma.FloatFilter<"Location"> | number
+  longitude?: Prisma.FloatFilter<"Location"> | number
   buildings?: Prisma.BuildingListRelationFilter
   org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
 }, "id">
@@ -226,9 +284,13 @@ export type LocationOrderByWithAggregationInput = {
   tz?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   orgId?: Prisma.SortOrder
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
   _count?: Prisma.LocationCountOrderByAggregateInput
+  _avg?: Prisma.LocationAvgOrderByAggregateInput
   _max?: Prisma.LocationMaxOrderByAggregateInput
   _min?: Prisma.LocationMinOrderByAggregateInput
+  _sum?: Prisma.LocationSumOrderByAggregateInput
 }
 
 export type LocationScalarWhereWithAggregatesInput = {
@@ -241,6 +303,8 @@ export type LocationScalarWhereWithAggregatesInput = {
   tz?: Prisma.StringNullableWithAggregatesFilter<"Location"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Location"> | Date | string
   orgId?: Prisma.StringWithAggregatesFilter<"Location"> | string
+  latitude?: Prisma.FloatWithAggregatesFilter<"Location"> | number
+  longitude?: Prisma.FloatWithAggregatesFilter<"Location"> | number
 }
 
 export type LocationCreateInput = {
@@ -249,6 +313,8 @@ export type LocationCreateInput = {
   address?: string | null
   tz?: string | null
   createdAt?: Date | string
+  latitude: number
+  longitude: number
   buildings?: Prisma.BuildingCreateNestedManyWithoutLocationInput
   org: Prisma.OrganizationCreateNestedOneWithoutLocationsInput
 }
@@ -260,6 +326,8 @@ export type LocationUncheckedCreateInput = {
   tz?: string | null
   createdAt?: Date | string
   orgId: string
+  latitude: number
+  longitude: number
   buildings?: Prisma.BuildingUncheckedCreateNestedManyWithoutLocationInput
 }
 
@@ -269,6 +337,8 @@ export type LocationUpdateInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   buildings?: Prisma.BuildingUpdateManyWithoutLocationNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutLocationsNestedInput
 }
@@ -280,6 +350,8 @@ export type LocationUncheckedUpdateInput = {
   tz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   buildings?: Prisma.BuildingUncheckedUpdateManyWithoutLocationNestedInput
 }
 
@@ -290,6 +362,8 @@ export type LocationCreateManyInput = {
   tz?: string | null
   createdAt?: Date | string
   orgId: string
+  latitude: number
+  longitude: number
 }
 
 export type LocationUpdateManyMutationInput = {
@@ -298,6 +372,8 @@ export type LocationUpdateManyMutationInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type LocationUncheckedUpdateManyInput = {
@@ -307,6 +383,8 @@ export type LocationUncheckedUpdateManyInput = {
   tz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type LocationListRelationFilter = {
@@ -326,6 +404,13 @@ export type LocationCountOrderByAggregateInput = {
   tz?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   orgId?: Prisma.SortOrder
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
+}
+
+export type LocationAvgOrderByAggregateInput = {
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
 }
 
 export type LocationMaxOrderByAggregateInput = {
@@ -335,6 +420,8 @@ export type LocationMaxOrderByAggregateInput = {
   tz?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   orgId?: Prisma.SortOrder
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
 }
 
 export type LocationMinOrderByAggregateInput = {
@@ -344,6 +431,13 @@ export type LocationMinOrderByAggregateInput = {
   tz?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   orgId?: Prisma.SortOrder
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
+}
+
+export type LocationSumOrderByAggregateInput = {
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
 }
 
 export type LocationScalarRelationFilter = {
@@ -393,6 +487,14 @@ export type LocationUncheckedUpdateManyWithoutOrgNestedInput = {
   deleteMany?: Prisma.LocationScalarWhereInput | Prisma.LocationScalarWhereInput[]
 }
 
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type LocationCreateNestedOneWithoutBuildingsInput = {
   create?: Prisma.XOR<Prisma.LocationCreateWithoutBuildingsInput, Prisma.LocationUncheckedCreateWithoutBuildingsInput>
   connectOrCreate?: Prisma.LocationCreateOrConnectWithoutBuildingsInput
@@ -413,6 +515,8 @@ export type LocationCreateWithoutOrgInput = {
   address?: string | null
   tz?: string | null
   createdAt?: Date | string
+  latitude: number
+  longitude: number
   buildings?: Prisma.BuildingCreateNestedManyWithoutLocationInput
 }
 
@@ -422,6 +526,8 @@ export type LocationUncheckedCreateWithoutOrgInput = {
   address?: string | null
   tz?: string | null
   createdAt?: Date | string
+  latitude: number
+  longitude: number
   buildings?: Prisma.BuildingUncheckedCreateNestedManyWithoutLocationInput
 }
 
@@ -461,6 +567,8 @@ export type LocationScalarWhereInput = {
   tz?: Prisma.StringNullableFilter<"Location"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Location"> | Date | string
   orgId?: Prisma.StringFilter<"Location"> | string
+  latitude?: Prisma.FloatFilter<"Location"> | number
+  longitude?: Prisma.FloatFilter<"Location"> | number
 }
 
 export type LocationCreateWithoutBuildingsInput = {
@@ -469,6 +577,8 @@ export type LocationCreateWithoutBuildingsInput = {
   address?: string | null
   tz?: string | null
   createdAt?: Date | string
+  latitude: number
+  longitude: number
   org: Prisma.OrganizationCreateNestedOneWithoutLocationsInput
 }
 
@@ -479,6 +589,8 @@ export type LocationUncheckedCreateWithoutBuildingsInput = {
   tz?: string | null
   createdAt?: Date | string
   orgId: string
+  latitude: number
+  longitude: number
 }
 
 export type LocationCreateOrConnectWithoutBuildingsInput = {
@@ -503,6 +615,8 @@ export type LocationUpdateWithoutBuildingsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   org?: Prisma.OrganizationUpdateOneRequiredWithoutLocationsNestedInput
 }
 
@@ -513,6 +627,8 @@ export type LocationUncheckedUpdateWithoutBuildingsInput = {
   tz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type LocationCreateManyOrgInput = {
@@ -521,6 +637,8 @@ export type LocationCreateManyOrgInput = {
   address?: string | null
   tz?: string | null
   createdAt?: Date | string
+  latitude: number
+  longitude: number
 }
 
 export type LocationUpdateWithoutOrgInput = {
@@ -529,6 +647,8 @@ export type LocationUpdateWithoutOrgInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   buildings?: Prisma.BuildingUpdateManyWithoutLocationNestedInput
 }
 
@@ -538,6 +658,8 @@ export type LocationUncheckedUpdateWithoutOrgInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   buildings?: Prisma.BuildingUncheckedUpdateManyWithoutLocationNestedInput
 }
 
@@ -547,6 +669,8 @@ export type LocationUncheckedUpdateManyWithoutOrgInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tz?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 
@@ -587,6 +711,8 @@ export type LocationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   tz?: boolean
   createdAt?: boolean
   orgId?: boolean
+  latitude?: boolean
+  longitude?: boolean
   buildings?: boolean | Prisma.Location$buildingsArgs<ExtArgs>
   org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.LocationCountOutputTypeDefaultArgs<ExtArgs>
@@ -599,6 +725,8 @@ export type LocationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   tz?: boolean
   createdAt?: boolean
   orgId?: boolean
+  latitude?: boolean
+  longitude?: boolean
   org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["location"]>
 
@@ -609,6 +737,8 @@ export type LocationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   tz?: boolean
   createdAt?: boolean
   orgId?: boolean
+  latitude?: boolean
+  longitude?: boolean
   org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["location"]>
 
@@ -619,9 +749,11 @@ export type LocationSelectScalar = {
   tz?: boolean
   createdAt?: boolean
   orgId?: boolean
+  latitude?: boolean
+  longitude?: boolean
 }
 
-export type LocationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "address" | "tz" | "createdAt" | "orgId", ExtArgs["result"]["location"]>
+export type LocationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "address" | "tz" | "createdAt" | "orgId" | "latitude" | "longitude", ExtArgs["result"]["location"]>
 export type LocationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   buildings?: boolean | Prisma.Location$buildingsArgs<ExtArgs>
   org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -647,6 +779,8 @@ export type $LocationPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     tz: string | null
     createdAt: Date
     orgId: string
+    latitude: number
+    longitude: number
   }, ExtArgs["result"]["location"]>
   composites: {}
 }
@@ -1078,6 +1212,8 @@ export interface LocationFieldRefs {
   readonly tz: Prisma.FieldRef<"Location", 'String'>
   readonly createdAt: Prisma.FieldRef<"Location", 'DateTime'>
   readonly orgId: Prisma.FieldRef<"Location", 'String'>
+  readonly latitude: Prisma.FieldRef<"Location", 'Float'>
+  readonly longitude: Prisma.FieldRef<"Location", 'Float'>
 }
     
 

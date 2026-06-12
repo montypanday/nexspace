@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getBuildings } from "@/data/building";
-import { BuildingCard } from "@/components/building-card";
+import { BuildingCard } from "@/components/card/building-card";
 import { getLocation } from "@/data/location";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";

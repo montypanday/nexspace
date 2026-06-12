@@ -1434,7 +1434,9 @@ export const LocationScalarFieldEnum = {
   address: 'address',
   tz: 'tz',
   createdAt: 'createdAt',
-  orgId: 'orgId'
+  orgId: 'orgId',
+  latitude: 'latitude',
+  longitude: 'longitude'
 } as const
 
 export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
@@ -1568,20 +1570,6 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'SpaceStatus'
- */
-export type EnumSpaceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SpaceStatus'>
-    
-
-
-/**
- * Reference to a field of type 'SpaceStatus[]'
- */
-export type ListEnumSpaceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SpaceStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1592,6 +1580,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SpaceStatus'
+ */
+export type EnumSpaceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SpaceStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'SpaceStatus[]'
+ */
+export type ListEnumSpaceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SpaceStatus[]'>
     
 
 /**

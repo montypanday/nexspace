@@ -1,7 +1,7 @@
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
 import { LocationDto } from "@/data/location";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { MapPin } from "lucide-react";
 
 export function LocationCard({ location }: { location: LocationDto }) {

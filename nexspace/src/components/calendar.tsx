@@ -68,6 +68,7 @@ export default function Calendar({ initialView }: CalendarProps) {
             events={fetchEvents} // Dynamically fetches from client side
             selectable={true}
             height="100%"
+            timeZone="local"
             // Safely capture fetching updates without triggering infinite loops
             datesSet={(dateInfo) => {
                 // Both fields return standard JavaScript Date objects

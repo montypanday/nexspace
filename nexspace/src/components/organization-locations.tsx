@@ -1,32 +1,66 @@
+'use client';
 import { Map, MapMarker, MapTileLayer } from "@/components/ui/map"
 import type { LatLngExpression } from "leaflet"
+import { useEffect } from "react";
+import { useMap } from "react-leaflet";
+import L from 'leaflet';
 
-export function OrganizationLocations() {
-    const CITIES = [
-        {
-            name: "Waurn Ponds",
-            coordinates: [-38.19855978238883, 144.29821922675296] satisfies LatLngExpression,
-        },
-        {
-            name: "Waterfront",
-            coordinates: [-38.14383788016828, 144.35995884282156] satisfies LatLngExpression,
-        },
-        {
-            name: "Burwood",
-            coordinates: [-37.849579437134935, 145.1145805524464] satisfies LatLngExpression,
-        },
-        {
-            name: "Warranambool",
-            coordinates: [-38.39088845716636, 142.5386681780042] satisfies LatLngExpression,
-        },
-    ]
+// Sub-component to manage map bounds
+function ChangeView({ markers }: { markers: LatLngExpression[] }) {
+    const map = useMap(); // Accesses the native Leaflet map object
+
+    useEffect(() => {
+        if (markers.length === 0) return;
+
+        // Create a LatLngBounds object from the markers array
+        const bounds = L.latLngBounds(markers);
+
+        // Zoom and pan the map to fit all points safely
+        map.fitBounds(bounds, {
+            padding: [50, 50], // Add pixel padding so markers don't hit the screen edge
+            maxZoom: 15,       // Prevent extreme zoom when fitting a single marker
+            animate: true      // Smooth transition animation
+        });
+    }, [markers, map]);
+
+    return null;
+}
+
+export interface MapLocation {
+    name: string;
+    coordinates: LatLngExpression;
+}
+
+export interface OrganizationLocationsProps {
+    locations: MapLocation[];
+}
+
+export function OrganizationLocations({ locations }: OrganizationLocationsProps) {
+
+    // Extract coordinate list for map boundary fitting
+    const markerCoordinates = locations.map((loc) => loc.coordinates);
+
+    // Guard clause to prevent runtime crashes if the locations array is empty
+    if (locations.length === 0) {
+        return <div>No locations available.</div>;
+    }
+
+    // Safely fallback to the first item if index 1 doesn't exist
+    const initialCenter = locations[1]?.coordinates ?? locations[0].coordinates;
 
     return (
-        <Map center={CITIES[1].coordinates} zoom={4}>
+        <Map center={initialCenter} zoom={4}>
             <MapTileLayer />
-            {CITIES.map((city) => (
-                <MapMarker key={city.name} position={city.coordinates} />
+
+            {locations.map((location) => (
+                <MapMarker
+                    key={location.name}
+                    position={location.coordinates}
+                />
             ))}
+
+            {/* Synchronise the map bounds when markers change */}
+            <ChangeView markers={markerCoordinates} />
         </Map>
     )
 }

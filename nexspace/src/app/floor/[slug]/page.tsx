@@ -1,9 +1,10 @@
 import { getSpaces } from "@/data/space";
-import { SpaceCard } from "@/components/space-card";
+import { SpaceCard } from "@/components/card/space-card";
 import { getFloor } from "@/data/floor";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import FloorPlan from "@/components/floor-plan";
 
 export default async function Page({
     params,
@@ -29,6 +30,9 @@ export default async function Page({
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
                     {spaces.map((space) => <SpaceCard key={space.id} space={space} />)}
+                </div>
+                <div className="w-full px-4 py-4">
+                    <FloorPlan />
                 </div>
             </main>
         </div>

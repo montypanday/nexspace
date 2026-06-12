@@ -1,5 +1,5 @@
 import { getFloors } from "@/data/floor";
-import { FloorCard } from "@/components/floor-card";
+import { FloorCard } from "@/components/card/floor-card";
 import { getBuilding } from "@/data/building";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
