@@ -1,9 +1,9 @@
 import { Group, Rect } from "react-konva"
 import { ElementProps } from "@/components/designer/element"
 
-export function DeskPod4Konva({ x, y, draggable = true }: ElementProps) {
+export function DeskPod4Konva({ id, x, y, draggable = true, onClick }: ElementProps) {
     return (
-        <Group x={x} y={y} draggable={draggable}>
+        <Group id={id} x={x} y={y} draggable={draggable} onClick={onClick}>
             {/* Desks */}
             <Rect x={8} y={8} width={34} height={24} cornerRadius={4} fill="#e4e4e7" stroke="#e5e7eb" />
             <Rect x={58} y={8} width={34} height={24} cornerRadius={4} fill="#e4e4e7" stroke="#e5e7eb" />

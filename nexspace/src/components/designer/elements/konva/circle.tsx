@@ -1,9 +1,9 @@
 import { Circle, Group, Rect } from "react-konva"
 import { ElementProps } from "../../element"
 
-export function CircleKonva({ x, y, draggable = true }: ElementProps) {
+export function CircleKonva({ id, x, y, draggable = true, onClick }: ElementProps) {
     return (
-        <Group x={x} y={y} draggable={draggable}>
+        <Group id={id} x={x} y={y} draggable={draggable} onClick={onClick}>
             <Circle />
         </Group>
     )

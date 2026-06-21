@@ -7,24 +7,17 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 
 import Konva from 'konva';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Palette } from './palette';
 import { Vector2d } from 'konva/lib/types';
 import { ElementProps, SpawnedElement } from './element';
 
 export function Designer() {
     const stageRef = useRef<Konva.Stage>(null);
+    const transformerRef = useRef<Konva.Transformer>(null);
     const [elements, setElements] = useState<ElementProps[]>([]); // store all elements, add to view on drop
-    // const [selectedId, selectShape] = React.useState(null);
+    const [selectedId, setSelectedId] = React.useState<string | null>(null);
     const [draggedType, setDraggedType] = useState<string | null>(null);
-    // const checkDeselect = (evt: Konva.KonvaEventObject<MouseEvent>) => {
-    //     console.log('checkDeselect')
-    //     // deselect when clicked on empty area
-    //     const clickedOnEmpty = evt.target === evt.target.getStage();
-    //     if (clickedOnEmpty) {
-    //         selectShape(null);
-    //     }
-    // };
 
     // 1. Capture the type of element being dragged
     const handleDragStart = (type: string) => {
@@ -51,22 +44,45 @@ export function Designer() {
                     type: draggedType,
                     x: position.x,
                     y: position.y,
-                    draggble: true
+                    draggable: true,
+                    isSelected: true,
                 };
                 setElements((prev) => [...prev, newElement]);
+                setSelectedId(newElement.id)
             }
         }
 
     };
 
-    const handleSelect = (evt: Konva.KonvaEventObject<MouseEvent>) => {
-        // setSelectedId(id);
-
-        // 2. You can also directly reference the Konva node using e.target
-        const konvaNode = evt.target;
-        console.log(evt)
-        console.log('Selected Konva Node:', konvaNode);
+    const handleDeselect = (evt: Konva.KonvaEventObject<MouseEvent>) => {
+        // deselect when clicked on empty area
+        const clickedOnEmpty = evt.target === evt.target.getStage();
+        if (clickedOnEmpty) {
+            setSelectedId(null);
+        }
     };
+
+    useEffect(() => {
+        // Imperatively attach the transformer to the selected node
+        const stage = stageRef.current;
+        const tr = transformerRef.current;
+
+        if (selectedId && tr && stage && tr.getLayer()) {
+            console.log('Finding selected node:', `#${selectedId}`)
+            const selectedNode = stage.findOne(`#${selectedId}`);
+            console.log('SelectedNode: ', selectedNode)
+            if (selectedNode) {
+                console.log('Setting Selected node on transformer:', selectedNode)
+                tr.nodes([selectedNode]);
+                tr.getLayer()?.batchDraw();
+            }
+        } else if (tr) {
+            console.log('Nothing is selected', selectedId)
+            tr.nodes([]);
+            tr.getLayer()?.batchDraw();
+        }
+    }, [selectedId]);
+
     return <>
         <div className='flex h-screen w-screen overflow-hidden'>
             <div className='flex-none'>
@@ -79,14 +95,25 @@ export function Designer() {
                 <Stage
                     width={window.innerWidth}
                     height={window.innerHeight}
-                    // onMouseDown={checkDeselect}
+                    onMouseDown={handleDeselect}
                     ref={stageRef}
                     style={{ border: '1px solid #000' }}
                 >
                     <Layer>
                         {elements.map((item) => (
-                            <SpawnedElement key={item.id} {...item} />
+                            <SpawnedElement key={item.id} {...item} isSelected={item.id === selectedId} onClick={(evt) => setSelectedId(item.id)} />
                         ))}
+                        {/* The Transformer overlay handles scaling and rotation bounds */}
+                        <Transformer
+                            ref={transformerRef}
+                            boundBoxFunc={(oldBox, newBox) => {
+                                // Prevent sizing the shape down to 0 pixels
+                                if (newBox.width < 5 || newBox.height < 5) {
+                                    return oldBox;
+                                }
+                                return newBox;
+                            }}
+                        />
                     </Layer>
                 </Stage>
             </div>

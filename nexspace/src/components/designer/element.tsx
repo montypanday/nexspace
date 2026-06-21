@@ -1,3 +1,4 @@
+import Konva from "konva";
 import { DeskDoubleKonva } from "./elements/konva/desk-double";
 import { DeskLShapeKonva } from "./elements/konva/desk-lshape";
 import { DeskPod4Konva } from "./elements/konva/desk-pod4";
@@ -25,6 +26,8 @@ export interface ElementProps {
     x: number;
     y: number;
     draggable: boolean;
+    isSelected: boolean;
+    onClick?: (evt: Konva.KonvaEventObject<MouseEvent>) => void;
 }
 
 export function SpawnedElement(props: ElementProps): React.ReactNode {

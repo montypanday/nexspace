@@ -1,9 +1,9 @@
 import { Group, Rect } from "react-konva"
 import { ElementProps } from "../../element"
 
-export function DeskSingleKonva({ x, y, draggable = true }: ElementProps) {
+export function DeskSingleKonva({ id, x, y, draggable = true, onClick }: ElementProps) {
     return (
-        <Group x={x} y={y} draggable={draggable}>
+        <Group id={id} x={x} y={y} draggable={draggable} onClick={onClick}>
             <Rect
                 x={10}
                 y={20}
