@@ -144,6 +144,7 @@ model Building {
   locationId String
   orgId      String
   floors     Floor[]
+  footprints Json    @default("[]")
 
   location Location     @relation(fields: [locationId], references: [id])
   org      Organization @relation(fields: [orgId], references: [id])

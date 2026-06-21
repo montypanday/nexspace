@@ -1,0 +1,43 @@
+import { Group, Rect } from "react-konva"
+import { ElementProps } from "../../element"
+
+export function DeskDoubleKonva({ x, y, draggable = true }: ElementProps) {
+    return (
+        <Group x={x} y={y} draggable={draggable}>
+            <Rect
+                x={10}
+                y={20}
+                width={35}
+                height={40}
+                cornerRadius={4}
+                fill="#e4e4e7"
+                stroke="#e5e7eb"
+            />
+            <Rect
+                x={55}
+                y={20}
+                width={35}
+                height={40}
+                cornerRadius={4}
+                fill="#e4e4e7"
+                stroke="#e5e7eb"
+            />
+            <Rect
+                x={18}
+                y={64}
+                width={20}
+                height={10}
+                cornerRadius={3}
+                fill="#3b82f6"
+            />
+            <Rect
+                x={62}
+                y={64}
+                width={20}
+                height={10}
+                cornerRadius={3}
+                fill="#3b82f6"
+            />
+        </Group>
+    )
+}

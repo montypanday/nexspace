@@ -4,12 +4,13 @@ import prisma from "@/lib/prisma"
 import { z } from "zod";
 import { LocationGetPayload, LocationSelect } from '@/app/generated/prisma/models';
 import { AddLocationInput, AddLocationSchema } from '@/lib/definitions';
+import { LatLngLiteral } from 'leaflet';
 
 export interface LocationDto {
     id: string;
     name: string;
     address: string | null;
-    coordinates: [number, number]
+    coordinates: LatLngLiteral
     createdAt: string;
     organizationId: string;
     organizationName: string;
@@ -39,7 +40,7 @@ function toDto(location: LocationSelectPayload): LocationDto {
         id: location.id,
         name: location.name,
         address: location.address,
-        coordinates: [location.latitude, location.longitude],
+        coordinates: { lat: location.latitude, lng: location.longitude },
         createdAt: location.createdAt.toISOString(),
         organizationId: location.org.id,
         organizationName: location.org.name

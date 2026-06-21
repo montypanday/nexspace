@@ -14,34 +14,58 @@ import {
     MapDrawRectangle,
     MapDrawUndo,
     MapMarker,
+    MapZoomControl,
+    MapPolygon,
 } from "@/components/ui/map"
 import type { FeatureGroup, LatLngExpression } from "leaflet"
+import L from "leaflet";
 import { MapPinIcon } from "lucide-react";
 import React from "react";
 import { useMap } from "react-leaflet";
+import { coordEach } from '@turf/meta';
+import { Position } from "geojson";
 
-export function FootprintDrawer() {
+interface FootprintDrawerProps {
+    center: LatLngExpression,
+    onDraw: (footprint: LatLngExpression[]) => void
+}
+
+export function FootprintDrawer(props: FootprintDrawerProps) {
     const CENTRE_COORDINATES = [-38.149287741183834, 144.35996496010284] satisfies LatLngExpression
 
     const onLayersChange = (layers: FeatureGroup) => {
-        console.log(layers)
-        console.log(layers.toGeoJSON())
+        const footprint: LatLngExpression[] = []
+        const geoJson = layers.toGeoJSON()
+        if (geoJson.type == 'FeatureCollection') {
+            geoJson.features.map((feature) => {
+                coordEach(feature, (currentCoord: Position) => {
+                    footprint.push({ lat: currentCoord[1], lng: currentCoord[0] })
+                });
+            });
+        }
+        props.onDraw(footprint)
     }
 
     return (
-        <Map center={CENTRE_COORDINATES}>
-            <MapTileLayer />
+        <Map center={props.center || CENTRE_COORDINATES} zoom={18} maxZoom={25}>
+            <MapTileLayer maxNativeZoom={18} maxZoom={25} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <MapSearchControlWrapper />
+            {/* {props.footprints && <MapPolygon
+                positions={props.footprints}
+                pathOptions={{ color: '#2563eb', fillColor: '#3b82f6', fillOpacity: 0.3 }}
+            ></MapPolygon>} */}
+
             <MapDrawControl onLayersChange={onLayersChange}>
-                <MapDrawMarker />
+                {/* <MapDrawMarker />
                 <MapDrawPolyline />
                 <MapDrawCircle />
-                <MapDrawRectangle />
+                <MapDrawRectangle /> */}
                 <MapDrawPolygon />
                 <MapDrawEdit />
                 <MapDrawDelete />
                 <MapDrawUndo />
             </MapDrawControl>
+            <MapZoomControl position="right-1 bottom-1" />
         </Map>
     )
 }

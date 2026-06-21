@@ -1,10 +1,11 @@
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
 import { BuildingDto } from "@/data/building";
-import { Building2, Layers, UserCheckIcon } from "lucide-react";
+import { Building2, Layers, PencilIcon, UserCheckIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { IconDesk } from "@tabler/icons-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 export function BuildingCard({ building }: { building: BuildingDto }) {
     return <Card className="hover:shadow-md transition-shadow">
@@ -23,6 +24,27 @@ export function BuildingCard({ building }: { building: BuildingDto }) {
                 </div>
             </div>
             <CardAction>
+                <DropdownMenu>
+                    <DropdownMenuTrigger render={
+                        <Button variant="outline">Actions</Button>
+                    }>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem>
+                                <PencilIcon />
+                                <Link href={'/building/' + building.id + '/footprint'}>Edit footprints</Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        {/* <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                        <DropdownMenuItem variant="destructive">
+                            <TrashIcon />
+                            Delete
+                        </DropdownMenuItem>
+                        </DropdownMenuGroup> */}
+                    </DropdownMenuContent>
+                </DropdownMenu>
                 {/* <Badge>46 available</Badge> */}
             </CardAction>
         </CardHeader>

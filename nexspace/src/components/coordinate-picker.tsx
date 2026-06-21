@@ -79,8 +79,8 @@ function CoordinatePickerWrapper({
 }) {
 
     const map = useMap()
-    const [selectedPosition, setSelectedPosition] =
-        React.useState<LatLngExpression | null>(null)
+    const [selectedPosition, setSelectedPosition] = React.useState<LatLngExpression | null>(null)
+
     React.useEffect(() => {
         if (!selectedPosition) return
         map.panTo(selectedPosition)

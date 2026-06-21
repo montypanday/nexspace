@@ -3,6 +3,8 @@ import { requireAuth, verifyOrgMembership } from './auth'
 import prisma from "@/lib/prisma"
 import { z } from "zod";
 import { SpaceGetPayload, SpaceSelect } from '@/app/generated/prisma/models'
+import { AddSpaceInput, AddSpaceSchema } from '@/lib/definitions';
+import { id } from 'date-fns/locale';
 
 export type SpaceStatus = "available" | "occupied" | "reserved" | "maintenance";
 
@@ -98,4 +100,23 @@ export async function getSpaces(floorId: string): Promise<SpaceDto[]> {
         }
     })
     return spaces.map((space) => toDto(space));
+}
+
+export async function addSpace(data: AddSpaceInput): Promise<SpaceDto> {
+    const validatedData = AddSpaceSchema.parse(data);
+    const viewer = await requireAuth();
+    await verifyOrgMembership(validatedData.organizationId);
+    const space = await prisma.space.create({
+        data: {
+            name: validatedData.name,
+            floor: {
+                connect: { id: validatedData.floorId }
+            },
+            organization: {
+                connect: { id: validatedData.organizationId }
+            }
+        },
+        select: spaceFieldsSelect
+    })
+    return toDto(space);
 }

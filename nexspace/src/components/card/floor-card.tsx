@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
 import { FloorDto } from "@/data/floor";
 import { ChevronRight, Layers } from "lucide-react";

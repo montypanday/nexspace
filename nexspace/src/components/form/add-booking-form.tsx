@@ -1,9 +1,7 @@
 "use client"
 
-import * as React from "react"
 import { useForm } from "@tanstack/react-form"
 import { toast } from "sonner"
-import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -21,21 +19,15 @@ import {
     FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import {
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroupTextarea,
-} from "@/components/ui/input-group"
-import { CreateBookingSchema } from "@/lib/definitions"
-import { createBookingAction } from "@/lib/actions"
+import { AddBookingSchema } from "@/lib/definitions"
+import { addBookingAction } from "@/lib/actions"
 import { Switch } from "../ui/switch"
 import { SpaceDto } from "@/data/space"
 import { DateTimePicker } from "../datetimepicker"
 import { User } from "next-auth"
 import { useRef } from "react"
 
-export function BookingForm({ space, user }: { space?: SpaceDto, user: User | null | undefined }) {
+export function AddBookingForm({ space, user }: { space?: SpaceDto, user: User | null | undefined }) {
 
     const now = new Date();
     const form = useForm({
@@ -48,12 +40,12 @@ export function BookingForm({ space, user }: { space?: SpaceDto, user: User | nu
             userId: user?.id || ""
         },
         validators: {
-            onSubmit: CreateBookingSchema,
+            onSubmit: AddBookingSchema,
         },
         onSubmit: async ({ value }) => {
             try {
                 // Invoke the Server Action directly
-                const result = await createBookingAction(value)
+                const result = await addBookingAction(value)
 
                 if (result?.success) {
                     console.log("Booking created successfully!")

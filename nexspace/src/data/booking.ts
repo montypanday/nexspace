@@ -3,7 +3,7 @@ import { requireAuth, verifyOrgMembership } from './auth'
 import prisma from "@/lib/prisma"
 import { z } from "zod";
 import { BookingGetPayload, BookingSelect } from '@/app/generated/prisma/models'
-import { CreateBookingInput, CreateBookingSchema } from '@/lib/definitions';
+import { AddBookingInput, AddBookingSchema } from '@/lib/definitions';
 
 export interface BookingDto {
     id: string,
@@ -214,8 +214,8 @@ export async function getBooking(bookingId: string): Promise<BookingDto> {
     return toDto(booking);
 }
 
-export async function createBooking(data: CreateBookingInput): Promise<BookingDto> {
-    const validatedData = CreateBookingSchema.parse(data)
+export async function createBooking(data: AddBookingInput): Promise<BookingDto> {
+    const validatedData = AddBookingSchema.parse(data)
     const viewer = await requireAuth()
 
     const space = await prisma.space.findFirstOrThrow({

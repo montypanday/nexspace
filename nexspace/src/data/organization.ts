@@ -4,6 +4,7 @@ import { requireAuth, verifyOrgMembership } from './auth'
 import prisma from "@/lib/prisma"
 import { z } from "zod";
 import { OrganizationGetPayload, OrganizationSelect } from '@/app/generated/prisma/models';
+import { AddOrganizationInput, AddOrganizationSchema } from '@/lib/definitions';
 
 export interface OrganizationDto {
     id: string;
@@ -61,5 +62,28 @@ export async function getOrganizations(): Promise<OrganizationDto[]> {
         }
     });
     return organizations.map((organization) => toDto(organization));
+}
+
+export async function addOrganization(data: AddOrganizationInput): Promise<OrganizationDto> {
+    const validatedData = AddOrganizationSchema.parse(data);
+    const viewer = await requireAuth()
+    const organization = await prisma.organization.create({
+        data: {
+            name: validatedData.name,
+            externalId: validatedData.externalId
+        },
+        select: organizationFieldsSelect
+    });
+    // link the creating user as the first member
+    if (viewer.id) {
+        await prisma.userOrganization.create({
+            data: {
+                userId: viewer.id,
+                orgId: organization.id
+            }
+        });
+    }
+
+    return toDto(organization);
 }
 

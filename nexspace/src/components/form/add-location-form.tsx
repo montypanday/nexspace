@@ -16,12 +16,17 @@ import { Button } from '../ui/button';
 import { addLocationAction } from '@/lib/actions';
 import { toast } from 'sonner';
 import { OrganizationDto } from "@/data/organization";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from '../ui/dialog';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface AddLocationProps {
     organization: OrganizationDto
 }
 
-export function AddLocation(props: AddLocationProps) {
+export function AddLocationForm(props: AddLocationProps) {
+    const [open, setOpen] = useState(false);
+    const router = useRouter();
     const form = useForm({
         defaultValues: {
             name: "",
@@ -42,6 +47,8 @@ export function AddLocation(props: AddLocationProps) {
                 if (result?.success) {
                     toast.success("Location created successfully!")
                     form.reset()
+                    setOpen(false);
+                    router.refresh();
                 } else {
                     toast.error(result?.error || "Failed to create Location")
                 }
@@ -57,22 +64,17 @@ export function AddLocation(props: AddLocationProps) {
         form.setFieldValue('address', value.address)
     }
 
-    return <Card className="w-full sm:max-w-md">
-        <CardHeader>
-            <CardTitle>Add new location</CardTitle>
-            <CardDescription>
-                Add new location to organization.
-            </CardDescription>
-        </CardHeader>
-        <CardContent>
-            <form
-                id="add-location-form"
-                onSubmit={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    form.handleSubmit()
-                }}
-            >
+    return <Dialog open={open} onOpenChange={setOpen}>
+        <form
+            id="add-location-form"
+            onSubmit={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                form.handleSubmit()
+            }}
+        >
+            <DialogTrigger render={<Button variant="outline">Add Location</Button>} />
+            <DialogContent>
                 <FieldGroup>
                     <form.Field
                         name="name"
@@ -161,39 +163,31 @@ export function AddLocation(props: AddLocationProps) {
                         </div>
                     </div>
                 </FieldGroup>
-            </form>
-        </CardContent>
-        <CardFooter>
-            <form.Subscribe
-                selector={(state) => [state.isSubmitting, state.isValidating]}
-                children={([isSubmitting, isValidating]) => (
-                    <Field orientation="horizontal" className="w-full flex justify-between">
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => form.reset()}
-                            disabled={isSubmitting}
-                        >
-                            Reset
-                        </Button>
-                        <Button
-                            type="submit"
-                            form="add-location-form"
-                            disabled={isSubmitting || isValidating}
-                        >
-                            {isSubmitting ? "Submitting..." : "Submit"}
-                        </Button>
-                    </Field>
-                )}
-            />
-            <form.Subscribe
-                selector={(state) => [state.errors, state.errorMap]}
-                children={([errors, errorMap]) => {
-                    // If this logs anything when you click submit, validation is blocking your action!
-                    if (errors.length > 0) console.log("Form Validation Errors:", errors)
-                    return null
-                }}
-            />
-        </CardFooter>
-    </Card>
+                <DialogFooter>
+                    <DialogClose render={<Button variant="outline">Cancel</Button>} />
+                    <form.Subscribe
+                        selector={(state) => [state.isSubmitting, state.isValidating]}
+                        children={([isSubmitting, isValidating]) => {
+                            return <><Button
+                                type="button"
+                                variant="outline"
+                                onClick={() => form.reset()}
+                                disabled={isSubmitting}
+                            >
+                                Reset
+                            </Button>
+                                <Button
+                                    type="submit"
+                                    form="add-location-form"
+                                    disabled={isSubmitting || isValidating}
+                                >
+                                    {isSubmitting ? "Submitting..." : "Submit"}
+                                </Button>
+                            </>
+                        }}
+                    />
+                </DialogFooter>
+            </DialogContent>
+        </form>
+    </Dialog>
 }

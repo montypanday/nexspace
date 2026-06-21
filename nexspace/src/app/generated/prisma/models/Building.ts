@@ -46,6 +46,7 @@ export type BuildingCountAggregateOutputType = {
   address: number
   locationId: number
   orgId: number
+  footprints: number
   _all: number
 }
 
@@ -72,6 +73,7 @@ export type BuildingCountAggregateInputType = {
   address?: true
   locationId?: true
   orgId?: true
+  footprints?: true
   _all?: true
 }
 
@@ -153,6 +155,7 @@ export type BuildingGroupByOutputType = {
   address: string | null
   locationId: string
   orgId: string
+  footprints: runtime.JsonValue
   _count: BuildingCountAggregateOutputType | null
   _min: BuildingMinAggregateOutputType | null
   _max: BuildingMaxAggregateOutputType | null
@@ -182,6 +185,7 @@ export type BuildingWhereInput = {
   address?: Prisma.StringNullableFilter<"Building"> | string | null
   locationId?: Prisma.StringFilter<"Building"> | string
   orgId?: Prisma.StringFilter<"Building"> | string
+  footprints?: Prisma.JsonFilter<"Building">
   floors?: Prisma.FloorListRelationFilter
   location?: Prisma.XOR<Prisma.LocationScalarRelationFilter, Prisma.LocationWhereInput>
   org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
@@ -193,6 +197,7 @@ export type BuildingOrderByWithRelationInput = {
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   locationId?: Prisma.SortOrder
   orgId?: Prisma.SortOrder
+  footprints?: Prisma.SortOrder
   floors?: Prisma.FloorOrderByRelationAggregateInput
   location?: Prisma.LocationOrderByWithRelationInput
   org?: Prisma.OrganizationOrderByWithRelationInput
@@ -207,6 +212,7 @@ export type BuildingWhereUniqueInput = Prisma.AtLeast<{
   address?: Prisma.StringNullableFilter<"Building"> | string | null
   locationId?: Prisma.StringFilter<"Building"> | string
   orgId?: Prisma.StringFilter<"Building"> | string
+  footprints?: Prisma.JsonFilter<"Building">
   floors?: Prisma.FloorListRelationFilter
   location?: Prisma.XOR<Prisma.LocationScalarRelationFilter, Prisma.LocationWhereInput>
   org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
@@ -218,6 +224,7 @@ export type BuildingOrderByWithAggregationInput = {
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   locationId?: Prisma.SortOrder
   orgId?: Prisma.SortOrder
+  footprints?: Prisma.SortOrder
   _count?: Prisma.BuildingCountOrderByAggregateInput
   _max?: Prisma.BuildingMaxOrderByAggregateInput
   _min?: Prisma.BuildingMinOrderByAggregateInput
@@ -232,12 +239,14 @@ export type BuildingScalarWhereWithAggregatesInput = {
   address?: Prisma.StringNullableWithAggregatesFilter<"Building"> | string | null
   locationId?: Prisma.StringWithAggregatesFilter<"Building"> | string
   orgId?: Prisma.StringWithAggregatesFilter<"Building"> | string
+  footprints?: Prisma.JsonWithAggregatesFilter<"Building">
 }
 
 export type BuildingCreateInput = {
   id?: string
   name: string
   address?: string | null
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorCreateNestedManyWithoutBuildingInput
   location: Prisma.LocationCreateNestedOneWithoutBuildingsInput
   org: Prisma.OrganizationCreateNestedOneWithoutBuildingsInput
@@ -249,6 +258,7 @@ export type BuildingUncheckedCreateInput = {
   address?: string | null
   locationId: string
   orgId: string
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutBuildingInput
 }
 
@@ -256,6 +266,7 @@ export type BuildingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUpdateManyWithoutBuildingNestedInput
   location?: Prisma.LocationUpdateOneRequiredWithoutBuildingsNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutBuildingsNestedInput
@@ -267,6 +278,7 @@ export type BuildingUncheckedUpdateInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locationId?: Prisma.StringFieldUpdateOperationsInput | string
   orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUncheckedUpdateManyWithoutBuildingNestedInput
 }
 
@@ -276,12 +288,14 @@ export type BuildingCreateManyInput = {
   address?: string | null
   locationId: string
   orgId: string
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingUncheckedUpdateManyInput = {
@@ -290,6 +304,7 @@ export type BuildingUncheckedUpdateManyInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locationId?: Prisma.StringFieldUpdateOperationsInput | string
   orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingListRelationFilter = {
@@ -308,6 +323,7 @@ export type BuildingCountOrderByAggregateInput = {
   address?: Prisma.SortOrder
   locationId?: Prisma.SortOrder
   orgId?: Prisma.SortOrder
+  footprints?: Prisma.SortOrder
 }
 
 export type BuildingMaxOrderByAggregateInput = {
@@ -433,6 +449,7 @@ export type BuildingCreateWithoutOrgInput = {
   id?: string
   name: string
   address?: string | null
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorCreateNestedManyWithoutBuildingInput
   location: Prisma.LocationCreateNestedOneWithoutBuildingsInput
 }
@@ -442,6 +459,7 @@ export type BuildingUncheckedCreateWithoutOrgInput = {
   name: string
   address?: string | null
   locationId: string
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutBuildingInput
 }
 
@@ -480,12 +498,14 @@ export type BuildingScalarWhereInput = {
   address?: Prisma.StringNullableFilter<"Building"> | string | null
   locationId?: Prisma.StringFilter<"Building"> | string
   orgId?: Prisma.StringFilter<"Building"> | string
+  footprints?: Prisma.JsonFilter<"Building">
 }
 
 export type BuildingCreateWithoutLocationInput = {
   id?: string
   name: string
   address?: string | null
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorCreateNestedManyWithoutBuildingInput
   org: Prisma.OrganizationCreateNestedOneWithoutBuildingsInput
 }
@@ -495,6 +515,7 @@ export type BuildingUncheckedCreateWithoutLocationInput = {
   name: string
   address?: string | null
   orgId: string
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutBuildingInput
 }
 
@@ -528,6 +549,7 @@ export type BuildingCreateWithoutFloorsInput = {
   id?: string
   name: string
   address?: string | null
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
   location: Prisma.LocationCreateNestedOneWithoutBuildingsInput
   org: Prisma.OrganizationCreateNestedOneWithoutBuildingsInput
 }
@@ -538,6 +560,7 @@ export type BuildingUncheckedCreateWithoutFloorsInput = {
   address?: string | null
   locationId: string
   orgId: string
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingCreateOrConnectWithoutFloorsInput = {
@@ -560,6 +583,7 @@ export type BuildingUpdateWithoutFloorsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   location?: Prisma.LocationUpdateOneRequiredWithoutBuildingsNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutBuildingsNestedInput
 }
@@ -570,6 +594,7 @@ export type BuildingUncheckedUpdateWithoutFloorsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locationId?: Prisma.StringFieldUpdateOperationsInput | string
   orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingCreateManyOrgInput = {
@@ -577,12 +602,14 @@ export type BuildingCreateManyOrgInput = {
   name: string
   address?: string | null
   locationId: string
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingUpdateWithoutOrgInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUpdateManyWithoutBuildingNestedInput
   location?: Prisma.LocationUpdateOneRequiredWithoutBuildingsNestedInput
 }
@@ -592,6 +619,7 @@ export type BuildingUncheckedUpdateWithoutOrgInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locationId?: Prisma.StringFieldUpdateOperationsInput | string
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUncheckedUpdateManyWithoutBuildingNestedInput
 }
 
@@ -600,6 +628,7 @@ export type BuildingUncheckedUpdateManyWithoutOrgInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locationId?: Prisma.StringFieldUpdateOperationsInput | string
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingCreateManyLocationInput = {
@@ -607,12 +636,14 @@ export type BuildingCreateManyLocationInput = {
   name: string
   address?: string | null
   orgId: string
+  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingUpdateWithoutLocationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUpdateManyWithoutBuildingNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutBuildingsNestedInput
 }
@@ -622,6 +653,7 @@ export type BuildingUncheckedUpdateWithoutLocationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUncheckedUpdateManyWithoutBuildingNestedInput
 }
 
@@ -630,6 +662,7 @@ export type BuildingUncheckedUpdateManyWithoutLocationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 
@@ -669,6 +702,7 @@ export type BuildingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   address?: boolean
   locationId?: boolean
   orgId?: boolean
+  footprints?: boolean
   floors?: boolean | Prisma.Building$floorsArgs<ExtArgs>
   location?: boolean | Prisma.LocationDefaultArgs<ExtArgs>
   org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -681,6 +715,7 @@ export type BuildingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   address?: boolean
   locationId?: boolean
   orgId?: boolean
+  footprints?: boolean
   location?: boolean | Prisma.LocationDefaultArgs<ExtArgs>
   org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["building"]>
@@ -691,6 +726,7 @@ export type BuildingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   address?: boolean
   locationId?: boolean
   orgId?: boolean
+  footprints?: boolean
   location?: boolean | Prisma.LocationDefaultArgs<ExtArgs>
   org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["building"]>
@@ -701,9 +737,10 @@ export type BuildingSelectScalar = {
   address?: boolean
   locationId?: boolean
   orgId?: boolean
+  footprints?: boolean
 }
 
-export type BuildingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "address" | "locationId" | "orgId", ExtArgs["result"]["building"]>
+export type BuildingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "address" | "locationId" | "orgId" | "footprints", ExtArgs["result"]["building"]>
 export type BuildingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   floors?: boolean | Prisma.Building$floorsArgs<ExtArgs>
   location?: boolean | Prisma.LocationDefaultArgs<ExtArgs>
@@ -732,6 +769,7 @@ export type $BuildingPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     address: string | null
     locationId: string
     orgId: string
+    footprints: runtime.JsonValue
   }, ExtArgs["result"]["building"]>
   composites: {}
 }
@@ -1163,6 +1201,7 @@ export interface BuildingFieldRefs {
   readonly address: Prisma.FieldRef<"Building", 'String'>
   readonly locationId: Prisma.FieldRef<"Building", 'String'>
   readonly orgId: Prisma.FieldRef<"Building", 'String'>
+  readonly footprints: Prisma.FieldRef<"Building", 'Json'>
 }
     
 

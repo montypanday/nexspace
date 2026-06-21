@@ -3,6 +3,7 @@ import { requireAuth, verifyOrgMembership } from './auth'
 import prisma from "@/lib/prisma"
 import { z } from "zod";
 import { FloorGetPayload, FloorSelect } from '@/app/generated/prisma/models';
+import { AddFloorInput, AddFloorSchema } from '@/lib/definitions';
 
 export interface FloorDto {
     id: string;
@@ -72,4 +73,23 @@ export async function getFloors(buildingId: string): Promise<FloorDto[]> {
         }
     });
     return floors.map((floor) => toDto(floor));
+}
+
+export async function addFloor(data: AddFloorInput): Promise<FloorDto> {
+    const validatedData = AddFloorSchema.parse(data);
+    const viewer = await requireAuth();
+    await verifyOrgMembership(validatedData.organizationId)
+    const floor = await prisma.floor.create({
+        data: {
+            name: validatedData.name,
+            building: {
+                connect: { id: validatedData.buildingId }
+            },
+            organization: {
+                connect: { id: validatedData.organizationId }
+            }
+        },
+        select: floorFieldsSelect
+    })
+    return toDto(floor)
 }
