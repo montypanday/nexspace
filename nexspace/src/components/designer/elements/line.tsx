@@ -1,16 +1,18 @@
 import { cn } from "@/lib/utils"
 
-export function PolygonElement({ className }: { className?: string }) {
+export function LineElement({ className }: { className?: string }) {
     return (
         <svg
             viewBox="0 0 100 100"
             className={cn("w-full h-full", className)}
         >
-            <polygon
-                points="10,10 90,10 90,60 50,90 10,60"
-                fill="white"
+            <line
+                x1={10}
+                y1={10}
+                x2={90}
+                y2={90}
                 stroke="black"
-                strokeWidth={2}
+                strokeWidth={4}
             />
         </svg>
     )

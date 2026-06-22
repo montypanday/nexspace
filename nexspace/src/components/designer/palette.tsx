@@ -16,6 +16,10 @@ import { Meeting10 } from "./elements/meeting-table10"
 import { DeskLShape } from "./elements/desk-lshape"
 import { ElementType } from './element';
 import { CircleElement } from './elements/circle';
+import { RectangleElement } from './elements/rectangle';
+import { PolygonElement } from './elements/polygon';
+import { TextElement } from './elements/text';
+import { LineElement } from './elements/line';
 
 interface PaletteItemProps {
     type: string;
@@ -30,9 +34,9 @@ export function PaletteItem({ type, label, icon, handleDragStart }: PaletteItemP
             onDragStart={(e) => {
                 handleDragStart(type)
             }}
-            className="p-2 border rounded bg-card hover:bg-accent cursor-grab active:cursor-grabbing"
+            className="p-2 border rounded bg-card hover:bg-accent cursor-grab active:cursor-grabbing flex flex-col justify-center-safe"
         >
-            <div className="w-16 h-16">{icon}</div>
+            <div className="w-16 h-16 flex justify-center-safe">{icon}</div>
             <p className="text-xs text-center mt-1">{label}</p>
         </div>
     )
@@ -49,9 +53,33 @@ export function Palette({ handleDragStart }: PaletteProps) {
                 <AccordionTrigger>Basic Shapes</AccordionTrigger>
                 <AccordionContent className="grid grid-cols-2 gap-2 px-2">
                     <PaletteItem
+                        type={ElementType.Text}
+                        label="Text"
+                        icon={<TextElement />}   // your SVG version, not Konva
+                        handleDragStart={handleDragStart}
+                    />
+                    <PaletteItem
+                        type={ElementType.Line}
+                        label="Line"
+                        icon={<LineElement />}   // your SVG version, not Konva
+                        handleDragStart={handleDragStart}
+                    />
+                    <PaletteItem
                         type={ElementType.Circle}
                         label="Circle"
                         icon={<CircleElement />}   // your SVG version, not Konva
+                        handleDragStart={handleDragStart}
+                    />
+                    <PaletteItem
+                        type={ElementType.Rectangle}
+                        label="Rectangle"
+                        icon={<RectangleElement />}   // your SVG version, not Konva
+                        handleDragStart={handleDragStart}
+                    />
+                    <PaletteItem
+                        type={ElementType.Polygon}
+                        label="Polygon"
+                        icon={<PolygonElement />}   // your SVG version, not Konva
                         handleDragStart={handleDragStart}
                     />
                 </AccordionContent>

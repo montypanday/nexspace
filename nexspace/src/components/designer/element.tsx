@@ -8,8 +8,13 @@ import { Meeting10Konva } from "./elements/konva/meeting-table10";
 import { Meeting4Konva } from "./elements/konva/meeting-table4";
 import { Meeting6Konva } from "./elements/konva/meeting-table6";
 import { CircleKonva } from "./elements/konva/circle";
+import { RectangleKonva } from "./elements/konva/rectangle";
+import { TextKonva } from "./elements/konva/text";
+import { LineKonva } from "./elements/konva/line";
+import { PolygonKonva } from "./elements/konva/polygon";
 
 export enum ElementType {
+    Text = 'text',
     Circle = "cirle",
     Rectangle = "rectangle",
     Polygon = "polygon",
@@ -30,17 +35,42 @@ export interface ElementProps {
     x: number;
     y: number;
     draggable: boolean;
+    isSelected: boolean;
+    attrs: {
+        points?: { x: number; y: number }[]
+        [key: string]: any
+    }
 
-    attrs: Record<string, any>;
     onClick?: (evt: Konva.KonvaEventObject<MouseEvent>) => void;
+    onDblClick?: (evt: Konva.KonvaEventObject<MouseEvent>) => void;
     onDragEnd?: (evt: Konva.KonvaEventObject<DragEvent>) => void;
     onTransformEnd?: (evt: Konva.KonvaEventObject<MouseEvent>) => void;
+    onChangeAttrs?: (id: string, newAttrs: {
+        points?: { x: number; y: number }[]
+        [key: string]: any
+    }) => void;
 }
 
 export function getElementDefaultAttrs(elementType: string | undefined): object {
     switch (elementType) {
+        case ElementType.Text:
+            return { text: 'Sample text', fill: "black" }
         case ElementType.Circle:
             return { radius: 25, stroke: 'black' }
+        case ElementType.Rectangle:
+            return { width: 25, height: 20, stroke: 'black', strokewidth: 1, strokeScaleEnabled: false }
+        case ElementType.Line:
+            return { points: [10, 10, 90, 90], stroke: "black", strokeWidth: 4, strokeScaleEnabled: false }
+        case ElementType.Polygon:
+            return {
+                points: [
+                    { x: 10, y: 10 },
+                    { x: 90, y: 10 },
+                    { x: 90, y: 60 },
+                    { x: 50, y: 90 },
+                    { x: 10, y: 60 },
+                ], closed: true, fill: "white", stroke: "black", strokeWidth: 2
+            }
         default:
             return {}
     }
@@ -54,8 +84,16 @@ export function SpawnedElement(props: ElementProps): React.ReactNode {
         ...cleanprops
     }
     switch (type) {
+        case ElementType.Text:
+            return <TextKonva {...newprops} />
+        case ElementType.Line:
+            return <LineKonva {...newprops} />
+        case ElementType.Polygon:
+            return <PolygonKonva {...newprops} />
         case ElementType.Circle:
             return <CircleKonva {...newprops} />
+        case ElementType.Rectangle:
+            return <RectangleKonva {...newprops} />
         case ElementType.DeskSingle:
             return <DeskSingleKonva {...newprops} />
         case ElementType.DeskLShape:

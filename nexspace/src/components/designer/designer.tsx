@@ -10,7 +10,7 @@ import Konva from 'konva';
 import React, { useEffect, useRef, useState } from 'react';
 import { Palette } from './palette';
 import { Vector2d } from 'konva/lib/types';
-import { ElementProps, getElementDefaultAttrs, SpawnedElement } from './element';
+import { ElementProps, ElementType, getElementDefaultAttrs, SpawnedElement } from './element';
 
 export function Designer() {
     const stageRef = useRef<Konva.Stage>(null);
@@ -46,7 +46,8 @@ export function Designer() {
                     x: position.x,
                     y: position.y,
                     draggable: true,
-                    attrs: defaultAttrs
+                    attrs: defaultAttrs,
+                    isSelected: false
                 };
                 setElements((prev) => [...prev, newElement]);
                 setSelectedIds([newElement.id])
@@ -57,7 +58,9 @@ export function Designer() {
 
     const handleSelect = (evt: Konva.KonvaEventObject<MouseEvent>) => {
         // Click on shape -> Toggle selection
+        console.log(evt.target)
         const id = evt.target.id();
+        console.log(id)
         if (id) {
             if (evt.evt.shiftKey) {
                 setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
@@ -85,12 +88,10 @@ export function Designer() {
                 .filter((node): node is Konva.Node => node !== undefined);;
             console.log('SelectedNode: ', nodes)
             if (nodes) {
-                console.log('Setting Selected node on transformer:', nodes)
                 tr.nodes(nodes);
                 tr.getLayer()?.batchDraw();
             }
         } else if (tr) {
-            console.log('Nothing is selected', selectedIds)
             tr.nodes([]);
             tr.getLayer()?.batchDraw();
         }
@@ -119,14 +120,12 @@ export function Designer() {
 
     const handleTransformation = (evt: Konva.KonvaEventObject<Event>) => {
         const node = evt.target;
-        console.log(node)
         updateElementState(node.id(), node);
     };
 
     // FIXED: Corrected signature to match Konva's expected event argument
     const handleDragEnd = (evt: Konva.KonvaEventObject<DragEvent>) => {
         const node = evt.target;
-        console.log(node)
         updateElementState(node.id(), node);
     };
 
@@ -147,15 +146,32 @@ export function Designer() {
                     style={{ border: '1px solid #000' }}
                 >
                     <Layer>
-                        {elements.map((item) => (
-                            <SpawnedElement
+                        {elements.map((item) => {
+                            if (item.type === ElementType.Polygon) {
+                                return <SpawnedElement
+                                    key={item.id}
+                                    {...item}
+                                    isSelected={selectedIds.includes(item.id)}
+                                    onClick={handleSelect}
+                                    onDragEnd={handleDragEnd}
+                                    onChangeAttrs={(id, newAttrs) => {
+                                        setElements((prev) =>
+                                            prev.map((el) =>
+                                                el.id === id ? { ...el, attrs: newAttrs } : el
+                                            )
+                                        )
+                                    }}
+                                />
+                            }
+                            return <SpawnedElement
                                 key={item.id}
                                 {...item}
+                                isSelected={selectedIds.includes(item.id)}
                                 onClick={handleSelect}
                                 onTransformEnd={handleTransformation}
                                 onDragEnd={handleDragEnd}
                             />
-                        ))}
+                        })}
                         {/* The Transformer overlay handles scaling and rotation bounds */}
                         <Transformer
                             ref={transformerRef}
