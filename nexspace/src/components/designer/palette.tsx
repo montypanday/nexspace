@@ -15,6 +15,7 @@ import { Meeting6 } from "./elements/meeting-table6"
 import { Meeting10 } from "./elements/meeting-table10"
 import { DeskLShape } from "./elements/desk-lshape"
 import { ElementType } from './element';
+import { CircleElement } from './elements/circle';
 
 interface PaletteItemProps {
     type: string;
@@ -43,8 +44,19 @@ interface PaletteProps {
 
 export function Palette({ handleDragStart }: PaletteProps) {
     return <>
-        <Accordion defaultValue={["shipping"]} className="max-w-lg">
-            <AccordionItem value="shipping">
+        <Accordion defaultValue={["desks/spaces"]} className="max-w-lg">
+            <AccordionItem value="basic">
+                <AccordionTrigger>Basic Shapes</AccordionTrigger>
+                <AccordionContent className="grid grid-cols-2 gap-2 px-2">
+                    <PaletteItem
+                        type={ElementType.Circle}
+                        label="Circle"
+                        icon={<CircleElement />}   // your SVG version, not Konva
+                        handleDragStart={handleDragStart}
+                    />
+                </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="spaces">
                 <AccordionTrigger>Desks / Spaces</AccordionTrigger>
                 <AccordionContent className="grid grid-cols-2 gap-2 px-2">
                     <PaletteItem

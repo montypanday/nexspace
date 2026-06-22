@@ -10,13 +10,13 @@ import Konva from 'konva';
 import React, { useEffect, useRef, useState } from 'react';
 import { Palette } from './palette';
 import { Vector2d } from 'konva/lib/types';
-import { ElementProps, SpawnedElement } from './element';
+import { ElementProps, getElementDefaultAttrs, SpawnedElement } from './element';
 
 export function Designer() {
     const stageRef = useRef<Konva.Stage>(null);
     const transformerRef = useRef<Konva.Transformer>(null);
     const [elements, setElements] = useState<ElementProps[]>([]); // store all elements, add to view on drop
-    const [selectedId, setSelectedId] = React.useState<string | null>(null);
+    const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
     const [draggedType, setDraggedType] = useState<string | null>(null);
 
     // 1. Capture the type of element being dragged
@@ -39,26 +39,39 @@ export function Designer() {
             const position: Vector2d | null = stageRef.current.getPointerPosition();
 
             if (position && draggedType) {
+                const defaultAttrs = getElementDefaultAttrs(draggedType)
                 const newElement = {
                     id: crypto.randomUUID(), // Unique ID
                     type: draggedType,
                     x: position.x,
                     y: position.y,
                     draggable: true,
-                    isSelected: true,
+                    attrs: defaultAttrs
                 };
                 setElements((prev) => [...prev, newElement]);
-                setSelectedId(newElement.id)
+                setSelectedIds([newElement.id])
             }
         }
 
     };
 
+    const handleSelect = (evt: Konva.KonvaEventObject<MouseEvent>) => {
+        // Click on shape -> Toggle selection
+        const id = evt.target.id();
+        if (id) {
+            if (evt.evt.shiftKey) {
+                setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+            } else {
+                setSelectedIds([id]);
+            }
+        }
+    }
+
     const handleDeselect = (evt: Konva.KonvaEventObject<MouseEvent>) => {
         // deselect when clicked on empty area
         const clickedOnEmpty = evt.target === evt.target.getStage();
         if (clickedOnEmpty) {
-            setSelectedId(null);
+            setSelectedIds([]);
         }
     };
 
@@ -67,21 +80,55 @@ export function Designer() {
         const stage = stageRef.current;
         const tr = transformerRef.current;
 
-        if (selectedId && tr && stage && tr.getLayer()) {
-            console.log('Finding selected node:', `#${selectedId}`)
-            const selectedNode = stage.findOne(`#${selectedId}`);
-            console.log('SelectedNode: ', selectedNode)
-            if (selectedNode) {
-                console.log('Setting Selected node on transformer:', selectedNode)
-                tr.nodes([selectedNode]);
+        if (selectedIds && tr && stage && tr.getLayer()) {
+            const nodes = selectedIds.map((id) => stage.findOne(`#${id}`))
+                .filter((node): node is Konva.Node => node !== undefined);;
+            console.log('SelectedNode: ', nodes)
+            if (nodes) {
+                console.log('Setting Selected node on transformer:', nodes)
+                tr.nodes(nodes);
                 tr.getLayer()?.batchDraw();
             }
         } else if (tr) {
-            console.log('Nothing is selected', selectedId)
+            console.log('Nothing is selected', selectedIds)
             tr.nodes([]);
             tr.getLayer()?.batchDraw();
         }
-    }, [selectedId]);
+    }, [selectedIds]);
+
+    // Combined helper logic to prevent code duplication
+    const updateElementState = (shapeId: string, node: Konva.Node) => {
+        setElements((prevElements) =>
+            prevElements.map((element) => {
+                // FIXED: Changed '=' to '==='
+                if (element.id === shapeId) {
+                    return {
+                        ...element,
+                        x: node.x(),
+                        y: node.y(),
+                        attrs: {
+                            ...element.attrs,
+                            ...node.getAttrs(), // Saves updated scaleX, scaleY, rotation, etc.
+                        }
+                    };
+                }
+                return element;
+            })
+        );
+    };
+
+    const handleTransformation = (evt: Konva.KonvaEventObject<Event>) => {
+        const node = evt.target;
+        console.log(node)
+        updateElementState(node.id(), node);
+    };
+
+    // FIXED: Corrected signature to match Konva's expected event argument
+    const handleDragEnd = (evt: Konva.KonvaEventObject<DragEvent>) => {
+        const node = evt.target;
+        console.log(node)
+        updateElementState(node.id(), node);
+    };
 
     return <>
         <div className='flex h-screen w-screen overflow-hidden'>
@@ -101,7 +148,13 @@ export function Designer() {
                 >
                     <Layer>
                         {elements.map((item) => (
-                            <SpawnedElement key={item.id} {...item} isSelected={item.id === selectedId} onClick={(evt) => setSelectedId(item.id)} />
+                            <SpawnedElement
+                                key={item.id}
+                                {...item}
+                                onClick={handleSelect}
+                                onTransformEnd={handleTransformation}
+                                onDragEnd={handleDragEnd}
+                            />
                         ))}
                         {/* The Transformer overlay handles scaling and rotation bounds */}
                         <Transformer
