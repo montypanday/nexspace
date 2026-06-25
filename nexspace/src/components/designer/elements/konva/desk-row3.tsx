@@ -1,9 +1,17 @@
+'use client'
+
 import { Group, Rect, Line } from "react-konva"
 import { ElementProps } from "../../element"
 
-export function DeskRow3Konva({ id, x, y, draggable = true, onClick }: ElementProps) {
+export function DeskRow3Konva(props: ElementProps) {
     return (
-        <Group id={id} x={x} y={y} draggable={draggable} onClick={onClick}>
+        <Group
+            id={props.id}
+            draggable={props.draggable}
+            onClick={props.onClick}
+            onTransformEnd={props.onTransformEnd}
+            onDragEnd={props.onDragEnd}
+            {...props.attrs}>
             <Rect
                 x={5}
                 y={20}

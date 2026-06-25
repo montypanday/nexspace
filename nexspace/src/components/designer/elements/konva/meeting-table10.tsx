@@ -1,8 +1,16 @@
+'use client'
+
 import { Group, Rect } from "react-konva"
 import { ElementProps } from "@/components/designer/element"
 
-export function Meeting10Konva({ id, x, y, draggable = true, onClick }: ElementProps) {
-    return (<Group id={id} x={x} y={y} draggable={draggable} onClick={onClick}>
+export function Meeting10Konva(props: ElementProps) {
+    return (<Group
+        id={props.id}
+        draggable={props.draggable}
+        onClick={props.onClick}
+        onTransformEnd={props.onTransformEnd}
+        onDragEnd={props.onDragEnd}
+        {...props.attrs}>
         <Rect
             x={10}
             y={30}

@@ -1,56 +1,62 @@
+'use client'
+
 import { Group, Line, Circle } from "react-konva"
 import { ElementProps } from "../../element"
+import { IconPointerPlus } from "@tabler/icons-react";
 
-export function PolygonKonva({
-    id,
-    x,
-    y,
-    attrs,
-    isSelected,
-    onClick,
-    onDragEnd,
-    onTransformEnd,
-    onChangeAttrs,
-}: ElementProps & {
-    isSelected: boolean
-    onChangeAttrs: (id: string, newAttrs: any) => void
-}) {
-    const points = attrs.points || []
+export function PolygonKonva(props: ElementProps) {
+    const points = props.attrs.points || []
 
-    const flat = points.flatMap((p) => [p.x, p.y])
+    let singleDimPoints: number[] = [];
+    let vertices: { x: number, y: number }[] = [];
+    if (Array.isArray(points) && points.every(item => typeof item == 'object')) {
+        singleDimPoints = points.flatMap((point) => [point.x, point.y])
+        vertices = points;
+    }
+    if (Array.isArray(points) && points.every(item => typeof item == 'number')) {
+        singleDimPoints = points
+    }
 
     const updatePoint = (index: number, newPos: { x: number; y: number }) => {
         const updated = [...points]
         updated[index] = newPos
 
-        onChangeAttrs(id, {
-            ...attrs,
+        if (!props.onChangeAttrs) { return }
+
+        props.onChangeAttrs(props.id, {
+            ...props.attrs,
             points: updated,
         })
     }
 
+
+
     return (
         <Group
-            id={id}
-            x={x}
-            y={y}
-            draggable
-            onClick={onClick}
-            onDragEnd={onDragEnd}
-            onTransformEnd={onTransformEnd}
+            id={props.id}
+            draggable={props.draggable}
+            onClick={props.onClick}
+            onDragEnd={props.onDragEnd}
+            onTransformEnd={props.onTransformEnd}
+            x={props.attrs.x}
+            y={props.attrs.y}
         >
+            {/* project this line relative to the parent group at 0, 0 */}
             <Line
-                id={id}
-                points={flat}
-                closed
-                fill="white"
-                stroke={isSelected ? "#2563eb" : "black"}
-                strokeWidth={2}
+                x={0}
+                y={0}
+                id={`line-${props.id}`}
+                points={singleDimPoints}
+                closed={props.attrs.closed}
+                fill={props.attrs.fill}
+                stroke={props.isSelected ? "#2563eb" : props.attrs.stroke}
+                strokeWidth={props.attrs.strokeWidth}
+
             />
 
             {/* Vertices only show when selected */}
-            {isSelected &&
-                points.map((p, i) => (
+            {props.isSelected &&
+                vertices.map((p, i) => (
                     <Circle
                         key={i}
                         x={p.x}
@@ -71,15 +77,18 @@ export function PolygonKonva({
                             e.cancelBubble = true;    // stop stage click
                             if (points.length > 3) {
                                 const updated = points.filter((_, idx) => idx !== i);
-                                onChangeAttrs(id, { ...attrs, points: updated });
+                                if (props.onChangeAttrs) {
+                                    props.onChangeAttrs(props.id, { ...props.attrs, points: updated });
+                                }
+
                             }
                         }}
                     />
                 ))}
             {/* Mid-edge add handles */}
-            {isSelected &&
-                points.map((p, i) => {
-                    const next = points[(i + 1) % points.length];
+            {props.isSelected &&
+                vertices.map((p, i) => {
+                    const next = vertices[(i + 1) % vertices.length];
                     const mid = { x: (p.x + next.x) / 2, y: (p.y + next.y) / 2 };
 
                     return (
@@ -95,7 +104,9 @@ export function PolygonKonva({
                             onClick={() => {
                                 const updated = [...points];
                                 updated.splice(i + 1, 0, mid);
-                                onChangeAttrs(id, { ...attrs, points: updated });
+                                if (props.onChangeAttrs) {
+                                    props.onChangeAttrs(props.id, { ...props.attrs, points: updated });
+                                }
                             }}
                         />
                     );

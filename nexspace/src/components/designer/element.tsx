@@ -32,12 +32,10 @@ export enum ElementType {
 export interface ElementProps {
     id: string;
     type?: string;
-    x: number;
-    y: number;
     draggable: boolean;
     isSelected: boolean;
     attrs: {
-        points?: { x: number; y: number }[]
+        points?: { x: number; y: number }[] | number[];
         [key: string]: any
     }
 
@@ -46,7 +44,6 @@ export interface ElementProps {
     onDragEnd?: (evt: Konva.KonvaEventObject<DragEvent>) => void;
     onTransformEnd?: (evt: Konva.KonvaEventObject<MouseEvent>) => void;
     onChangeAttrs?: (id: string, newAttrs: {
-        points?: { x: number; y: number }[]
         [key: string]: any
     }) => void;
 }

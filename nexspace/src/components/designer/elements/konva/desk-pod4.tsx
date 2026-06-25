@@ -1,9 +1,17 @@
+'use client'
+
 import { Group, Rect } from "react-konva"
 import { ElementProps } from "@/components/designer/element"
 
-export function DeskPod4Konva({ id, x, y, draggable = true, onClick }: ElementProps) {
+export function DeskPod4Konva(props: ElementProps) {
     return (
-        <Group id={id} x={x} y={y} draggable={draggable} onClick={onClick}>
+        <Group
+            id={props.id}
+            draggable={props.draggable}
+            onClick={props.onClick}
+            onTransformEnd={props.onTransformEnd}
+            onDragEnd={props.onDragEnd}
+            {...props.attrs}>
             {/* Desks */}
             <Rect x={8} y={8} width={34} height={24} cornerRadius={4} fill="#e4e4e7" stroke="#e5e7eb" />
             <Rect x={58} y={8} width={34} height={24} cornerRadius={4} fill="#e4e4e7" stroke="#e5e7eb" />

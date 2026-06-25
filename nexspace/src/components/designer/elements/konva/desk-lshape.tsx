@@ -1,9 +1,18 @@
+'use client'
+
 import { Group, Rect } from "react-konva"
 import { ElementProps } from "@/components/designer/element"
 
-export function DeskLShapeKonva({ id, x, y, draggable = true, onClick }: ElementProps) {
+export function DeskLShapeKonva(props: ElementProps) {
     return (
-        <Group id={id} x={x} y={y} draggable={draggable} onClick={onClick}>
+        <Group
+            id={props.id}
+            draggable={props.draggable}
+            onClick={props.onClick}
+            onTransformEnd={props.onTransformEnd}
+            onDragEnd={props.onDragEnd}
+            {...props.attrs}
+        >
             {/* Horizontal desk */}
             <Rect
                 x={10}
