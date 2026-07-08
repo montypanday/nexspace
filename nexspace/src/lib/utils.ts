@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { ElementProps, ElementType } from '@/components/designer/element';
 import { geoPath, geoIdentity } from "d3-geo";
 import rewind from '@turf/rewind';
-import { Feature, FeatureCollection, Geometry, GeometryCollection } from 'geojson';
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry, GeometryCollection } from 'geojson';
 import { point } from 'leaflet';
 
 export const protocol =
@@ -130,81 +130,79 @@ export function geojsonToElements(
 
     correctedGeoJson.features.forEach((f) => {
         const g = f.geometry;
+        const feature_properties: GeoJsonProperties = f.properties;
 
-        if (g.type === "MultiPolygon") {
+        if (g.type === "MultiPolygon" && f.properties?.category === 'businesscampus') {
             const polygons = g.coordinates;
-            let pointsArray = polygons.flatMap((coord) => {
-                let result: [number, number][] = []
-                for (let positionArray of coord) {
-                    for (let position of positionArray) {
-                        let polygonProjection = projection([position[0], position[1]])
+            let polygonProjections: { x: number, y: number }[][] = polygons.flatMap((multiPolygoncoordinates) => {
+                let result: { x: number, y: number }[][] = []
+                for (let polygonCoordinates of multiPolygoncoordinates) {
+                    let singlePolygonProjection: { x: number, y: number }[] = []
+                    for (let coord of polygonCoordinates) {
+                        let polygonProjection = projection([coord[0], coord[1]])
                         if (polygonProjection) {
-                            result.push(polygonProjection)
+                            singlePolygonProjection.push({ x: polygonProjection[0], y: polygonProjection[1] })
                         }
                     }
+                    result.push(singlePolygonProjection)
                 }
                 return result
             });
-            let points = pointsArray.flat()
-            if (points) {
-                elements.push({
-                    id: crypto.randomUUID(),
-                    type: ElementType.Polygon,
-                    draggable: true,
-                    isSelected: false,
-                    attrs: {
-                        points,
-                        fill: "#ddd",
-                        stroke: "#000",
-                        strokeWidth: 1,
-                    },
-                });
+            for (let polygon of polygonProjections) {
+                if (polygon) {
+                    elements.push({
+                        id: crypto.randomUUID(),
+                        type: ElementType.Polygon,
+                        draggable: true,
+                        isSelected: false,
+                        attrs: {
+                            points: polygon,
+                            // fill: "#ddd",
+                            // stroke: "#000",
+                            // strokeWidth: 1,
+                            closed: true,
+                            fill: "white",
+                            stroke: "black",
+                            strokeWidth: 2
+                        },
+                        feature_properties: feature_properties
+                    });
+                }
             }
-            // for (let polygon of polygons) {
-            //     console.log('Polygon', polygon)
-            //     console.log('Polygon flat', polygon.flat().flat())
-            // }
-            // const points = ring.flatMap((coord) => projection(coord));
-            // console.log(points)
-            // if (points) {
-            //     elements.push({
-            //         id: crypto.randomUUID(),
-            //         type: ElementType.Polygon,
-            //         x: 0,
-            //         y: 0,
-            //         draggable: true,
-            //         isSelected: false,
-            //         attrs: {
-            //             points,
-            //             fill: "#ddd",
-            //             stroke: "#000",
-            //             strokeWidth: 1,
-            //         },
-            //     });
-            // }
+
         }
 
-        // if (g.type === "Polygon") {
-        //     const ring = g.coordinates[0];
-        //     const points = ring.flatMap((coord) => projection(coord));
-        //     console.log(points)
-        //     // if (points) {
-        //     //     elements.push({
-        //     //         id: crypto.randomUUID(),
-        //     //         type: ElementType.Polygon,
-        //     //         x: 0,
-        //     //         y: 0,
-        //     //         draggable: true,
-        //     //         isSelected: false,
-        //     //         attrs: {
-        //     //             points,
-        //     //             fill: "#ddd",
-        //     //             stroke: "#000",
-        //     //             strokeWidth: 1,
-        //     //         },
-        //     //     });
-        //     // }
-        // }
+        if (g.type === "Polygon") {
+            let result: { x: number, y: number }[][] = []
+            for (let polygonCoordinates of g.coordinates) {
+                let singlePolygonProjection: { x: number, y: number }[] = []
+                for (let coord of polygonCoordinates) {
+                    let polygonProjection = projection([coord[0], coord[1]])
+                    if (polygonProjection) {
+                        singlePolygonProjection.push({ x: polygonProjection[0], y: polygonProjection[1] })
+                    }
+                }
+                result.push(singlePolygonProjection)
+            }
+            for (let polygon of result) {
+                if (polygon) {
+                    elements.push({
+                        id: crypto.randomUUID(),
+                        type: ElementType.Polygon,
+                        draggable: true,
+                        isSelected: false,
+                        attrs: {
+                            points: polygon,
+                            closed: true,
+                            fill: "white",
+                            stroke: "black",
+                            strokeWidth: 2
+                        },
+                        feature_properties: feature_properties
+                    });
+                }
+            }
+        }
 
         // if (g.type === "LineString") {
         //     const points = g.coordinates.flatMap((coord) => projection(coord));

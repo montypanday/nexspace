@@ -15,17 +15,28 @@ import { geojsonToElements } from '@/lib/utils';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '../ui/field';
 import { Separator } from '../ui/separator';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+} from "@/components/ui/tabs"
+import { ObjectView } from "react-obj-view";
 
 export function Designer() {
-    const stageRef = useRef<Konva.Stage>(null);
-    const transformerRef = useRef<Konva.Transformer>(null);
+
     const [elements, setElements] = useState<ElementProps[]>([]); // store all elements, add to view on drop
-    const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
+    const [selectedIds, setSelectedIds] = useState<string[]>([]);
     const [draggedType, setDraggedType] = useState<string | null>(null);
     const [geoFile, setGeoFile] = useState<File | null>(null);
+    const [size, setSize] = useState({ width: 0, height: 0 });
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const [size, setSize] = useState({ width: 0, height: 0 });
+    const history = useRef<ElementProps[][]>([])
+    const historyStep = React.useRef(0);
+    const stageRef = useRef<Konva.Stage>(null);
+    const transformerRef = useRef<Konva.Transformer>(null);
+
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -75,6 +86,7 @@ export function Designer() {
                     isSelected: false
                 };
                 console.log('Created new element', newElement)
+                handleElementsChange([...elements, newElement])
                 setElements((prev) => [...prev, newElement]);
                 setSelectedIds([newElement.id])
             }
@@ -126,21 +138,21 @@ export function Designer() {
 
     // Combined helper logic to prevent code duplication
     const updateElementState = (shapeId: string, node: Konva.Node) => {
-        setElements((prevElements) =>
-            prevElements.map((element) => {
-                // FIXED: Changed '=' to '==='
-                if (element.id === shapeId) {
-                    return {
-                        ...element,
-                        attrs: {
-                            ...element.attrs,
-                            ...node.getAttrs(), // Saves updated scaleX, scaleY, rotation, etc.
-                        }
-                    };
-                }
-                return element;
-            })
-        );
+        const newElements = elements.map((element) => {
+            // FIXED: Changed '=' to '==='
+            if (element.id === shapeId) {
+                return {
+                    ...element,
+                    attrs: {
+                        ...element.attrs,
+                        ...node.getAttrs(), // Saves updated scaleX, scaleY, rotation, etc.
+                    }
+                };
+            }
+            return element;
+        });
+        handleElementsChange(newElements)
+        setElements((prevElements) => newElements);
     };
 
     const handleTransformation = (evt: Konva.KonvaEventObject<Event>) => {
@@ -168,8 +180,49 @@ export function Designer() {
             stage.width(),
             stage.height()
         );
-
+        handleElementsChange([...elements, ...newEls])
         setElements((prev) => [...prev, ...newEls]);
+    };
+
+    const handleElementsChange = (elements: ElementProps[]) => {
+        history.current = history.current.slice(0, historyStep.current + 1);
+        history.current = history.current.concat([elements]);
+        historyStep.current += 1;
+    }
+
+    const handleUndo = () => {
+        if (historyStep.current === 0) {
+            return;
+        }
+        historyStep.current -= 1;
+        const previous = history.current[historyStep.current];
+        console.log('Previous elements', previous)
+        setElements(previous);
+    };
+
+    const handleRedo = () => {
+        if (historyStep.current === history.current.length - 1) {
+            return;
+        }
+        historyStep.current += 1;
+        const next = history.current[historyStep.current];
+        console.log('Next elements', next)
+        setElements(next);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+        console.log('handleKeyDown')
+        console.log(event);
+
+        if (selectedIds.length == 0) {
+            return
+        }
+        if (event.key === 'Backspace' || event.key == 'Delete') {
+            const newElements = elements.filter((value) => !selectedIds.includes(value.id))
+            handleElementsChange(newElements)
+            setSelectedIds([])
+            setElements(newElements);
+        }
     };
 
     return <>
@@ -200,7 +253,7 @@ export function Designer() {
                                 id="geojson-import"
                                 type="file"
                                 required={true}
-                                accept=".json,.geojson"
+                                // accept=".json,.geojson"
                                 onChange={(e) => {
                                     const file = e.target.files?.[0] ?? null;
                                     setGeoFile(file);
@@ -221,13 +274,15 @@ export function Designer() {
                     <Button variant="outline" size="sm">Reset</Button>
 
                     <div className="ml-auto flex gap-2">
-                        <Button variant="outline" size="sm">Undo</Button>
-                        <Button variant="outline" size="sm">Redo</Button>
+                        <Button variant="outline" onClick={handleUndo} size="sm">Undo</Button>
+                        <Button variant="outline" onClick={handleRedo} size="sm">Redo</Button>
                     </div>
                 </div>
                 <div className="absolute inset-0 top-12"
                     onDragOver={handleDragOver}
                     onDrop={handleDrop}
+                    tabIndex={1}
+                    onKeyDown={handleKeyDown}
                     ref={containerRef}
                 >
                     <Stage
@@ -280,7 +335,7 @@ export function Designer() {
                     </Stage>
                 </div>
             </main>
-            <aside className="w-72 border-l bg-background p-4 flex flex-col gap-4">
+            <aside className="w-72 border-l bg-background p-4 flex flex-col gap-4 overflow-auto scroll-smooth">
                 <h2 className="text-lg font-semibold">Inspector</h2>
                 {selectedIds.length === 1 ? (
                     <div className="space-y-4">
@@ -309,15 +364,7 @@ export function Designer() {
                                 {Object.entries(el.attrs).map(([key, value], index) => {
                                     // Skip points — they need a custom editor
                                     if (key === "points") {
-                                        if (Array.isArray(value) && value.every(item => typeof item == 'object')) {
-                                            return <dl key={index} className="flex items-center justify-between">
-                                                <dt>{key}</dt>
-                                                <dd className="text-muted-foreground">
-                                                    {value.map((coord) => `x: ${coord.x}, y: ${coord.y}`)}
-                                                </dd>
-                                            </dl>
-                                        }
-
+                                        return null
                                     }
 
                                     return (
@@ -328,67 +375,21 @@ export function Designer() {
                                     );
                                 })}
                             </div>
-
-                            {/* {Object.entries(el.attrs).map(([key, value]) => {
-                                // Skip points — they need a custom editor
-                                if (key === "points") return null;
-
-                                return (
-                                    <div key={key} className="flex flex-col gap-1">
-                                        <label className="text-sm font-medium">{key}</label>
-
-                                        <input
-                                            className="border rounded px-2 py-1 text-sm"
-                                            value={String(value)}
-                                        // onChange={(e) => {
-                                        //     const newValue = e.target.value;
-
-                                        //     el.onChangeAttrs?.(el.id, {
-                                        //         ...el.attrs,
-                                        //         [key]: isNaN(Number(newValue))
-                                        //             ? newValue
-                                        //             : Number(newValue),
-                                        //     });
-                                        // }}
-                                        />
-                                    </div>
-                                );
-                            })} */}
                         </div>
                     ))}
-                {/* {elements
+                {elements
                     .filter(el => selectedIds.includes(el.id))
                     .map(el => (
                         <div key={el.id} className="space-y-4">
-                            <h3 className="font-semibold text-lg">{el.type}</h3>
-
-                            {Object.entries(el.attrs).map(([key, value]) => {
-                                // Skip points — they need a custom editor
-                                if (key === "points") return null;
-
-                                return (
-                                    <div key={key} className="flex flex-col gap-1">
-                                        <label className="text-sm font-medium">{key}</label>
-
-                                        <input
-                                            className="border rounded px-2 py-1 text-sm"
-                                            value={String(value)}
-                                        // onChange={(e) => {
-                                        //     const newValue = e.target.value;
-
-                                        //     el.onChangeAttrs?.(el.id, {
-                                        //         ...el.attrs,
-                                        //         [key]: isNaN(Number(newValue))
-                                        //             ? newValue
-                                        //             : Number(newValue),
-                                        //     });
-                                        // }}
-                                        />
-                                    </div>
-                                );
-                            })}
+                            {/* <ObjectView
+                                valueGetter={() => el}
+                                name="elements"
+                                expandLevel={2}
+                                preview
+                            /> */}
                         </div>
-                    ))} */}
+                    ))}
+
                 <Separator />
             </aside>
         </div>

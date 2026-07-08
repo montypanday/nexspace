@@ -38,7 +38,7 @@ export interface ElementProps {
         points?: { x: number; y: number }[] | number[];
         [key: string]: any
     }
-
+    feature_properties?: { [name: string]: any } | null
     onClick?: (evt: Konva.KonvaEventObject<MouseEvent>) => void;
     onDblClick?: (evt: Konva.KonvaEventObject<MouseEvent>) => void;
     onDragEnd?: (evt: Konva.KonvaEventObject<DragEvent>) => void;

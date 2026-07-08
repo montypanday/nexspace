@@ -131,6 +131,9 @@ importers:
       react-leaflet-markercluster:
         specifier: 5.0.0-rc.0
         version: 5.0.0-rc.0(leaflet.markercluster@1.5.3(leaflet@1.9.4))(leaflet@1.9.4)(react-dom@19.2.3(react@19.2.3))(react-leaflet@5.0.0-rc.2(leaflet@1.9.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3)
+      react-obj-view:
+        specifier: ^1.1.10
+        version: 1.1.10(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
@@ -3608,6 +3611,13 @@ packages:
       leaflet: ^1.9.0
       react: ^19.0.0
       react-dom: ^19.0.0
+
+  react-obj-view@1.1.10:
+    resolution: {integrity: sha512-YRMXXKDnOv1j0FRB6umlt5BZG87KYqjiMb6u9ExLqnjFX6+XkQ/mXlEjHVLLQn+9W9VljIP/AbydTDB4zUNziA==}
+    engines: {node: '>=22.0.0', yarn: '>=4.0.0'}
+    peerDependencies:
+      react: '19'
+      react-dom: '19'
 
   react-reconciler@0.33.0:
     resolution: {integrity: sha512-KetWRytFv1epdpJc3J4G75I4WrplZE5jOL7Yq0p34+OVOKF4Se7WrdIdVC45XsSSmUTlht2FM/fM1FZb1mfQeA==}
@@ -7648,6 +7658,11 @@ snapshots:
     dependencies:
       '@react-leaflet/core': 3.0.0(leaflet@1.9.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       leaflet: 1.9.4
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+
+  react-obj-view@1.1.10(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+    dependencies:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
 
