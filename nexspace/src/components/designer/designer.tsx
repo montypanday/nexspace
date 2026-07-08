@@ -7,7 +7,7 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 
 import Konva from 'konva';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { KeyboardEventHandler, useEffect, useRef, useState } from 'react';
 import { Palette } from './palette';
 import { Vector2d } from 'konva/lib/types';
 import { ElementProps, ElementType, getElementDefaultAttrs, SpawnedElement } from './element';
@@ -210,7 +210,7 @@ export function Designer() {
         setElements(next);
     };
 
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
         console.log('handleKeyDown')
         console.log(event);
 
@@ -231,7 +231,7 @@ export function Designer() {
                 <h2 className="text-lg font-semibold">Palette</h2>
                 <Palette handleDragStart={handleDragStart} />
                 <Separator />
-                <form onSubmit={async (e: React.FormEvent) => {
+                <form onSubmit={async (e: React.SubmitEvent<HTMLFormElement>) => {
                     e.preventDefault();
                     if (!geoFile) return;
 
