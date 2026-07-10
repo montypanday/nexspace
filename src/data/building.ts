@@ -2,7 +2,7 @@ import 'server-only'
 import { requireAuth, verifyOrgMembership } from './auth'
 import prisma from "@/lib/prisma"
 import { z } from "zod";
-import { BuildingGetPayload, BuildingSelect } from '@/app/generated/prisma/models';
+import { BuildingGetPayload, BuildingSelect } from '@/generated/prisma/models';
 import { AddBuildingInput, AddBuildingSchema, UpdateBuildingFootprintInput, UpdateBuildingFootprintSchema } from '@/lib/definitions';
 import { LatLngExpression } from 'leaflet';
 

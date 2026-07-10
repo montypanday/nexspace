@@ -246,7 +246,7 @@ export type BuildingCreateInput = {
   id?: string
   name: string
   address?: string | null
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorCreateNestedManyWithoutBuildingInput
   location: Prisma.LocationCreateNestedOneWithoutBuildingsInput
   org: Prisma.OrganizationCreateNestedOneWithoutBuildingsInput
@@ -258,7 +258,7 @@ export type BuildingUncheckedCreateInput = {
   address?: string | null
   locationId: string
   orgId: string
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutBuildingInput
 }
 
@@ -288,7 +288,7 @@ export type BuildingCreateManyInput = {
   address?: string | null
   locationId: string
   orgId: string
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingUpdateManyMutationInput = {
@@ -449,7 +449,7 @@ export type BuildingCreateWithoutOrgInput = {
   id?: string
   name: string
   address?: string | null
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorCreateNestedManyWithoutBuildingInput
   location: Prisma.LocationCreateNestedOneWithoutBuildingsInput
 }
@@ -459,7 +459,7 @@ export type BuildingUncheckedCreateWithoutOrgInput = {
   name: string
   address?: string | null
   locationId: string
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutBuildingInput
 }
 
@@ -505,7 +505,7 @@ export type BuildingCreateWithoutLocationInput = {
   id?: string
   name: string
   address?: string | null
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorCreateNestedManyWithoutBuildingInput
   org: Prisma.OrganizationCreateNestedOneWithoutBuildingsInput
 }
@@ -515,7 +515,7 @@ export type BuildingUncheckedCreateWithoutLocationInput = {
   name: string
   address?: string | null
   orgId: string
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutBuildingInput
 }
 
@@ -549,7 +549,7 @@ export type BuildingCreateWithoutFloorsInput = {
   id?: string
   name: string
   address?: string | null
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   location: Prisma.LocationCreateNestedOneWithoutBuildingsInput
   org: Prisma.OrganizationCreateNestedOneWithoutBuildingsInput
 }
@@ -560,7 +560,7 @@ export type BuildingUncheckedCreateWithoutFloorsInput = {
   address?: string | null
   locationId: string
   orgId: string
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingCreateOrConnectWithoutFloorsInput = {
@@ -602,7 +602,7 @@ export type BuildingCreateManyOrgInput = {
   name: string
   address?: string | null
   locationId: string
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingUpdateWithoutOrgInput = {
@@ -636,7 +636,7 @@ export type BuildingCreateManyLocationInput = {
   name: string
   address?: string | null
   orgId: string
-  footprints: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  footprints?: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type BuildingUpdateWithoutLocationInput = {

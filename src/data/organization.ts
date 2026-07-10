@@ -3,7 +3,7 @@ import 'server-only'
 import { requireAuth, verifyOrgMembership } from './auth'
 import prisma from "@/lib/prisma"
 import { z } from "zod";
-import { OrganizationGetPayload, OrganizationSelect } from '@/app/generated/prisma/models';
+import { OrganizationGetPayload, OrganizationSelect } from '@/generated/prisma/models';
 import { AddOrganizationInput, AddOrganizationSchema } from '@/lib/definitions';
 
 export interface OrganizationDto {

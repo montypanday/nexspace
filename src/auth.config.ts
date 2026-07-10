@@ -2,7 +2,7 @@ import GitHub from "next-auth/providers/github"
 import type { NextAuthConfig } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { prisma } from "@/prisma"
-import { User } from "./app/generated/prisma/client"
+import { User } from "@/generated/prisma/client"
 import { z } from 'zod';
 import { comparePasswords } from "@/lib/utils"
 

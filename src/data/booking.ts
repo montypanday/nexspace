@@ -2,7 +2,7 @@ import 'server-only'
 import { requireAuth, verifyOrgMembership } from './auth'
 import prisma from "@/lib/prisma"
 import { z } from "zod";
-import { BookingGetPayload, BookingSelect } from '@/app/generated/prisma/models'
+import { BookingGetPayload, BookingSelect } from '@/generated/prisma/models'
 import { AddBookingInput, AddBookingSchema } from '@/lib/definitions';
 
 export interface BookingDto {

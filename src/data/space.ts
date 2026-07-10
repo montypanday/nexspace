@@ -2,7 +2,7 @@ import 'server-only'
 import { requireAuth, verifyOrgMembership } from './auth'
 import prisma from "@/lib/prisma"
 import { z } from "zod";
-import { SpaceGetPayload, SpaceSelect } from '@/app/generated/prisma/models'
+import { SpaceGetPayload, SpaceSelect } from '@/generated/prisma/models'
 import { AddSpaceInput, AddSpaceSchema } from '@/lib/definitions';
 import { id } from 'date-fns/locale';
 

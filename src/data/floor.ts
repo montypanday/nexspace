@@ -2,7 +2,7 @@ import 'server-only';
 import { requireAuth, verifyOrgMembership } from './auth'
 import prisma from "@/lib/prisma"
 import { z } from "zod";
-import { FloorGetPayload, FloorSelect } from '@/app/generated/prisma/models';
+import { FloorGetPayload, FloorSelect } from '@/generated/prisma/models';
 import { AddFloorInput, AddFloorSchema } from '@/lib/definitions';
 
 export interface FloorDto {
