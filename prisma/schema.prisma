@@ -1,0 +1,209 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String             @id @default(uuid())
+  name          String?
+  email         String             @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
+  organizations UserOrganization[]
+  bookings      Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user")
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+  @@map("account")
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("session")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+  @@map("verification_token")
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+  @@map("authenticator")
+}
+
+model UserOrganization {
+  userId    String
+  orgId     String
+  createdAt DateTime @default(now())
+
+  user         User         @relation(fields: [userId], references: [id])
+  organization Organization @relation(fields: [orgId], references: [id])
+
+  @@id([userId, orgId]) // Composite Primary Key
+  @@map("user_organization")
+}
+
+model Organization {
+  id         String             @id @default(uuid())
+  name       String
+  createdAt  DateTime           @default(now())
+  externalId String?
+  locations  Location[]
+  buildings  Building[]
+  floors     Floor[]
+  users      UserOrganization[]
+  bookings   Booking[]
+  spaces     Space[]
+
+  @@index([externalId])
+  @@map("organization")
+}
+
+model Location {
+  id        String     @id @default(uuid())
+  name      String
+  address   String?
+  tz        String?
+  createdAt DateTime   @default(now())
+  orgId     String
+  buildings Building[]
+  latitude  Float
+  longitude Float
+
+  org Organization @relation(fields: [orgId], references: [id])
+
+  @@index([orgId])
+  @@map("location")
+}
+
+model Building {
+  id         String  @id @default(uuid())
+  name       String
+  address    String?
+  locationId String
+  orgId      String
+  floors     Floor[]
+  footprints Json    @default("[]")
+
+  location Location     @relation(fields: [locationId], references: [id])
+  org      Organization @relation(fields: [orgId], references: [id])
+
+  @@index([locationId, orgId])
+  @@map("building")
+}
+
+model Floor {
+  id           String       @id @default(uuid())
+  name         String
+  orgId        String
+  buildingId   String
+  spaces       Space[]
+  building     Building     @relation(fields: [buildingId], references: [id])
+  organization Organization @relation(fields: [orgId], references: [id])
+
+  @@index([buildingId, orgId])
+  @@map("floor")
+}
+
+enum SpaceStatus {
+  AVAILABLE   @map("available")
+  OCCUPIED    @map("occupied")
+  RESERVED    @map("reserved")
+  MAINTENANCE @map("maintenance")
+}
+
+model Space {
+  id           String       @id @default(uuid())
+  name         String
+  status       SpaceStatus  @default(AVAILABLE)
+  bookings     Booking[]
+  orgId        String
+  organization Organization @relation(fields: [orgId], references: [id])
+  floor        Floor        @relation(fields: [floorId], references: [id])
+  floorId      String
+
+  @@map("space")
+}
+
+model Booking {
+  id        String   @id @default(uuid())
+  orgId     String
+  spaceId   String
+  userId    String
+  title     String
+  startTs   DateTime
+  endTs     DateTime
+  allDay    Boolean  @default(false)
+  url       String?
+  createdAt DateTime @default(now())
+
+  organization Organization @relation(fields: [orgId], references: [id])
+  space        Space        @relation(fields: [spaceId], references: [id])
+  user         User         @relation(fields: [userId], references: [id])
+
+  @@index([orgId])
+  @@index([spaceId, startTs, endTs])
+  @@index([orgId, userId, startTs, endTs])
+  @@map("booking")
+}
