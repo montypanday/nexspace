@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
-import { ModeToggle } from "@/components/theme-toggle";
-import { NavUser } from "@/components/nav-user";
+import { ThemeProvider } from "@/components/layout/theme-provider"
+import { ModeToggle } from "@/components/layout/theme-toggle";
+import { NavUser } from "@/components/layout/nav-user";
 import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

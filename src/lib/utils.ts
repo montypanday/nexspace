@@ -1,8 +1,8 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import bcrypt from 'bcryptjs';
-import { ElementProps, ElementType } from '@/components/designer/element';
-import { geoPath, geoIdentity } from "d3-geo";
+import { ElementProps, ElementType } from '@/features/floors/components/designer/element';
+import { geoIdentity } from "d3-geo";
 import rewind from '@turf/rewind';
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry, GeometryCollection } from 'geojson';
 import { point } from 'leaflet';

@@ -1,8 +1,9 @@
 // app/api/events/route.ts
-import { BookingDto, getUserBookings } from "@/data/booking";
+import { getUserBookings } from "@/features/bookings/server/queries";
 import { NextRequest, NextResponse } from "next/server";
 import { dateRangeSchema } from "@/lib/definitions"
 import z from "zod";
+import {BookingDto} from "@/features/bookings/types";
 
 export async function GET(request: NextRequest) {
     // 1. Extract query params and convert to an object

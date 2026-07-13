@@ -1,7 +1,7 @@
 "use server"
 
-import Calendar from "@/components/calendar"
-import { TabsIcons } from "@/components/nav-tabs";
+import Calendar from "@/components/calendar/calendar"
+import { TabsIcons } from "@/components/layout/nav-tabs";
 
 export default async function ShowBookingsPage() {
 
