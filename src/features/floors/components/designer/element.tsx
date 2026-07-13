@@ -12,6 +12,7 @@ import { RectangleKonva } from "./elements/konva/rectangle";
 import { TextKonva } from "./elements/konva/text";
 import { LineKonva } from "./elements/konva/line";
 import { PolygonKonva } from "./elements/konva/polygon";
+import React from "react";
 
 export enum ElementType {
     Text = 'text',
@@ -75,38 +76,38 @@ export function getElementDefaultAttrs(elementType: string | undefined): object 
 
 export function SpawnedElement(props: ElementProps): React.ReactNode {
 
-    const { type, ...cleanprops } = props
-    const newprops = {
-        ...cleanprops.attrs,
-        ...cleanprops
+    const { type, ...cleanProps } = props
+    const newProps = {
+        ...cleanProps.attrs,
+        ...cleanProps
     }
     switch (type) {
         case ElementType.Text:
-            return <TextKonva {...newprops} />
+            return <TextKonva {...newProps} />
         case ElementType.Line:
-            return <LineKonva {...newprops} />
+            return <LineKonva {...newProps} />
         case ElementType.Polygon:
-            return <PolygonKonva {...newprops} />
+            return <PolygonKonva {...newProps} />
         case ElementType.Circle:
-            return <CircleKonva {...newprops} />
+            return <CircleKonva {...newProps} />
         case ElementType.Rectangle:
-            return <RectangleKonva {...newprops} />
+            return <RectangleKonva {...newProps} />
         case ElementType.DeskSingle:
-            return <DeskSingleKonva {...newprops} />
+            return <DeskSingleKonva {...newProps} />
         case ElementType.DeskLShape:
-            return <DeskLShapeKonva {...newprops} />
+            return <DeskLShapeKonva {...newProps} />
         case ElementType.DeskDouble:
-            return <DeskDoubleKonva {...newprops} />
+            return <DeskDoubleKonva {...newProps} />
         case ElementType.DeskRow3:
-            return <DeskRow3Konva {...newprops} />
+            return <DeskRow3Konva {...newProps} />
         case ElementType.DeskPod4:
-            return <DeskPod4Konva {...newprops} />
+            return <DeskPod4Konva {...newProps} />
         case ElementType.Meeting4:
-            return <Meeting4Konva {...newprops} />
+            return <Meeting4Konva {...newProps} />
         case ElementType.Meeting6:
-            return <Meeting6Konva {...newprops} />
+            return <Meeting6Konva {...newProps} />
         case ElementType.Meeting10:
-            return <Meeting10Konva {...newprops} />
+            return <Meeting10Konva {...newProps} />
         default:
             return null
     }

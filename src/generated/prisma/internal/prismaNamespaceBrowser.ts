@@ -61,6 +61,9 @@ export const ModelName = {
   Location: 'Location',
   Building: 'Building',
   Floor: 'Floor',
+  BookableAsset: 'BookableAsset',
+  FloorPlan: 'FloorPlan',
+  FloorPlanElement: 'FloorPlanElement',
   Space: 'Space',
   Booking: 'Booking'
 } as const
@@ -197,10 +200,43 @@ export const FloorScalarFieldEnum = {
   id: 'id',
   name: 'name',
   orgId: 'orgId',
-  buildingId: 'buildingId'
+  buildingId: 'buildingId',
+  activeFloorPlanId: 'activeFloorPlanId'
 } as const
 
 export type FloorScalarFieldEnum = (typeof FloorScalarFieldEnum)[keyof typeof FloorScalarFieldEnum]
+
+
+export const BookableAssetScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  orgId: 'orgId',
+  floorId: 'floorId'
+} as const
+
+export type BookableAssetScalarFieldEnum = (typeof BookableAssetScalarFieldEnum)[keyof typeof BookableAssetScalarFieldEnum]
+
+
+export const FloorPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  floorId: 'floorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FloorPlanScalarFieldEnum = (typeof FloorPlanScalarFieldEnum)[keyof typeof FloorPlanScalarFieldEnum]
+
+
+export const FloorPlanElementScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  attrs: 'attrs',
+  floorPlanId: 'floorPlanId',
+  spaceId: 'spaceId'
+} as const
+
+export type FloorPlanElementScalarFieldEnum = (typeof FloorPlanElementScalarFieldEnum)[keyof typeof FloorPlanElementScalarFieldEnum]
 
 
 export const SpaceScalarFieldEnum = {
@@ -208,7 +244,9 @@ export const SpaceScalarFieldEnum = {
   name: 'name',
   status: 'status',
   orgId: 'orgId',
-  floorId: 'floorId'
+  floorId: 'floorId',
+  floorPlanId: 'floorPlanId',
+  assetId: 'assetId'
 } as const
 
 export type SpaceScalarFieldEnum = (typeof SpaceScalarFieldEnum)[keyof typeof SpaceScalarFieldEnum]
@@ -224,7 +262,8 @@ export const BookingScalarFieldEnum = {
   endTs: 'endTs',
   allDay: 'allDay',
   url: 'url',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  bookableAssetId: 'bookableAssetId'
 } as const
 
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]

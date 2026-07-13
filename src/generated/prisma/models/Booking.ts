@@ -35,6 +35,7 @@ export type BookingMinAggregateOutputType = {
   allDay: boolean | null
   url: string | null
   createdAt: Date | null
+  bookableAssetId: string | null
 }
 
 export type BookingMaxAggregateOutputType = {
@@ -48,6 +49,7 @@ export type BookingMaxAggregateOutputType = {
   allDay: boolean | null
   url: string | null
   createdAt: Date | null
+  bookableAssetId: string | null
 }
 
 export type BookingCountAggregateOutputType = {
@@ -61,6 +63,7 @@ export type BookingCountAggregateOutputType = {
   allDay: number
   url: number
   createdAt: number
+  bookableAssetId: number
   _all: number
 }
 
@@ -76,6 +79,7 @@ export type BookingMinAggregateInputType = {
   allDay?: true
   url?: true
   createdAt?: true
+  bookableAssetId?: true
 }
 
 export type BookingMaxAggregateInputType = {
@@ -89,6 +93,7 @@ export type BookingMaxAggregateInputType = {
   allDay?: true
   url?: true
   createdAt?: true
+  bookableAssetId?: true
 }
 
 export type BookingCountAggregateInputType = {
@@ -102,6 +107,7 @@ export type BookingCountAggregateInputType = {
   allDay?: true
   url?: true
   createdAt?: true
+  bookableAssetId?: true
   _all?: true
 }
 
@@ -188,6 +194,7 @@ export type BookingGroupByOutputType = {
   allDay: boolean
   url: string | null
   createdAt: Date
+  bookableAssetId: string | null
   _count: BookingCountAggregateOutputType | null
   _min: BookingMinAggregateOutputType | null
   _max: BookingMaxAggregateOutputType | null
@@ -222,9 +229,11 @@ export type BookingWhereInput = {
   allDay?: Prisma.BoolFilter<"Booking"> | boolean
   url?: Prisma.StringNullableFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  bookableAssetId?: Prisma.StringNullableFilter<"Booking"> | string | null
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   space?: Prisma.XOR<Prisma.SpaceScalarRelationFilter, Prisma.SpaceWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  bookableAsset?: Prisma.XOR<Prisma.BookableAssetNullableScalarRelationFilter, Prisma.BookableAssetWhereInput> | null
 }
 
 export type BookingOrderByWithRelationInput = {
@@ -238,9 +247,11 @@ export type BookingOrderByWithRelationInput = {
   allDay?: Prisma.SortOrder
   url?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  bookableAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   organization?: Prisma.OrganizationOrderByWithRelationInput
   space?: Prisma.SpaceOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
+  bookableAsset?: Prisma.BookableAssetOrderByWithRelationInput
 }
 
 export type BookingWhereUniqueInput = Prisma.AtLeast<{
@@ -257,9 +268,11 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   allDay?: Prisma.BoolFilter<"Booking"> | boolean
   url?: Prisma.StringNullableFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  bookableAssetId?: Prisma.StringNullableFilter<"Booking"> | string | null
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   space?: Prisma.XOR<Prisma.SpaceScalarRelationFilter, Prisma.SpaceWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  bookableAsset?: Prisma.XOR<Prisma.BookableAssetNullableScalarRelationFilter, Prisma.BookableAssetWhereInput> | null
 }, "id">
 
 export type BookingOrderByWithAggregationInput = {
@@ -273,6 +286,7 @@ export type BookingOrderByWithAggregationInput = {
   allDay?: Prisma.SortOrder
   url?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  bookableAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.BookingCountOrderByAggregateInput
   _max?: Prisma.BookingMaxOrderByAggregateInput
   _min?: Prisma.BookingMinOrderByAggregateInput
@@ -292,6 +306,7 @@ export type BookingScalarWhereWithAggregatesInput = {
   allDay?: Prisma.BoolWithAggregatesFilter<"Booking"> | boolean
   url?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
+  bookableAssetId?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
 }
 
 export type BookingCreateInput = {
@@ -305,6 +320,7 @@ export type BookingCreateInput = {
   organization: Prisma.OrganizationCreateNestedOneWithoutBookingsInput
   space: Prisma.SpaceCreateNestedOneWithoutBookingsInput
   user: Prisma.UserCreateNestedOneWithoutBookingsInput
+  bookableAsset?: Prisma.BookableAssetCreateNestedOneWithoutBookingsInput
 }
 
 export type BookingUncheckedCreateInput = {
@@ -318,6 +334,7 @@ export type BookingUncheckedCreateInput = {
   allDay?: boolean
   url?: string | null
   createdAt?: Date | string
+  bookableAssetId?: string | null
 }
 
 export type BookingUpdateInput = {
@@ -331,6 +348,7 @@ export type BookingUpdateInput = {
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutBookingsNestedInput
   space?: Prisma.SpaceUpdateOneRequiredWithoutBookingsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
+  bookableAsset?: Prisma.BookableAssetUpdateOneWithoutBookingsNestedInput
 }
 
 export type BookingUncheckedUpdateInput = {
@@ -344,6 +362,7 @@ export type BookingUncheckedUpdateInput = {
   allDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookableAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BookingCreateManyInput = {
@@ -357,6 +376,7 @@ export type BookingCreateManyInput = {
   allDay?: boolean
   url?: string | null
   createdAt?: Date | string
+  bookableAssetId?: string | null
 }
 
 export type BookingUpdateManyMutationInput = {
@@ -380,6 +400,7 @@ export type BookingUncheckedUpdateManyInput = {
   allDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookableAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BookingListRelationFilter = {
@@ -403,6 +424,7 @@ export type BookingCountOrderByAggregateInput = {
   allDay?: Prisma.SortOrder
   url?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  bookableAssetId?: Prisma.SortOrder
 }
 
 export type BookingMaxOrderByAggregateInput = {
@@ -416,6 +438,7 @@ export type BookingMaxOrderByAggregateInput = {
   allDay?: Prisma.SortOrder
   url?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  bookableAssetId?: Prisma.SortOrder
 }
 
 export type BookingMinOrderByAggregateInput = {
@@ -429,6 +452,7 @@ export type BookingMinOrderByAggregateInput = {
   allDay?: Prisma.SortOrder
   url?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  bookableAssetId?: Prisma.SortOrder
 }
 
 export type BookingCreateNestedManyWithoutUserInput = {
@@ -515,6 +539,48 @@ export type BookingUncheckedUpdateManyWithoutOrganizationNestedInput = {
   deleteMany?: Prisma.BookingScalarWhereInput | Prisma.BookingScalarWhereInput[]
 }
 
+export type BookingCreateNestedManyWithoutBookableAssetInput = {
+  create?: Prisma.XOR<Prisma.BookingCreateWithoutBookableAssetInput, Prisma.BookingUncheckedCreateWithoutBookableAssetInput> | Prisma.BookingCreateWithoutBookableAssetInput[] | Prisma.BookingUncheckedCreateWithoutBookableAssetInput[]
+  connectOrCreate?: Prisma.BookingCreateOrConnectWithoutBookableAssetInput | Prisma.BookingCreateOrConnectWithoutBookableAssetInput[]
+  createMany?: Prisma.BookingCreateManyBookableAssetInputEnvelope
+  connect?: Prisma.BookingWhereUniqueInput | Prisma.BookingWhereUniqueInput[]
+}
+
+export type BookingUncheckedCreateNestedManyWithoutBookableAssetInput = {
+  create?: Prisma.XOR<Prisma.BookingCreateWithoutBookableAssetInput, Prisma.BookingUncheckedCreateWithoutBookableAssetInput> | Prisma.BookingCreateWithoutBookableAssetInput[] | Prisma.BookingUncheckedCreateWithoutBookableAssetInput[]
+  connectOrCreate?: Prisma.BookingCreateOrConnectWithoutBookableAssetInput | Prisma.BookingCreateOrConnectWithoutBookableAssetInput[]
+  createMany?: Prisma.BookingCreateManyBookableAssetInputEnvelope
+  connect?: Prisma.BookingWhereUniqueInput | Prisma.BookingWhereUniqueInput[]
+}
+
+export type BookingUpdateManyWithoutBookableAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.BookingCreateWithoutBookableAssetInput, Prisma.BookingUncheckedCreateWithoutBookableAssetInput> | Prisma.BookingCreateWithoutBookableAssetInput[] | Prisma.BookingUncheckedCreateWithoutBookableAssetInput[]
+  connectOrCreate?: Prisma.BookingCreateOrConnectWithoutBookableAssetInput | Prisma.BookingCreateOrConnectWithoutBookableAssetInput[]
+  upsert?: Prisma.BookingUpsertWithWhereUniqueWithoutBookableAssetInput | Prisma.BookingUpsertWithWhereUniqueWithoutBookableAssetInput[]
+  createMany?: Prisma.BookingCreateManyBookableAssetInputEnvelope
+  set?: Prisma.BookingWhereUniqueInput | Prisma.BookingWhereUniqueInput[]
+  disconnect?: Prisma.BookingWhereUniqueInput | Prisma.BookingWhereUniqueInput[]
+  delete?: Prisma.BookingWhereUniqueInput | Prisma.BookingWhereUniqueInput[]
+  connect?: Prisma.BookingWhereUniqueInput | Prisma.BookingWhereUniqueInput[]
+  update?: Prisma.BookingUpdateWithWhereUniqueWithoutBookableAssetInput | Prisma.BookingUpdateWithWhereUniqueWithoutBookableAssetInput[]
+  updateMany?: Prisma.BookingUpdateManyWithWhereWithoutBookableAssetInput | Prisma.BookingUpdateManyWithWhereWithoutBookableAssetInput[]
+  deleteMany?: Prisma.BookingScalarWhereInput | Prisma.BookingScalarWhereInput[]
+}
+
+export type BookingUncheckedUpdateManyWithoutBookableAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.BookingCreateWithoutBookableAssetInput, Prisma.BookingUncheckedCreateWithoutBookableAssetInput> | Prisma.BookingCreateWithoutBookableAssetInput[] | Prisma.BookingUncheckedCreateWithoutBookableAssetInput[]
+  connectOrCreate?: Prisma.BookingCreateOrConnectWithoutBookableAssetInput | Prisma.BookingCreateOrConnectWithoutBookableAssetInput[]
+  upsert?: Prisma.BookingUpsertWithWhereUniqueWithoutBookableAssetInput | Prisma.BookingUpsertWithWhereUniqueWithoutBookableAssetInput[]
+  createMany?: Prisma.BookingCreateManyBookableAssetInputEnvelope
+  set?: Prisma.BookingWhereUniqueInput | Prisma.BookingWhereUniqueInput[]
+  disconnect?: Prisma.BookingWhereUniqueInput | Prisma.BookingWhereUniqueInput[]
+  delete?: Prisma.BookingWhereUniqueInput | Prisma.BookingWhereUniqueInput[]
+  connect?: Prisma.BookingWhereUniqueInput | Prisma.BookingWhereUniqueInput[]
+  update?: Prisma.BookingUpdateWithWhereUniqueWithoutBookableAssetInput | Prisma.BookingUpdateWithWhereUniqueWithoutBookableAssetInput[]
+  updateMany?: Prisma.BookingUpdateManyWithWhereWithoutBookableAssetInput | Prisma.BookingUpdateManyWithWhereWithoutBookableAssetInput[]
+  deleteMany?: Prisma.BookingScalarWhereInput | Prisma.BookingScalarWhereInput[]
+}
+
 export type BookingCreateNestedManyWithoutSpaceInput = {
   create?: Prisma.XOR<Prisma.BookingCreateWithoutSpaceInput, Prisma.BookingUncheckedCreateWithoutSpaceInput> | Prisma.BookingCreateWithoutSpaceInput[] | Prisma.BookingUncheckedCreateWithoutSpaceInput[]
   connectOrCreate?: Prisma.BookingCreateOrConnectWithoutSpaceInput | Prisma.BookingCreateOrConnectWithoutSpaceInput[]
@@ -567,6 +633,7 @@ export type BookingCreateWithoutUserInput = {
   createdAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutBookingsInput
   space: Prisma.SpaceCreateNestedOneWithoutBookingsInput
+  bookableAsset?: Prisma.BookableAssetCreateNestedOneWithoutBookingsInput
 }
 
 export type BookingUncheckedCreateWithoutUserInput = {
@@ -579,6 +646,7 @@ export type BookingUncheckedCreateWithoutUserInput = {
   allDay?: boolean
   url?: string | null
   createdAt?: Date | string
+  bookableAssetId?: string | null
 }
 
 export type BookingCreateOrConnectWithoutUserInput = {
@@ -621,6 +689,7 @@ export type BookingScalarWhereInput = {
   allDay?: Prisma.BoolFilter<"Booking"> | boolean
   url?: Prisma.StringNullableFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  bookableAssetId?: Prisma.StringNullableFilter<"Booking"> | string | null
 }
 
 export type BookingCreateWithoutOrganizationInput = {
@@ -633,6 +702,7 @@ export type BookingCreateWithoutOrganizationInput = {
   createdAt?: Date | string
   space: Prisma.SpaceCreateNestedOneWithoutBookingsInput
   user: Prisma.UserCreateNestedOneWithoutBookingsInput
+  bookableAsset?: Prisma.BookableAssetCreateNestedOneWithoutBookingsInput
 }
 
 export type BookingUncheckedCreateWithoutOrganizationInput = {
@@ -645,6 +715,7 @@ export type BookingUncheckedCreateWithoutOrganizationInput = {
   allDay?: boolean
   url?: string | null
   createdAt?: Date | string
+  bookableAssetId?: string | null
 }
 
 export type BookingCreateOrConnectWithoutOrganizationInput = {
@@ -673,6 +744,58 @@ export type BookingUpdateManyWithWhereWithoutOrganizationInput = {
   data: Prisma.XOR<Prisma.BookingUpdateManyMutationInput, Prisma.BookingUncheckedUpdateManyWithoutOrganizationInput>
 }
 
+export type BookingCreateWithoutBookableAssetInput = {
+  id?: string
+  title: string
+  startTs: Date | string
+  endTs: Date | string
+  allDay?: boolean
+  url?: string | null
+  createdAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutBookingsInput
+  space: Prisma.SpaceCreateNestedOneWithoutBookingsInput
+  user: Prisma.UserCreateNestedOneWithoutBookingsInput
+}
+
+export type BookingUncheckedCreateWithoutBookableAssetInput = {
+  id?: string
+  orgId: string
+  spaceId: string
+  userId: string
+  title: string
+  startTs: Date | string
+  endTs: Date | string
+  allDay?: boolean
+  url?: string | null
+  createdAt?: Date | string
+}
+
+export type BookingCreateOrConnectWithoutBookableAssetInput = {
+  where: Prisma.BookingWhereUniqueInput
+  create: Prisma.XOR<Prisma.BookingCreateWithoutBookableAssetInput, Prisma.BookingUncheckedCreateWithoutBookableAssetInput>
+}
+
+export type BookingCreateManyBookableAssetInputEnvelope = {
+  data: Prisma.BookingCreateManyBookableAssetInput | Prisma.BookingCreateManyBookableAssetInput[]
+  skipDuplicates?: boolean
+}
+
+export type BookingUpsertWithWhereUniqueWithoutBookableAssetInput = {
+  where: Prisma.BookingWhereUniqueInput
+  update: Prisma.XOR<Prisma.BookingUpdateWithoutBookableAssetInput, Prisma.BookingUncheckedUpdateWithoutBookableAssetInput>
+  create: Prisma.XOR<Prisma.BookingCreateWithoutBookableAssetInput, Prisma.BookingUncheckedCreateWithoutBookableAssetInput>
+}
+
+export type BookingUpdateWithWhereUniqueWithoutBookableAssetInput = {
+  where: Prisma.BookingWhereUniqueInput
+  data: Prisma.XOR<Prisma.BookingUpdateWithoutBookableAssetInput, Prisma.BookingUncheckedUpdateWithoutBookableAssetInput>
+}
+
+export type BookingUpdateManyWithWhereWithoutBookableAssetInput = {
+  where: Prisma.BookingScalarWhereInput
+  data: Prisma.XOR<Prisma.BookingUpdateManyMutationInput, Prisma.BookingUncheckedUpdateManyWithoutBookableAssetInput>
+}
+
 export type BookingCreateWithoutSpaceInput = {
   id?: string
   title: string
@@ -683,6 +806,7 @@ export type BookingCreateWithoutSpaceInput = {
   createdAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutBookingsInput
   user: Prisma.UserCreateNestedOneWithoutBookingsInput
+  bookableAsset?: Prisma.BookableAssetCreateNestedOneWithoutBookingsInput
 }
 
 export type BookingUncheckedCreateWithoutSpaceInput = {
@@ -695,6 +819,7 @@ export type BookingUncheckedCreateWithoutSpaceInput = {
   allDay?: boolean
   url?: string | null
   createdAt?: Date | string
+  bookableAssetId?: string | null
 }
 
 export type BookingCreateOrConnectWithoutSpaceInput = {
@@ -733,6 +858,7 @@ export type BookingCreateManyUserInput = {
   allDay?: boolean
   url?: string | null
   createdAt?: Date | string
+  bookableAssetId?: string | null
 }
 
 export type BookingUpdateWithoutUserInput = {
@@ -745,6 +871,7 @@ export type BookingUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutBookingsNestedInput
   space?: Prisma.SpaceUpdateOneRequiredWithoutBookingsNestedInput
+  bookableAsset?: Prisma.BookableAssetUpdateOneWithoutBookingsNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutUserInput = {
@@ -757,6 +884,7 @@ export type BookingUncheckedUpdateWithoutUserInput = {
   allDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookableAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BookingUncheckedUpdateManyWithoutUserInput = {
@@ -769,6 +897,7 @@ export type BookingUncheckedUpdateManyWithoutUserInput = {
   allDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookableAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BookingCreateManyOrganizationInput = {
@@ -781,6 +910,7 @@ export type BookingCreateManyOrganizationInput = {
   allDay?: boolean
   url?: string | null
   createdAt?: Date | string
+  bookableAssetId?: string | null
 }
 
 export type BookingUpdateWithoutOrganizationInput = {
@@ -793,6 +923,7 @@ export type BookingUpdateWithoutOrganizationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   space?: Prisma.SpaceUpdateOneRequiredWithoutBookingsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
+  bookableAsset?: Prisma.BookableAssetUpdateOneWithoutBookingsNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutOrganizationInput = {
@@ -805,10 +936,64 @@ export type BookingUncheckedUpdateWithoutOrganizationInput = {
   allDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookableAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BookingUncheckedUpdateManyWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  spaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  startTs?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endTs?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  allDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookableAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type BookingCreateManyBookableAssetInput = {
+  id?: string
+  orgId: string
+  spaceId: string
+  userId: string
+  title: string
+  startTs: Date | string
+  endTs: Date | string
+  allDay?: boolean
+  url?: string | null
+  createdAt?: Date | string
+}
+
+export type BookingUpdateWithoutBookableAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  startTs?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endTs?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  allDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutBookingsNestedInput
+  space?: Prisma.SpaceUpdateOneRequiredWithoutBookingsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
+}
+
+export type BookingUncheckedUpdateWithoutBookableAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  spaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  startTs?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endTs?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  allDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BookingUncheckedUpdateManyWithoutBookableAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.StringFieldUpdateOperationsInput | string
   spaceId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
@@ -829,6 +1014,7 @@ export type BookingCreateManySpaceInput = {
   allDay?: boolean
   url?: string | null
   createdAt?: Date | string
+  bookableAssetId?: string | null
 }
 
 export type BookingUpdateWithoutSpaceInput = {
@@ -841,6 +1027,7 @@ export type BookingUpdateWithoutSpaceInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutBookingsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
+  bookableAsset?: Prisma.BookableAssetUpdateOneWithoutBookingsNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutSpaceInput = {
@@ -853,6 +1040,7 @@ export type BookingUncheckedUpdateWithoutSpaceInput = {
   allDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookableAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BookingUncheckedUpdateManyWithoutSpaceInput = {
@@ -865,6 +1053,7 @@ export type BookingUncheckedUpdateManyWithoutSpaceInput = {
   allDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookableAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -880,9 +1069,11 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   allDay?: boolean
   url?: boolean
   createdAt?: boolean
+  bookableAssetId?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   space?: boolean | Prisma.SpaceDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  bookableAsset?: boolean | Prisma.Booking$bookableAssetArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
 export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -896,9 +1087,11 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   allDay?: boolean
   url?: boolean
   createdAt?: boolean
+  bookableAssetId?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   space?: boolean | Prisma.SpaceDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  bookableAsset?: boolean | Prisma.Booking$bookableAssetArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
 export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -912,9 +1105,11 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   allDay?: boolean
   url?: boolean
   createdAt?: boolean
+  bookableAssetId?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   space?: boolean | Prisma.SpaceDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  bookableAsset?: boolean | Prisma.Booking$bookableAssetArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
 export type BookingSelectScalar = {
@@ -928,23 +1123,27 @@ export type BookingSelectScalar = {
   allDay?: boolean
   url?: boolean
   createdAt?: boolean
+  bookableAssetId?: boolean
 }
 
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orgId" | "spaceId" | "userId" | "title" | "startTs" | "endTs" | "allDay" | "url" | "createdAt", ExtArgs["result"]["booking"]>
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orgId" | "spaceId" | "userId" | "title" | "startTs" | "endTs" | "allDay" | "url" | "createdAt" | "bookableAssetId", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   space?: boolean | Prisma.SpaceDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  bookableAsset?: boolean | Prisma.Booking$bookableAssetArgs<ExtArgs>
 }
 export type BookingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   space?: boolean | Prisma.SpaceDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  bookableAsset?: boolean | Prisma.Booking$bookableAssetArgs<ExtArgs>
 }
 export type BookingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   space?: boolean | Prisma.SpaceDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  bookableAsset?: boolean | Prisma.Booking$bookableAssetArgs<ExtArgs>
 }
 
 export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -953,6 +1152,7 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     organization: Prisma.$OrganizationPayload<ExtArgs>
     space: Prisma.$SpacePayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs>
+    bookableAsset: Prisma.$BookableAssetPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -965,6 +1165,7 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     allDay: boolean
     url: string | null
     createdAt: Date
+    bookableAssetId: string | null
   }, ExtArgs["result"]["booking"]>
   composites: {}
 }
@@ -1362,6 +1563,7 @@ export interface Prisma__BookingClient<T, Null = never, ExtArgs extends runtime.
   organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   space<T extends Prisma.SpaceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SpaceDefaultArgs<ExtArgs>>): Prisma.Prisma__SpaceClient<runtime.Types.Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  bookableAsset<T extends Prisma.Booking$bookableAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$bookableAssetArgs<ExtArgs>>): Prisma.Prisma__BookableAssetClient<runtime.Types.Result.GetResult<Prisma.$BookableAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1401,6 +1603,7 @@ export interface BookingFieldRefs {
   readonly allDay: Prisma.FieldRef<"Booking", 'Boolean'>
   readonly url: Prisma.FieldRef<"Booking", 'String'>
   readonly createdAt: Prisma.FieldRef<"Booking", 'DateTime'>
+  readonly bookableAssetId: Prisma.FieldRef<"Booking", 'String'>
 }
     
 
@@ -1799,6 +2002,25 @@ export type BookingDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Bookings to delete.
    */
   limit?: number
+}
+
+/**
+ * Booking.bookableAsset
+ */
+export type Booking$bookableAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BookableAsset
+   */
+  select?: Prisma.BookableAssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BookableAsset
+   */
+  omit?: Prisma.BookableAssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookableAssetInclude<ExtArgs> | null
+  where?: Prisma.BookableAssetWhereInput
 }
 
 /**

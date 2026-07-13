@@ -162,8 +162,65 @@ model Floor {
   building     Building     @relation(fields: [buildingId], references: [id])
   organization Organization @relation(fields: [orgId], references: [id])
 
+  // 1. Permanent physical inventory on this floor
+  assets BookableAsset[]
+
+  // 2. Versioned visual configurations
+  floorPlans        FloorPlan[] @relation("FloorToFloorPlans")
+  activeFloorPlanId String?     @unique
+  activeFloorPlan   FloorPlan?  @relation("ActiveFloorPlan", fields: [activeFloorPlanId], references: [id], onDelete: SetNull)
+
   @@index([buildingId, orgId])
   @@map("floor")
+}
+
+// NEW: This holds the permanent identity and booking records
+model BookableAsset {
+  id      String @id @default(uuid())
+  name    String // e.g., "Desk A-12"
+  orgId   String
+  floorId String
+  floor   Floor  @relation(fields: [floorId], references: [id], onDelete: Cascade)
+
+  // Bookings point HERE. They never break when layouts change!
+  bookings Booking[]
+
+  // Visual instances of this asset across different floor plan versions
+  spaces Space[]
+
+  @@unique([floorId, name]) // Prevents duplicate desk names on the same floor
+  @@map("bookable_asset")
+}
+
+model FloorPlan {
+  id       String             @id @default(uuid())
+  name     String
+  floorId  String
+  floor    Floor              @relation("FloorToFloorPlans", fields: [floorId], references: [id], onDelete: Cascade)
+  elements FloorPlanElement[]
+
+  // Back-relation for the active configuration
+  activeForFloor Floor? @relation("ActiveFloorPlan")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  spaces    Space[]
+
+  @@map("floor_plan")
+}
+
+model FloorPlanElement {
+  id          String    @id @default(uuid())
+  type        String?
+  attrs       Json
+  floorPlanId String
+  floorPlan   FloorPlan @relation(fields: [floorPlanId], references: [id], onDelete: Cascade)
+
+  // Strict 1-to-1 relationship with Space within this layout
+  spaceId String? @unique
+  space   Space?  @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+
+  @@map("floor_plan_element")
 }
 
 enum SpaceStatus {
@@ -183,6 +240,16 @@ model Space {
   floor        Floor        @relation(fields: [floorId], references: [id])
   floorId      String
 
+  // --- Enforces that a Space belongs to exactly 1 FloorPlan ---
+  floorPlanId String
+  floorPlan   FloorPlan @relation(fields: [floorPlanId], references: [id], onDelete: Cascade)
+
+  // Back-relation to the visual canvas shape
+  floorPlanElement FloorPlanElement?
+  // Points to the permanent physical asset
+  assetId          String
+  asset            BookableAsset     @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
   @@map("space")
 }
 
@@ -198,9 +265,11 @@ model Booking {
   url       String?
   createdAt DateTime @default(now())
 
-  organization Organization @relation(fields: [orgId], references: [id])
-  space        Space        @relation(fields: [spaceId], references: [id])
-  user         User         @relation(fields: [userId], references: [id])
+  organization    Organization   @relation(fields: [orgId], references: [id])
+  space           Space          @relation(fields: [spaceId], references: [id])
+  user            User           @relation(fields: [userId], references: [id])
+  bookableAsset   BookableAsset? @relation(fields: [bookableAssetId], references: [id])
+  bookableAssetId String?
 
   @@index([orgId])
   @@index([spaceId, startTs, endTs])

@@ -92,6 +92,21 @@ export type Building = Prisma.BuildingModel
  */
 export type Floor = Prisma.FloorModel
 /**
+ * Model BookableAsset
+ * 
+ */
+export type BookableAsset = Prisma.BookableAssetModel
+/**
+ * Model FloorPlan
+ * 
+ */
+export type FloorPlan = Prisma.FloorPlanModel
+/**
+ * Model FloorPlanElement
+ * 
+ */
+export type FloorPlanElement = Prisma.FloorPlanElementModel
+/**
  * Model Space
  * 
  */
