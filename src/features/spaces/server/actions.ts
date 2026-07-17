@@ -13,9 +13,17 @@ async function addSpace(data: AddSpaceInput): Promise<SpaceDto> {
     await verifyOrgMembership(validatedData.organizationId);
     const space = await prisma.space.create({
         data: {
-            name: validatedData.name,
             floor: {
                 connect: { id: validatedData.floorId }
+            },
+            floorPlan: {
+                connect: { id: validatedData.floorPlanId }
+            },
+            floorPlanElement: {
+                connect: { id: validatedData.floorPlanElementId }
+            },
+            asset: {
+                connect: { id: validatedData.bookableAssetId }
             },
             organization: {
                 connect: { id: validatedData.organizationId }

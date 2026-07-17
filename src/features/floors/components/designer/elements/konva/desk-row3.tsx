@@ -1,9 +1,9 @@
 'use client'
 
 import { Group, Rect, Line } from "react-konva"
-import { ElementProps } from "../../element"
+import { StageElementDto } from "@/features/floors/types";
 
-export function DeskRow3Konva(props: ElementProps) {
+export function DeskRow3Konva(props: StageElementDto) {
     return (
         <Group
             id={props.id}

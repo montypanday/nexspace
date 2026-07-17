@@ -1,9 +1,9 @@
 'use client'
 
 import { Group, Rect } from "react-konva"
-import { ElementProps } from "@/features/floors/components/designer/element"
+import { StageElementDto } from "@/features/floors/types";
 
-export function Meeting6Konva(props: ElementProps) {
+export function Meeting6Konva(props: StageElementDto) {
     return (
         <Group
             id={props.id}

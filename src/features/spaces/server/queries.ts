@@ -9,11 +9,16 @@ import {requireAuth, verifyOrgMembership} from "@/features/auth/server/queries";
 // 1. Define the exact fields you want to select
 export const spaceFieldsSelect = {
     id: true,
-    name: true,
     status: true,
     organization: {
         select: {
             id: true
+        }
+    },
+    floorPlan: {
+        select: {
+            id: true,
+            name: true,
         }
     },
     floor: {

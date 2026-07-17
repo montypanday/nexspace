@@ -1,5 +1,5 @@
 'use client';
-import { Map, MapMarker, MapTileLayer } from "@/components/ui/map"
+import { Map, MapMarker, MapTileLayer } from "@/components/maps/map"
 import type { LatLngExpression } from "leaflet"
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";

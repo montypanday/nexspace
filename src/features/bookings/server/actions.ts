@@ -22,13 +22,13 @@ async function createBooking(data: AddBookingInput): Promise<BookingDto> {
     const validatedData = AddBookingSchema.parse(data)
     const viewer = await requireAuth()
 
-    const space = await prisma.space.findFirstOrThrow({
+    const bookableAsset = await prisma.bookableAsset.findFirstOrThrow({
         where: {
-            id: validatedData.spaceId
+            id: validatedData.bookableAssetId
         }
     })
 
-    await verifyOrgMembership(space.orgId)
+    await verifyOrgMembership(bookableAsset.orgId)
 
     let start = validatedData.startTs
     // Force end to the very end of the day (or midnight of the next day)
@@ -41,7 +41,7 @@ async function createBooking(data: AddBookingInput): Promise<BookingDto> {
     }
 
     const isOverlap = await hasBookingOverlap({
-        spaceId: space.id,
+        bookableAssetId: bookableAsset.id,
         startTs: start.toISOString(),
         endTs: end.toISOString(),
         allDay: validatedData.allDay
@@ -60,11 +60,11 @@ async function createBooking(data: AddBookingInput): Promise<BookingDto> {
             user: {
                 connect: { id: validatedData.userId }
             },
-            space: {
-                connect: { id: validatedData.spaceId }
+            bookableAsset: {
+                connect: { id: validatedData.bookableAssetId }
             },
             organization: {
-                connect: { id: space.orgId }
+                connect: { id: bookableAsset.orgId }
             }
         },
         select: bookingFieldsSelect

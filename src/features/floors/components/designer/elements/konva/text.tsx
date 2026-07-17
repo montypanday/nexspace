@@ -1,9 +1,9 @@
 'use client'
 
 import { Text } from "react-konva"
-import { ElementProps } from "../../element"
+import { StageElementDto } from "@/features/floors/types";
 
-export function TextKonva(props: ElementProps) {
+export function TextKonva(props: StageElementDto) {
     return (
         <Text
             id={props.id}

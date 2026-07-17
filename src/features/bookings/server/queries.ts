@@ -2,9 +2,9 @@ import 'server-only'
 
 import { requireAuth, verifyOrgMembership } from '../../auth/server/queries'
 import prisma from "@/lib/prisma"
-import { BookingGetPayload, BookingSelect } from '@/generated/prisma/models'
-import {BookingDto, CheckOverlapInput} from "@/features/bookings/types";
-import {toBookingDto} from "@/features/bookings/mappers";
+import {BookableAssetGetPayload, BookableAssetSelect, BookingGetPayload, BookingSelect} from '@/generated/prisma/models'
+import {BookableAssetDto, BookingDto, CheckOverlapInput} from "@/features/bookings/types";
+import {toBookableAssetDto, toBookingDto} from "@/features/bookings/mappers";
 
 export const bookingFieldsSelect = {
     id: true,
@@ -20,7 +20,7 @@ export const bookingFieldsSelect = {
             name: true
         }
     },
-    space: {
+    bookableAsset: {
         select: {
             id: true,
             name: true,
@@ -50,8 +50,41 @@ export type BookingSelectPayload = BookingGetPayload<{
     select: typeof bookingFieldsSelect
 }>;
 
+export const bookableAssetFieldSelect = {
+    id: true,
+    name: true,
+    floor: {
+        select: {
+            id: true,
+            name: true,
+            building: {
+                select: {
+                    id: true,
+                    name: true,
+                    location: {
+                        select: {
+                            id: true,
+                            name: true,
+                        },
+                    },
+                },
+            },
+        },
+    },
+    organization: {
+        select: {
+            id: true,
+            name: true
+        }
+    }
+} satisfies BookableAssetSelect;
+
+export type BookableAssetSelectPayload = BookableAssetGetPayload<{
+    select: typeof bookableAssetFieldSelect
+}>
+
 export async function hasBookingOverlap({
-    spaceId,
+    bookableAssetId,
     startTs,
     endTs,
     allDay,
@@ -78,7 +111,7 @@ export async function hasBookingOverlap({
     // 4. Query Prisma for any overlapping records in the same space
     const conflictingBooking = await prisma.booking.findFirst({
         where: {
-            spaceId: spaceId,
+            bookableAssetId: bookableAssetId,
             // If we are editing a booking, don't let it conflict with itself
             ...(ignoreBookingId ? { id: { not: ignoreBookingId } } : {}),
 
@@ -95,8 +128,20 @@ export async function hasBookingOverlap({
     return conflictingBooking !== null
 }
 
+export async function getBookableAsset(bookableAssetId: string): Promise<BookableAssetDto> {
+    const viewer = await requireAuth()
+    const bookableAsset = await prisma.bookableAsset.findUniqueOrThrow({
+        where: {
+            id: bookableAssetId
+        },
+        select: bookableAssetFieldSelect
+    });
+    await verifyOrgMembership(bookableAsset.organization.id)
+    return toBookableAssetDto(bookableAsset)
+}
 
-export async function getSpaceBookings(spaceId: string, startDate?: string, endDate?: string): Promise<BookingDto[]> {
+
+export async function getBookableAssetBookings(bookableAssetId: string, startDate?: string, endDate?: string): Promise<BookingDto[]> {
     const viewer = await requireAuth()
 
     if (!viewer.id) {
@@ -105,7 +150,7 @@ export async function getSpaceBookings(spaceId: string, startDate?: string, endD
 
     const bookings = await prisma.booking.findMany({
         where: {
-            spaceId: spaceId,
+            bookableAssetId: bookableAssetId,
             // Checks if the booking overlaps with the provided range
             ...(startDate && endDate ? {
                 AND: [

@@ -5,7 +5,7 @@ export const AddBookingSchema = z.object({
     startTs: z.date(),
     endTs: z.date(),
     allDay: z.boolean(),
-    spaceId: z.uuid(),
+    bookableAssetId: z.uuid(),
     userId: z.uuid(),
 })
 // // 2. Refine the entire object to compare the fields

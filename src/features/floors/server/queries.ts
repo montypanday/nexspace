@@ -2,13 +2,21 @@ import 'server-only';
 import { requireAuth, verifyOrgMembership } from '../../auth/server/queries'
 import prisma from "@/lib/prisma"
 import { z } from "zod";
-import { FloorGetPayload, FloorSelect } from '@/generated/prisma/models';
-import {FloorDto} from "@/features/floors/types";
-import {toFloorDto} from "@/features/floors/mappers";
+import {
+    FloorGetPayload,
+    FloorPlanElementGetPayload,
+    FloorPlanElementSelect,
+    FloorPlanGetPayload,
+    FloorPlanSelect,
+    FloorSelect
+} from '@/generated/prisma/models';
+import { FloorDto, FloorPlanDto, FloorPlanElementDto } from "@/features/floors/types";
+import { toFloorDto, toFloorPlanDto, toFloorPlanElementDto } from "@/features/floors/mappers";
 
 export const floorFieldsSelect = {
     id: true,
     name: true,
+    activeFloorPlanId: true,
     building: {
         select: {
             id: true,
@@ -55,3 +63,53 @@ export async function getFloors(buildingId: string): Promise<FloorDto[]> {
     });
     return floors.map((floor) => toFloorDto(floor));
 }
+
+export const floorPlanFieldsSelect = {
+    id: true,
+    floor: {
+        select: {
+            id: true,
+            organization: {
+                select: {
+                    id: true
+                }
+            }
+        }
+    },
+    elements: {
+        select: {
+            id: true,
+            type: true,
+            attrs: true,
+            featureProperties: true
+        }
+    }
+
+} satisfies FloorPlanSelect;
+
+export type FloorPlanSelectPayload = FloorPlanGetPayload<{
+    select: typeof floorPlanFieldsSelect;
+}>;
+
+export async function getFloorPlan(floorPlanId: string): Promise<FloorPlanDto> {
+    z.uuid().parse(floorPlanId)
+    const viewer = await requireAuth();
+
+    const floorPlan = await prisma.floorPlan.findUniqueOrThrow({
+        where: { id: floorPlanId },
+        select: floorPlanFieldsSelect
+    });
+    await verifyOrgMembership(floorPlan.floor.organization.id)
+    return toFloorPlanDto(floorPlan);
+}
+
+export const floorPlanElementFieldsSelect = {
+    id: true,
+    type: true,
+    attrs: true,
+    featureProperties: true
+} satisfies FloorPlanElementSelect;
+
+export type FloorPlanElementSelectPayload = FloorPlanElementGetPayload<{
+    select: typeof floorPlanElementFieldsSelect;
+}>;

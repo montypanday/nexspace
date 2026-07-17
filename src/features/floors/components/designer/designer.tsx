@@ -1,29 +1,43 @@
 "use client"
 
 import { Stage, Layer, Transformer } from 'react-konva';
-import { Label } from '../../../../components/ui/label';
-import { Input } from '../../../../components/ui/input';
-import { Button } from '../../../../components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Separator } from '@/components/ui/separator';
 
 import Konva from 'konva';
 import React, { KeyboardEventHandler, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Palette } from './palette';
 import { Vector2d } from 'konva/lib/types';
-import { ElementProps, ElementType, getElementDefaultAttrs, SpawnedElement } from './element';
+import { ElementType, getElementDefaultAttrs, SpawnedElement } from './element';
 import { geojsonToElements } from '@/lib/utils';
-import { Field, FieldDescription, FieldGroup, FieldLabel } from '../../../../components/ui/field';
-import { Separator } from '../../../../components/ui/separator';
 
-export function Designer() {
+import { saveFloorPlanAction } from '@/features/floors/server/actions';
+import {StageElementDto} from "@/features/floors/types";
+import {getFloorPlan} from "@/features/floors/server/queries";
+import {toFloorPlanElementDto, toStageElementDto} from "@/features/floors/mappers";
 
-    const [elements, setElements] = useState<ElementProps[]>([]); // store all elements, add to view on drop
+interface DesignerProps {
+    floorId: string;
+    floorPlanId: string;
+    initialElements: StageElementDto[];
+}
+
+export function Designer({ floorId, floorPlanId, initialElements }: DesignerProps) {
+
+    const [elements, setElements] = useState<StageElementDto[]>(initialElements); // store all elements, add to view on drop
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
     const [draggedType, setDraggedType] = useState<string | null>(null);
     const [geoFile, setGeoFile] = useState<File | null>(null);
     const [size, setSize] = useState({ width: 0, height: 0 });
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveMessage, setSaveMessage] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const history = useRef<ElementProps[][]>([[]]);
+    const history = useRef<StageElementDto[][]>([initialElements]);
     const historyStep = useRef(0);
     const stageRef = useRef<Konva.Stage>(null);
     const transformerRef = useRef<Konva.Transformer>(null);
@@ -33,14 +47,14 @@ export function Designer() {
         [elements, selectedIds]
     );
 
-    const commitElements = useCallback((nextElements: ElementProps[]) => {
+    const commitElements = useCallback((nextElements: StageElementDto[]) => {
         history.current = history.current.slice(0, historyStep.current + 1);
         history.current = [...history.current, nextElements];
         historyStep.current = history.current.length - 1;
         setElements(nextElements);
     }, []);
 
-    const updateElements = useCallback((updater: (previous: ElementProps[]) => ElementProps[]) => {
+    const updateElements = useCallback((updater: (previous: StageElementDto[]) => StageElementDto[]) => {
         setElements((previous) => {
             const nextElements = updater(previous);
 
@@ -64,6 +78,35 @@ export function Designer() {
         return () => observer.disconnect();
     }, []);
 
+    const handleSave = useCallback(async () => {
+        if (!floorPlanId) {
+            setSaveMessage("No floor plan ID provided");
+            return;
+        }
+
+        setIsSaving(true);
+        setSaveMessage(null);
+
+        try {
+            const result = await saveFloorPlanAction({
+                floorPlanId: floorPlanId,
+                floorId: floorId,
+                elements: elements.map((el) => toFloorPlanElementDto(el)).filter((el) => el !== null)
+            });
+
+            if (result.success) {
+                setSaveMessage(`✓ Saved ${result.data.elements.length} elements`);
+                setTimeout(() => setSaveMessage(null), 3000);
+            } else {
+                setSaveMessage(`✗ ${result.error}`);
+            }
+        } catch (error: any) {
+            setSaveMessage(`✗ Failed to save: ${error.message}`);
+        } finally {
+            setIsSaving(false);
+        }
+    }, [floorPlanId, elements]);
+
     const handleDragStart = (type: string) => {
         setDraggedType(type);
     };
@@ -84,7 +127,7 @@ export function Designer() {
         const position: Vector2d | null = stage.getPointerPosition();
         if (!position) return;
 
-        const newElement: ElementProps = {
+        const newElement: StageElementDto = {
             id: crypto.randomUUID(),
             type: draggedType,
             draggable: true,
@@ -261,7 +304,22 @@ export function Designer() {
                     <Button variant="outline" size="sm">Zoom Out</Button>
                     <Button variant="outline" size="sm">Reset</Button>
 
-                    <div className="ml-auto flex gap-2">
+                    <div className="ml-auto flex gap-2 items-center">
+                        {saveMessage && (
+                            <span className={`text-sm ${saveMessage.startsWith('✓') ? 'text-green-600' : 'text-red-600'}`}>
+                                {saveMessage}
+                            </span>
+                        )}
+                        {floorPlanId && (
+                            <Button
+                                variant="default"
+                                onClick={handleSave}
+                                size="sm"
+                                disabled={isSaving || isLoading}
+                            >
+                                {isSaving ? 'Saving...' : 'Save'}
+                            </Button>
+                        )}
                         <Button
                             variant="outline"
                             onClick={handleUndo}
@@ -281,7 +339,7 @@ export function Designer() {
                     </div>
                 </div>
                 <div
-                    className="absolute inset-0 top-12"
+                    className="absolute inset-0 top-12 p-6"
                     onDragOver={handleDragOver}
                     onDrop={handleDrop}
                     tabIndex={1}
@@ -331,6 +389,13 @@ export function Designer() {
                             />
                         </Layer>
                     </Stage>
+                    {isLoading && (
+                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-lg">
+                            <div className="bg-white p-6 rounded-lg shadow-lg">
+                                <p className="text-center font-semibold">Loading floor plan...</p>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </main>
             <aside className="w-72 border-l bg-background p-4 flex flex-col gap-4 overflow-auto scroll-smooth">

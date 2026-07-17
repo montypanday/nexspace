@@ -1,11 +1,12 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import bcrypt from 'bcryptjs';
-import { ElementProps, ElementType } from '@/features/floors/components/designer/element';
+import { ElementType } from '@/features/floors/components/designer/element';
 import { geoIdentity } from "d3-geo";
 import rewind from '@turf/rewind';
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry, GeometryCollection } from 'geojson';
 import { point } from 'leaflet';
+import {StageElementDto} from "@/features/floors/types";
 
 export const protocol =
     process.env.NODE_ENV === 'production' ? 'https' : 'http';
@@ -115,7 +116,7 @@ export function geojsonToElements(
     geojson: FeatureCollection,
     stageWidth: number,
     stageHeight: number
-): ElementProps[] {
+): StageElementDto[] {
     const correctedGeoJson = rewind(geojson, { reverse: true });
 
     if (correctedGeoJson.type != 'FeatureCollection') {
@@ -126,7 +127,7 @@ export function geojsonToElements(
         .reflectY(true)
         .fitSize([stageWidth, stageHeight], correctedGeoJson);
 
-    const elements: ElementProps[] = [];
+    const elements: StageElementDto[] = [];
 
     correctedGeoJson.features.forEach((f) => {
         const g = f.geometry;

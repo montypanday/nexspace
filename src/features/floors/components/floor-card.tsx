@@ -16,7 +16,7 @@ export function FloorCard({ floor }: { floor: FloorDto }) {
                     </div>
                     <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-semibold">{floor.name}</h3>
+                            <h3 className="font-semibold">{floor.floorName}</h3>
                             <Badge>Open plan</Badge>
                         </div>
                         <div className="flex items-center gap-4 text-sm text-muted-foreground">
@@ -26,7 +26,7 @@ export function FloorCard({ floor }: { floor: FloorDto }) {
                             </div>
                         </div>
                     </div>
-                    <Link href={`/floors/${floor.id}`}>
+                    <Link href={`/floors/${floor.floorId}`}>
                         <Button size="icon">
                             <ChevronRight />
                         </Button>

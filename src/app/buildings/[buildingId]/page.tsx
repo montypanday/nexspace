@@ -37,7 +37,7 @@ export default async function Page({
                 </div>
                 {floors.length == 0 && <EmptyBuilding />}
                 {floors.length > 0 && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-                    {floors.map((floor) => <FloorCard key={floor.id} floor={floor} />)}
+                    {floors.map((floor) => <FloorCard key={floor.floorId} floor={floor} />)}
                 </div>}
             </main>
         </div>

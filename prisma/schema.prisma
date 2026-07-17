@@ -105,16 +105,17 @@ model UserOrganization {
 }
 
 model Organization {
-  id         String             @id @default(uuid())
-  name       String
-  createdAt  DateTime           @default(now())
-  externalId String?
-  locations  Location[]
-  buildings  Building[]
-  floors     Floor[]
-  users      UserOrganization[]
-  bookings   Booking[]
-  spaces     Space[]
+  id             String             @id @default(uuid())
+  name           String
+  createdAt      DateTime           @default(now())
+  externalId     String?
+  locations      Location[]
+  buildings      Building[]
+  floors         Floor[]
+  users          UserOrganization[]
+  bookings       Booking[]
+  spaces         Space[]
+  bookableAssets BookableAsset[]
 
   @@index([externalId])
   @@map("organization")
@@ -168,7 +169,7 @@ model Floor {
   // 2. Versioned visual configurations
   floorPlans        FloorPlan[] @relation("FloorToFloorPlans")
   activeFloorPlanId String?     @unique
-  activeFloorPlan   FloorPlan?  @relation("ActiveFloorPlan", fields: [activeFloorPlanId], references: [id], onDelete: SetNull)
+  activeFloorPlan   FloorPlan?  @relation("ActiveFloorPlan", fields: [activeFloorPlanId], references: [id])
 
   @@index([buildingId, orgId])
   @@map("floor")
@@ -181,6 +182,8 @@ model BookableAsset {
   orgId   String
   floorId String
   floor   Floor  @relation(fields: [floorId], references: [id], onDelete: Cascade)
+
+  organization Organization @relation(fields: [orgId], references: [id])
 
   // Bookings point HERE. They never break when layouts change!
   bookings Booking[]
@@ -210,11 +213,12 @@ model FloorPlan {
 }
 
 model FloorPlanElement {
-  id          String    @id @default(uuid())
-  type        String?
-  attrs       Json
-  floorPlanId String
-  floorPlan   FloorPlan @relation(fields: [floorPlanId], references: [id], onDelete: Cascade)
+  id                String    @id @default(uuid())
+  type              String
+  attrs             Json
+  featureProperties Json      @default("{}")
+  floorPlanId       String
+  floorPlan         FloorPlan @relation(fields: [floorPlanId], references: [id], onDelete: Cascade)
 
   // Strict 1-to-1 relationship with Space within this layout
   spaceId String? @unique
@@ -232,9 +236,7 @@ enum SpaceStatus {
 
 model Space {
   id           String       @id @default(uuid())
-  name         String
   status       SpaceStatus  @default(AVAILABLE)
-  bookings     Booking[]
   orgId        String
   organization Organization @relation(fields: [orgId], references: [id])
   floor        Floor        @relation(fields: [floorId], references: [id])
@@ -256,7 +258,6 @@ model Space {
 model Booking {
   id        String   @id @default(uuid())
   orgId     String
-  spaceId   String
   userId    String
   title     String
   startTs   DateTime
@@ -265,14 +266,13 @@ model Booking {
   url       String?
   createdAt DateTime @default(now())
 
-  organization    Organization   @relation(fields: [orgId], references: [id])
-  space           Space          @relation(fields: [spaceId], references: [id])
-  user            User           @relation(fields: [userId], references: [id])
-  bookableAsset   BookableAsset? @relation(fields: [bookableAssetId], references: [id])
-  bookableAssetId String?
+  organization    Organization  @relation(fields: [orgId], references: [id])
+  user            User          @relation(fields: [userId], references: [id])
+  bookableAsset   BookableAsset @relation(fields: [bookableAssetId], references: [id])
+  bookableAssetId String
 
   @@index([orgId])
-  @@index([spaceId, startTs, endTs])
+  @@index([bookableAssetId, startTs, endTs])
   @@index([orgId, userId, startTs, endTs])
   @@map("booking")
 }

@@ -12,7 +12,7 @@ export function SpaceCard({ space }: { space: SpaceDto }) {
                 <div className="flex items-start justify-between">
                     <div>
                         <CardTitle className="text-lg">
-                            {space.name}
+                            {/*{space.name}*/}
                         </CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">
                             {space.floorName} • {space.buildingName}

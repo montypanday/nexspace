@@ -180,6 +180,7 @@ export type OrganizationWhereInput = {
   users?: Prisma.UserOrganizationListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
   spaces?: Prisma.SpaceListRelationFilter
+  bookableAssets?: Prisma.BookableAssetListRelationFilter
 }
 
 export type OrganizationOrderByWithRelationInput = {
@@ -193,6 +194,7 @@ export type OrganizationOrderByWithRelationInput = {
   users?: Prisma.UserOrganizationOrderByRelationAggregateInput
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   spaces?: Prisma.SpaceOrderByRelationAggregateInput
+  bookableAssets?: Prisma.BookableAssetOrderByRelationAggregateInput
 }
 
 export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -209,6 +211,7 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
   users?: Prisma.UserOrganizationListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
   spaces?: Prisma.SpaceListRelationFilter
+  bookableAssets?: Prisma.BookableAssetListRelationFilter
 }, "id">
 
 export type OrganizationOrderByWithAggregationInput = {
@@ -242,6 +245,7 @@ export type OrganizationCreateInput = {
   users?: Prisma.UserOrganizationCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateInput = {
@@ -255,6 +259,7 @@ export type OrganizationUncheckedCreateInput = {
   users?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUpdateInput = {
@@ -268,6 +273,7 @@ export type OrganizationUpdateInput = {
   users?: Prisma.UserOrganizationUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateInput = {
@@ -281,6 +287,7 @@ export type OrganizationUncheckedUpdateInput = {
   users?: Prisma.UserOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUncheckedUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateManyInput = {
@@ -386,6 +393,20 @@ export type OrganizationUpdateOneRequiredWithoutFloorsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutFloorsInput, Prisma.OrganizationUpdateWithoutFloorsInput>, Prisma.OrganizationUncheckedUpdateWithoutFloorsInput>
 }
 
+export type OrganizationCreateNestedOneWithoutBookableAssetsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutBookableAssetsInput, Prisma.OrganizationUncheckedCreateWithoutBookableAssetsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutBookableAssetsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutBookableAssetsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutBookableAssetsInput, Prisma.OrganizationUncheckedCreateWithoutBookableAssetsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutBookableAssetsInput
+  upsert?: Prisma.OrganizationUpsertWithoutBookableAssetsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutBookableAssetsInput, Prisma.OrganizationUpdateWithoutBookableAssetsInput>, Prisma.OrganizationUncheckedUpdateWithoutBookableAssetsInput>
+}
+
 export type OrganizationCreateNestedOneWithoutSpacesInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutSpacesInput, Prisma.OrganizationUncheckedCreateWithoutSpacesInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutSpacesInput
@@ -424,6 +445,7 @@ export type OrganizationCreateWithoutUsersInput = {
   floors?: Prisma.FloorCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -436,6 +458,7 @@ export type OrganizationUncheckedCreateWithoutUsersInput = {
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -464,6 +487,7 @@ export type OrganizationUpdateWithoutUsersInput = {
   floors?: Prisma.FloorUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -476,6 +500,7 @@ export type OrganizationUncheckedUpdateWithoutUsersInput = {
   floors?: Prisma.FloorUncheckedUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUncheckedUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutLocationsInput = {
@@ -488,6 +513,7 @@ export type OrganizationCreateWithoutLocationsInput = {
   users?: Prisma.UserOrganizationCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutLocationsInput = {
@@ -500,6 +526,7 @@ export type OrganizationUncheckedCreateWithoutLocationsInput = {
   users?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutLocationsInput = {
@@ -528,6 +555,7 @@ export type OrganizationUpdateWithoutLocationsInput = {
   users?: Prisma.UserOrganizationUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutLocationsInput = {
@@ -540,6 +568,7 @@ export type OrganizationUncheckedUpdateWithoutLocationsInput = {
   users?: Prisma.UserOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUncheckedUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutBuildingsInput = {
@@ -552,6 +581,7 @@ export type OrganizationCreateWithoutBuildingsInput = {
   users?: Prisma.UserOrganizationCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutBuildingsInput = {
@@ -564,6 +594,7 @@ export type OrganizationUncheckedCreateWithoutBuildingsInput = {
   users?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutBuildingsInput = {
@@ -592,6 +623,7 @@ export type OrganizationUpdateWithoutBuildingsInput = {
   users?: Prisma.UserOrganizationUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutBuildingsInput = {
@@ -604,6 +636,7 @@ export type OrganizationUncheckedUpdateWithoutBuildingsInput = {
   users?: Prisma.UserOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUncheckedUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutFloorsInput = {
@@ -616,6 +649,7 @@ export type OrganizationCreateWithoutFloorsInput = {
   users?: Prisma.UserOrganizationCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutFloorsInput = {
@@ -628,6 +662,7 @@ export type OrganizationUncheckedCreateWithoutFloorsInput = {
   users?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutFloorsInput = {
@@ -656,6 +691,7 @@ export type OrganizationUpdateWithoutFloorsInput = {
   users?: Prisma.UserOrganizationUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutFloorsInput = {
@@ -665,6 +701,75 @@ export type OrganizationUncheckedUpdateWithoutFloorsInput = {
   externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   locations?: Prisma.LocationUncheckedUpdateManyWithoutOrgNestedInput
   buildings?: Prisma.BuildingUncheckedUpdateManyWithoutOrgNestedInput
+  users?: Prisma.UserOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutOrganizationNestedInput
+  spaces?: Prisma.SpaceUncheckedUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutBookableAssetsInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  externalId?: string | null
+  locations?: Prisma.LocationCreateNestedManyWithoutOrgInput
+  buildings?: Prisma.BuildingCreateNestedManyWithoutOrgInput
+  floors?: Prisma.FloorCreateNestedManyWithoutOrganizationInput
+  users?: Prisma.UserOrganizationCreateNestedManyWithoutOrganizationInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutOrganizationInput
+  spaces?: Prisma.SpaceCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutBookableAssetsInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  externalId?: string | null
+  locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOrgInput
+  buildings?: Prisma.BuildingUncheckedCreateNestedManyWithoutOrgInput
+  floors?: Prisma.FloorUncheckedCreateNestedManyWithoutOrganizationInput
+  users?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutOrganizationInput
+  spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutBookableAssetsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutBookableAssetsInput, Prisma.OrganizationUncheckedCreateWithoutBookableAssetsInput>
+}
+
+export type OrganizationUpsertWithoutBookableAssetsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutBookableAssetsInput, Prisma.OrganizationUncheckedUpdateWithoutBookableAssetsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutBookableAssetsInput, Prisma.OrganizationUncheckedCreateWithoutBookableAssetsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutBookableAssetsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutBookableAssetsInput, Prisma.OrganizationUncheckedUpdateWithoutBookableAssetsInput>
+}
+
+export type OrganizationUpdateWithoutBookableAssetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locations?: Prisma.LocationUpdateManyWithoutOrgNestedInput
+  buildings?: Prisma.BuildingUpdateManyWithoutOrgNestedInput
+  floors?: Prisma.FloorUpdateManyWithoutOrganizationNestedInput
+  users?: Prisma.UserOrganizationUpdateManyWithoutOrganizationNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutOrganizationNestedInput
+  spaces?: Prisma.SpaceUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutBookableAssetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locations?: Prisma.LocationUncheckedUpdateManyWithoutOrgNestedInput
+  buildings?: Prisma.BuildingUncheckedUpdateManyWithoutOrgNestedInput
+  floors?: Prisma.FloorUncheckedUpdateManyWithoutOrganizationNestedInput
   users?: Prisma.UserOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -680,6 +785,7 @@ export type OrganizationCreateWithoutSpacesInput = {
   floors?: Prisma.FloorCreateNestedManyWithoutOrganizationInput
   users?: Prisma.UserOrganizationCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutSpacesInput = {
@@ -692,6 +798,7 @@ export type OrganizationUncheckedCreateWithoutSpacesInput = {
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutOrganizationInput
   users?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutSpacesInput = {
@@ -720,6 +827,7 @@ export type OrganizationUpdateWithoutSpacesInput = {
   floors?: Prisma.FloorUpdateManyWithoutOrganizationNestedInput
   users?: Prisma.UserOrganizationUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutSpacesInput = {
@@ -732,6 +840,7 @@ export type OrganizationUncheckedUpdateWithoutSpacesInput = {
   floors?: Prisma.FloorUncheckedUpdateManyWithoutOrganizationNestedInput
   users?: Prisma.UserOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutBookingsInput = {
@@ -744,6 +853,7 @@ export type OrganizationCreateWithoutBookingsInput = {
   floors?: Prisma.FloorCreateNestedManyWithoutOrganizationInput
   users?: Prisma.UserOrganizationCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutBookingsInput = {
@@ -756,6 +866,7 @@ export type OrganizationUncheckedCreateWithoutBookingsInput = {
   floors?: Prisma.FloorUncheckedCreateNestedManyWithoutOrganizationInput
   users?: Prisma.UserOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
   spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutOrganizationInput
+  bookableAssets?: Prisma.BookableAssetUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutBookingsInput = {
@@ -784,6 +895,7 @@ export type OrganizationUpdateWithoutBookingsInput = {
   floors?: Prisma.FloorUpdateManyWithoutOrganizationNestedInput
   users?: Prisma.UserOrganizationUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutBookingsInput = {
@@ -796,6 +908,7 @@ export type OrganizationUncheckedUpdateWithoutBookingsInput = {
   floors?: Prisma.FloorUncheckedUpdateManyWithoutOrganizationNestedInput
   users?: Prisma.UserOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
   spaces?: Prisma.SpaceUncheckedUpdateManyWithoutOrganizationNestedInput
+  bookableAssets?: Prisma.BookableAssetUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 
@@ -810,6 +923,7 @@ export type OrganizationCountOutputType = {
   users: number
   bookings: number
   spaces: number
+  bookableAssets: number
 }
 
 export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -819,6 +933,7 @@ export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   users?: boolean | OrganizationCountOutputTypeCountUsersArgs
   bookings?: boolean | OrganizationCountOutputTypeCountBookingsArgs
   spaces?: boolean | OrganizationCountOutputTypeCountSpacesArgs
+  bookableAssets?: boolean | OrganizationCountOutputTypeCountBookableAssetsArgs
 }
 
 /**
@@ -873,6 +988,13 @@ export type OrganizationCountOutputTypeCountSpacesArgs<ExtArgs extends runtime.T
   where?: Prisma.SpaceWhereInput
 }
 
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountBookableAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookableAssetWhereInput
+}
+
 
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -885,6 +1007,7 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   users?: boolean | Prisma.Organization$usersArgs<ExtArgs>
   bookings?: boolean | Prisma.Organization$bookingsArgs<ExtArgs>
   spaces?: boolean | Prisma.Organization$spacesArgs<ExtArgs>
+  bookableAssets?: boolean | Prisma.Organization$bookableAssetsArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
 
@@ -917,6 +1040,7 @@ export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.Interna
   users?: boolean | Prisma.Organization$usersArgs<ExtArgs>
   bookings?: boolean | Prisma.Organization$bookingsArgs<ExtArgs>
   spaces?: boolean | Prisma.Organization$spacesArgs<ExtArgs>
+  bookableAssets?: boolean | Prisma.Organization$bookableAssetsArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -931,6 +1055,7 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     users: Prisma.$UserOrganizationPayload<ExtArgs>[]
     bookings: Prisma.$BookingPayload<ExtArgs>[]
     spaces: Prisma.$SpacePayload<ExtArgs>[]
+    bookableAssets: Prisma.$BookableAssetPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1337,6 +1462,7 @@ export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends run
   users<T extends Prisma.Organization$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserOrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookings<T extends Prisma.Organization$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   spaces<T extends Prisma.Organization$spacesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bookableAssets<T extends Prisma.Organization$bookableAssetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$bookableAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookableAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1904,6 +2030,30 @@ export type Organization$spacesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.SpaceScalarFieldEnum | Prisma.SpaceScalarFieldEnum[]
+}
+
+/**
+ * Organization.bookableAssets
+ */
+export type Organization$bookableAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BookableAsset
+   */
+  select?: Prisma.BookableAssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BookableAsset
+   */
+  omit?: Prisma.BookableAssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookableAssetInclude<ExtArgs> | null
+  where?: Prisma.BookableAssetWhereInput
+  orderBy?: Prisma.BookableAssetOrderByWithRelationInput | Prisma.BookableAssetOrderByWithRelationInput[]
+  cursor?: Prisma.BookableAssetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BookableAssetScalarFieldEnum | Prisma.BookableAssetScalarFieldEnum[]
 }
 
 /**

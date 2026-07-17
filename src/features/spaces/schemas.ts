@@ -1,8 +1,10 @@
 import {z} from "zod";
 
 export const AddSpaceSchema = z.object({
-    name: z.string(),
     floorId: z.uuid(),
+    floorPlanId: z.uuid(),
+    floorPlanElementId: z.uuid(),
+    bookableAssetId: z.uuid(),
     organizationId: z.uuid()
 });
 

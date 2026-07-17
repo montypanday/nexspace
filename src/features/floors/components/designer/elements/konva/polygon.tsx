@@ -1,10 +1,9 @@
 'use client'
 
 import { Group, Line, Circle } from "react-konva"
-import { ElementProps } from "../../element"
-import { IconPointerPlus } from "@tabler/icons-react";
+import { StageElementDto } from "@/features/floors/types";
 
-export function PolygonKonva(props: ElementProps) {
+export function PolygonKonva(props: StageElementDto) {
     const points = props.attrs.points || []
 
     let singleDimPoints: number[] = [];

@@ -1,9 +1,9 @@
 'use client'
 
-import { Circle, Group, Rect } from "react-konva"
-import { ElementProps } from "../../element"
+import { Circle } from "react-konva"
+import { StageElementDto } from "@/features/floors/types";
 
-export function CircleKonva(props: ElementProps) {
+export function CircleKonva(props: StageElementDto) {
     return (
         <Circle
             id={props.id}

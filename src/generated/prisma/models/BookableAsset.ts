@@ -175,6 +175,7 @@ export type BookableAssetWhereInput = {
   orgId?: Prisma.StringFilter<"BookableAsset"> | string
   floorId?: Prisma.StringFilter<"BookableAsset"> | string
   floor?: Prisma.XOR<Prisma.FloorScalarRelationFilter, Prisma.FloorWhereInput>
+  organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   bookings?: Prisma.BookingListRelationFilter
   spaces?: Prisma.SpaceListRelationFilter
 }
@@ -185,6 +186,7 @@ export type BookableAssetOrderByWithRelationInput = {
   orgId?: Prisma.SortOrder
   floorId?: Prisma.SortOrder
   floor?: Prisma.FloorOrderByWithRelationInput
+  organization?: Prisma.OrganizationOrderByWithRelationInput
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   spaces?: Prisma.SpaceOrderByRelationAggregateInput
 }
@@ -199,6 +201,7 @@ export type BookableAssetWhereUniqueInput = Prisma.AtLeast<{
   orgId?: Prisma.StringFilter<"BookableAsset"> | string
   floorId?: Prisma.StringFilter<"BookableAsset"> | string
   floor?: Prisma.XOR<Prisma.FloorScalarRelationFilter, Prisma.FloorWhereInput>
+  organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   bookings?: Prisma.BookingListRelationFilter
   spaces?: Prisma.SpaceListRelationFilter
 }, "id" | "floorId_name">
@@ -226,8 +229,8 @@ export type BookableAssetScalarWhereWithAggregatesInput = {
 export type BookableAssetCreateInput = {
   id?: string
   name: string
-  orgId: string
   floor: Prisma.FloorCreateNestedOneWithoutAssetsInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutBookableAssetsInput
   bookings?: Prisma.BookingCreateNestedManyWithoutBookableAssetInput
   spaces?: Prisma.SpaceCreateNestedManyWithoutAssetInput
 }
@@ -244,8 +247,8 @@ export type BookableAssetUncheckedCreateInput = {
 export type BookableAssetUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
   floor?: Prisma.FloorUpdateOneRequiredWithoutAssetsNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutBookableAssetsNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutBookableAssetNestedInput
   spaces?: Prisma.SpaceUpdateManyWithoutAssetNestedInput
 }
@@ -269,7 +272,6 @@ export type BookableAssetCreateManyInput = {
 export type BookableAssetUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type BookableAssetUncheckedUpdateManyInput = {
@@ -320,9 +322,46 @@ export type BookableAssetScalarRelationFilter = {
   isNot?: Prisma.BookableAssetWhereInput
 }
 
-export type BookableAssetNullableScalarRelationFilter = {
-  is?: Prisma.BookableAssetWhereInput | null
-  isNot?: Prisma.BookableAssetWhereInput | null
+export type BookableAssetCreateNestedManyWithoutOrganizationInput = {
+  create?: Prisma.XOR<Prisma.BookableAssetCreateWithoutOrganizationInput, Prisma.BookableAssetUncheckedCreateWithoutOrganizationInput> | Prisma.BookableAssetCreateWithoutOrganizationInput[] | Prisma.BookableAssetUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.BookableAssetCreateOrConnectWithoutOrganizationInput | Prisma.BookableAssetCreateOrConnectWithoutOrganizationInput[]
+  createMany?: Prisma.BookableAssetCreateManyOrganizationInputEnvelope
+  connect?: Prisma.BookableAssetWhereUniqueInput | Prisma.BookableAssetWhereUniqueInput[]
+}
+
+export type BookableAssetUncheckedCreateNestedManyWithoutOrganizationInput = {
+  create?: Prisma.XOR<Prisma.BookableAssetCreateWithoutOrganizationInput, Prisma.BookableAssetUncheckedCreateWithoutOrganizationInput> | Prisma.BookableAssetCreateWithoutOrganizationInput[] | Prisma.BookableAssetUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.BookableAssetCreateOrConnectWithoutOrganizationInput | Prisma.BookableAssetCreateOrConnectWithoutOrganizationInput[]
+  createMany?: Prisma.BookableAssetCreateManyOrganizationInputEnvelope
+  connect?: Prisma.BookableAssetWhereUniqueInput | Prisma.BookableAssetWhereUniqueInput[]
+}
+
+export type BookableAssetUpdateManyWithoutOrganizationNestedInput = {
+  create?: Prisma.XOR<Prisma.BookableAssetCreateWithoutOrganizationInput, Prisma.BookableAssetUncheckedCreateWithoutOrganizationInput> | Prisma.BookableAssetCreateWithoutOrganizationInput[] | Prisma.BookableAssetUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.BookableAssetCreateOrConnectWithoutOrganizationInput | Prisma.BookableAssetCreateOrConnectWithoutOrganizationInput[]
+  upsert?: Prisma.BookableAssetUpsertWithWhereUniqueWithoutOrganizationInput | Prisma.BookableAssetUpsertWithWhereUniqueWithoutOrganizationInput[]
+  createMany?: Prisma.BookableAssetCreateManyOrganizationInputEnvelope
+  set?: Prisma.BookableAssetWhereUniqueInput | Prisma.BookableAssetWhereUniqueInput[]
+  disconnect?: Prisma.BookableAssetWhereUniqueInput | Prisma.BookableAssetWhereUniqueInput[]
+  delete?: Prisma.BookableAssetWhereUniqueInput | Prisma.BookableAssetWhereUniqueInput[]
+  connect?: Prisma.BookableAssetWhereUniqueInput | Prisma.BookableAssetWhereUniqueInput[]
+  update?: Prisma.BookableAssetUpdateWithWhereUniqueWithoutOrganizationInput | Prisma.BookableAssetUpdateWithWhereUniqueWithoutOrganizationInput[]
+  updateMany?: Prisma.BookableAssetUpdateManyWithWhereWithoutOrganizationInput | Prisma.BookableAssetUpdateManyWithWhereWithoutOrganizationInput[]
+  deleteMany?: Prisma.BookableAssetScalarWhereInput | Prisma.BookableAssetScalarWhereInput[]
+}
+
+export type BookableAssetUncheckedUpdateManyWithoutOrganizationNestedInput = {
+  create?: Prisma.XOR<Prisma.BookableAssetCreateWithoutOrganizationInput, Prisma.BookableAssetUncheckedCreateWithoutOrganizationInput> | Prisma.BookableAssetCreateWithoutOrganizationInput[] | Prisma.BookableAssetUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.BookableAssetCreateOrConnectWithoutOrganizationInput | Prisma.BookableAssetCreateOrConnectWithoutOrganizationInput[]
+  upsert?: Prisma.BookableAssetUpsertWithWhereUniqueWithoutOrganizationInput | Prisma.BookableAssetUpsertWithWhereUniqueWithoutOrganizationInput[]
+  createMany?: Prisma.BookableAssetCreateManyOrganizationInputEnvelope
+  set?: Prisma.BookableAssetWhereUniqueInput | Prisma.BookableAssetWhereUniqueInput[]
+  disconnect?: Prisma.BookableAssetWhereUniqueInput | Prisma.BookableAssetWhereUniqueInput[]
+  delete?: Prisma.BookableAssetWhereUniqueInput | Prisma.BookableAssetWhereUniqueInput[]
+  connect?: Prisma.BookableAssetWhereUniqueInput | Prisma.BookableAssetWhereUniqueInput[]
+  update?: Prisma.BookableAssetUpdateWithWhereUniqueWithoutOrganizationInput | Prisma.BookableAssetUpdateWithWhereUniqueWithoutOrganizationInput[]
+  updateMany?: Prisma.BookableAssetUpdateManyWithWhereWithoutOrganizationInput | Prisma.BookableAssetUpdateManyWithWhereWithoutOrganizationInput[]
+  deleteMany?: Prisma.BookableAssetScalarWhereInput | Prisma.BookableAssetScalarWhereInput[]
 }
 
 export type BookableAssetCreateNestedManyWithoutFloorInput = {
@@ -387,20 +426,70 @@ export type BookableAssetCreateNestedOneWithoutBookingsInput = {
   connect?: Prisma.BookableAssetWhereUniqueInput
 }
 
-export type BookableAssetUpdateOneWithoutBookingsNestedInput = {
+export type BookableAssetUpdateOneRequiredWithoutBookingsNestedInput = {
   create?: Prisma.XOR<Prisma.BookableAssetCreateWithoutBookingsInput, Prisma.BookableAssetUncheckedCreateWithoutBookingsInput>
   connectOrCreate?: Prisma.BookableAssetCreateOrConnectWithoutBookingsInput
   upsert?: Prisma.BookableAssetUpsertWithoutBookingsInput
-  disconnect?: Prisma.BookableAssetWhereInput | boolean
-  delete?: Prisma.BookableAssetWhereInput | boolean
   connect?: Prisma.BookableAssetWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.BookableAssetUpdateToOneWithWhereWithoutBookingsInput, Prisma.BookableAssetUpdateWithoutBookingsInput>, Prisma.BookableAssetUncheckedUpdateWithoutBookingsInput>
+}
+
+export type BookableAssetCreateWithoutOrganizationInput = {
+  id?: string
+  name: string
+  floor: Prisma.FloorCreateNestedOneWithoutAssetsInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutBookableAssetInput
+  spaces?: Prisma.SpaceCreateNestedManyWithoutAssetInput
+}
+
+export type BookableAssetUncheckedCreateWithoutOrganizationInput = {
+  id?: string
+  name: string
+  floorId: string
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutBookableAssetInput
+  spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutAssetInput
+}
+
+export type BookableAssetCreateOrConnectWithoutOrganizationInput = {
+  where: Prisma.BookableAssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.BookableAssetCreateWithoutOrganizationInput, Prisma.BookableAssetUncheckedCreateWithoutOrganizationInput>
+}
+
+export type BookableAssetCreateManyOrganizationInputEnvelope = {
+  data: Prisma.BookableAssetCreateManyOrganizationInput | Prisma.BookableAssetCreateManyOrganizationInput[]
+  skipDuplicates?: boolean
+}
+
+export type BookableAssetUpsertWithWhereUniqueWithoutOrganizationInput = {
+  where: Prisma.BookableAssetWhereUniqueInput
+  update: Prisma.XOR<Prisma.BookableAssetUpdateWithoutOrganizationInput, Prisma.BookableAssetUncheckedUpdateWithoutOrganizationInput>
+  create: Prisma.XOR<Prisma.BookableAssetCreateWithoutOrganizationInput, Prisma.BookableAssetUncheckedCreateWithoutOrganizationInput>
+}
+
+export type BookableAssetUpdateWithWhereUniqueWithoutOrganizationInput = {
+  where: Prisma.BookableAssetWhereUniqueInput
+  data: Prisma.XOR<Prisma.BookableAssetUpdateWithoutOrganizationInput, Prisma.BookableAssetUncheckedUpdateWithoutOrganizationInput>
+}
+
+export type BookableAssetUpdateManyWithWhereWithoutOrganizationInput = {
+  where: Prisma.BookableAssetScalarWhereInput
+  data: Prisma.XOR<Prisma.BookableAssetUpdateManyMutationInput, Prisma.BookableAssetUncheckedUpdateManyWithoutOrganizationInput>
+}
+
+export type BookableAssetScalarWhereInput = {
+  AND?: Prisma.BookableAssetScalarWhereInput | Prisma.BookableAssetScalarWhereInput[]
+  OR?: Prisma.BookableAssetScalarWhereInput[]
+  NOT?: Prisma.BookableAssetScalarWhereInput | Prisma.BookableAssetScalarWhereInput[]
+  id?: Prisma.StringFilter<"BookableAsset"> | string
+  name?: Prisma.StringFilter<"BookableAsset"> | string
+  orgId?: Prisma.StringFilter<"BookableAsset"> | string
+  floorId?: Prisma.StringFilter<"BookableAsset"> | string
 }
 
 export type BookableAssetCreateWithoutFloorInput = {
   id?: string
   name: string
-  orgId: string
+  organization: Prisma.OrganizationCreateNestedOneWithoutBookableAssetsInput
   bookings?: Prisma.BookingCreateNestedManyWithoutBookableAssetInput
   spaces?: Prisma.SpaceCreateNestedManyWithoutAssetInput
 }
@@ -439,21 +528,11 @@ export type BookableAssetUpdateManyWithWhereWithoutFloorInput = {
   data: Prisma.XOR<Prisma.BookableAssetUpdateManyMutationInput, Prisma.BookableAssetUncheckedUpdateManyWithoutFloorInput>
 }
 
-export type BookableAssetScalarWhereInput = {
-  AND?: Prisma.BookableAssetScalarWhereInput | Prisma.BookableAssetScalarWhereInput[]
-  OR?: Prisma.BookableAssetScalarWhereInput[]
-  NOT?: Prisma.BookableAssetScalarWhereInput | Prisma.BookableAssetScalarWhereInput[]
-  id?: Prisma.StringFilter<"BookableAsset"> | string
-  name?: Prisma.StringFilter<"BookableAsset"> | string
-  orgId?: Prisma.StringFilter<"BookableAsset"> | string
-  floorId?: Prisma.StringFilter<"BookableAsset"> | string
-}
-
 export type BookableAssetCreateWithoutSpacesInput = {
   id?: string
   name: string
-  orgId: string
   floor: Prisma.FloorCreateNestedOneWithoutAssetsInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutBookableAssetsInput
   bookings?: Prisma.BookingCreateNestedManyWithoutBookableAssetInput
 }
 
@@ -484,8 +563,8 @@ export type BookableAssetUpdateToOneWithWhereWithoutSpacesInput = {
 export type BookableAssetUpdateWithoutSpacesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
   floor?: Prisma.FloorUpdateOneRequiredWithoutAssetsNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutBookableAssetsNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutBookableAssetNestedInput
 }
 
@@ -500,8 +579,8 @@ export type BookableAssetUncheckedUpdateWithoutSpacesInput = {
 export type BookableAssetCreateWithoutBookingsInput = {
   id?: string
   name: string
-  orgId: string
   floor: Prisma.FloorCreateNestedOneWithoutAssetsInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutBookableAssetsInput
   spaces?: Prisma.SpaceCreateNestedManyWithoutAssetInput
 }
 
@@ -532,8 +611,8 @@ export type BookableAssetUpdateToOneWithWhereWithoutBookingsInput = {
 export type BookableAssetUpdateWithoutBookingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
   floor?: Prisma.FloorUpdateOneRequiredWithoutAssetsNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutBookableAssetsNestedInput
   spaces?: Prisma.SpaceUpdateManyWithoutAssetNestedInput
 }
 
@@ -545,6 +624,34 @@ export type BookableAssetUncheckedUpdateWithoutBookingsInput = {
   spaces?: Prisma.SpaceUncheckedUpdateManyWithoutAssetNestedInput
 }
 
+export type BookableAssetCreateManyOrganizationInput = {
+  id?: string
+  name: string
+  floorId: string
+}
+
+export type BookableAssetUpdateWithoutOrganizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  floor?: Prisma.FloorUpdateOneRequiredWithoutAssetsNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutBookableAssetNestedInput
+  spaces?: Prisma.SpaceUpdateManyWithoutAssetNestedInput
+}
+
+export type BookableAssetUncheckedUpdateWithoutOrganizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  floorId?: Prisma.StringFieldUpdateOperationsInput | string
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutBookableAssetNestedInput
+  spaces?: Prisma.SpaceUncheckedUpdateManyWithoutAssetNestedInput
+}
+
+export type BookableAssetUncheckedUpdateManyWithoutOrganizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  floorId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
 export type BookableAssetCreateManyFloorInput = {
   id?: string
   name: string
@@ -554,7 +661,7 @@ export type BookableAssetCreateManyFloorInput = {
 export type BookableAssetUpdateWithoutFloorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutBookableAssetsNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutBookableAssetNestedInput
   spaces?: Prisma.SpaceUpdateManyWithoutAssetNestedInput
 }
@@ -619,6 +726,7 @@ export type BookableAssetSelect<ExtArgs extends runtime.Types.Extensions.Interna
   orgId?: boolean
   floorId?: boolean
   floor?: boolean | Prisma.FloorDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   bookings?: boolean | Prisma.BookableAsset$bookingsArgs<ExtArgs>
   spaces?: boolean | Prisma.BookableAsset$spacesArgs<ExtArgs>
   _count?: boolean | Prisma.BookableAssetCountOutputTypeDefaultArgs<ExtArgs>
@@ -630,6 +738,7 @@ export type BookableAssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   orgId?: boolean
   floorId?: boolean
   floor?: boolean | Prisma.FloorDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bookableAsset"]>
 
 export type BookableAssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -638,6 +747,7 @@ export type BookableAssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   orgId?: boolean
   floorId?: boolean
   floor?: boolean | Prisma.FloorDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bookableAsset"]>
 
 export type BookableAssetSelectScalar = {
@@ -650,21 +760,25 @@ export type BookableAssetSelectScalar = {
 export type BookableAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "orgId" | "floorId", ExtArgs["result"]["bookableAsset"]>
 export type BookableAssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   floor?: boolean | Prisma.FloorDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   bookings?: boolean | Prisma.BookableAsset$bookingsArgs<ExtArgs>
   spaces?: boolean | Prisma.BookableAsset$spacesArgs<ExtArgs>
   _count?: boolean | Prisma.BookableAssetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BookableAssetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   floor?: boolean | Prisma.FloorDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }
 export type BookableAssetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   floor?: boolean | Prisma.FloorDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }
 
 export type $BookableAssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "BookableAsset"
   objects: {
     floor: Prisma.$FloorPayload<ExtArgs>
+    organization: Prisma.$OrganizationPayload<ExtArgs>
     bookings: Prisma.$BookingPayload<ExtArgs>[]
     spaces: Prisma.$SpacePayload<ExtArgs>[]
   }
@@ -1068,6 +1182,7 @@ readonly fields: BookableAssetFieldRefs;
 export interface Prisma__BookableAssetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   floor<T extends Prisma.FloorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FloorDefaultArgs<ExtArgs>>): Prisma.Prisma__FloorClient<runtime.Types.Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bookings<T extends Prisma.BookableAsset$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BookableAsset$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   spaces<T extends Prisma.BookableAsset$spacesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BookableAsset$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**

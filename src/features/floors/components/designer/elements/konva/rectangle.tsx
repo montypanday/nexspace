@@ -1,9 +1,9 @@
 'use client'
 
 import { Rect } from "react-konva"
-import { ElementProps } from "../../element"
+import { StageElementDto } from "@/features/floors/types";
 
-export function RectangleKonva(props: ElementProps) {
+export function RectangleKonva(props: StageElementDto) {
     return (
         <Rect
             id={props.id}

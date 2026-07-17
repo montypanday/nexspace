@@ -232,6 +232,7 @@ export const FloorPlanElementScalarFieldEnum = {
   id: 'id',
   type: 'type',
   attrs: 'attrs',
+  featureProperties: 'featureProperties',
   floorPlanId: 'floorPlanId',
   spaceId: 'spaceId'
 } as const
@@ -241,7 +242,6 @@ export type FloorPlanElementScalarFieldEnum = (typeof FloorPlanElementScalarFiel
 
 export const SpaceScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   status: 'status',
   orgId: 'orgId',
   floorId: 'floorId',
@@ -255,7 +255,6 @@ export type SpaceScalarFieldEnum = (typeof SpaceScalarFieldEnum)[keyof typeof Sp
 export const BookingScalarFieldEnum = {
   id: 'id',
   orgId: 'orgId',
-  spaceId: 'spaceId',
   userId: 'userId',
   title: 'title',
   startTs: 'startTs',

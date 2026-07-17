@@ -1,9 +1,9 @@
 'use client'
 
 import { Line } from "react-konva"
-import { ElementProps } from "../../element"
+import { StageElementDto } from "@/features/floors/types";
 
-export function LineKonva(props: ElementProps) {
+export function LineKonva(props: StageElementDto) {
 
     const { points, ...safeAttributes } = props.attrs
     // extract points and convert to single dimensional array if required

@@ -1,6 +1,6 @@
 "use client"
 
-import { Map, MapMarker, MapPolygon, MapPopup, MapTileLayer, MapZoomControl } from "@/components/ui/map"
+import { Map, MapMarker, MapPolygon, MapPopup, MapTileLayer, MapZoomControl } from "@/components/maps/map"
 import { BuildingDto } from "@/features/buildings/types"
 import { LocationDto } from "@/features/locations/types"
 import type { LatLngExpression } from "leaflet"

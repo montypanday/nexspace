@@ -16,7 +16,7 @@ import {
     MapMarker,
     MapZoomControl,
     MapPolygon,
-} from "@/components/ui/map"
+} from "@/components/maps/map"
 import type { FeatureGroup, LatLngExpression } from "leaflet"
 import L from "leaflet";
 import { MapPinIcon } from "lucide-react";

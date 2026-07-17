@@ -166,8 +166,13 @@ export function AddBuildingForm(props: AddBuildingProps) {
                 <form.Subscribe
                     selector={(state) => [state.errors, state.errorMap]}
                     children={([errors, errorMap]) => {
+                        // 1. Check if it's a flat array and has items
+                        const hasArrayErrors = Array.isArray(errors) && errors.length > 0;
+
+                        // 2. Check if it's an error map object and has keys
+                        const hasMapErrors = errors && !Array.isArray(errors) && Object.keys(errors).length > 0;
                         // If this logs anything when you click submit, validation is blocking your action!
-                        if (errors.length > 0) console.log("Form Validation Errors:", errors)
+                        if (hasArrayErrors || hasMapErrors) console.log("Form Validation Errors:", errors)
                         return null
                     }}
                 />

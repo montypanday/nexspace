@@ -42,6 +42,7 @@ export type FloorPlanElementCountAggregateOutputType = {
   id: number
   type: number
   attrs: number
+  featureProperties: number
   floorPlanId: number
   spaceId: number
   _all: number
@@ -66,6 +67,7 @@ export type FloorPlanElementCountAggregateInputType = {
   id?: true
   type?: true
   attrs?: true
+  featureProperties?: true
   floorPlanId?: true
   spaceId?: true
   _all?: true
@@ -145,8 +147,9 @@ export type FloorPlanElementGroupByArgs<ExtArgs extends runtime.Types.Extensions
 
 export type FloorPlanElementGroupByOutputType = {
   id: string
-  type: string | null
+  type: string
   attrs: runtime.JsonValue
+  featureProperties: runtime.JsonValue
   floorPlanId: string
   spaceId: string | null
   _count: FloorPlanElementCountAggregateOutputType | null
@@ -174,8 +177,9 @@ export type FloorPlanElementWhereInput = {
   OR?: Prisma.FloorPlanElementWhereInput[]
   NOT?: Prisma.FloorPlanElementWhereInput | Prisma.FloorPlanElementWhereInput[]
   id?: Prisma.StringFilter<"FloorPlanElement"> | string
-  type?: Prisma.StringNullableFilter<"FloorPlanElement"> | string | null
+  type?: Prisma.StringFilter<"FloorPlanElement"> | string
   attrs?: Prisma.JsonFilter<"FloorPlanElement">
+  featureProperties?: Prisma.JsonFilter<"FloorPlanElement">
   floorPlanId?: Prisma.StringFilter<"FloorPlanElement"> | string
   spaceId?: Prisma.StringNullableFilter<"FloorPlanElement"> | string | null
   floorPlan?: Prisma.XOR<Prisma.FloorPlanScalarRelationFilter, Prisma.FloorPlanWhereInput>
@@ -184,8 +188,9 @@ export type FloorPlanElementWhereInput = {
 
 export type FloorPlanElementOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrderInput | Prisma.SortOrder
+  type?: Prisma.SortOrder
   attrs?: Prisma.SortOrder
+  featureProperties?: Prisma.SortOrder
   floorPlanId?: Prisma.SortOrder
   spaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   floorPlan?: Prisma.FloorPlanOrderByWithRelationInput
@@ -198,8 +203,9 @@ export type FloorPlanElementWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.FloorPlanElementWhereInput | Prisma.FloorPlanElementWhereInput[]
   OR?: Prisma.FloorPlanElementWhereInput[]
   NOT?: Prisma.FloorPlanElementWhereInput | Prisma.FloorPlanElementWhereInput[]
-  type?: Prisma.StringNullableFilter<"FloorPlanElement"> | string | null
+  type?: Prisma.StringFilter<"FloorPlanElement"> | string
   attrs?: Prisma.JsonFilter<"FloorPlanElement">
+  featureProperties?: Prisma.JsonFilter<"FloorPlanElement">
   floorPlanId?: Prisma.StringFilter<"FloorPlanElement"> | string
   floorPlan?: Prisma.XOR<Prisma.FloorPlanScalarRelationFilter, Prisma.FloorPlanWhereInput>
   space?: Prisma.XOR<Prisma.SpaceNullableScalarRelationFilter, Prisma.SpaceWhereInput> | null
@@ -207,8 +213,9 @@ export type FloorPlanElementWhereUniqueInput = Prisma.AtLeast<{
 
 export type FloorPlanElementOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrderInput | Prisma.SortOrder
+  type?: Prisma.SortOrder
   attrs?: Prisma.SortOrder
+  featureProperties?: Prisma.SortOrder
   floorPlanId?: Prisma.SortOrder
   spaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.FloorPlanElementCountOrderByAggregateInput
@@ -221,62 +228,70 @@ export type FloorPlanElementScalarWhereWithAggregatesInput = {
   OR?: Prisma.FloorPlanElementScalarWhereWithAggregatesInput[]
   NOT?: Prisma.FloorPlanElementScalarWhereWithAggregatesInput | Prisma.FloorPlanElementScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"FloorPlanElement"> | string
-  type?: Prisma.StringNullableWithAggregatesFilter<"FloorPlanElement"> | string | null
+  type?: Prisma.StringWithAggregatesFilter<"FloorPlanElement"> | string
   attrs?: Prisma.JsonWithAggregatesFilter<"FloorPlanElement">
+  featureProperties?: Prisma.JsonWithAggregatesFilter<"FloorPlanElement">
   floorPlanId?: Prisma.StringWithAggregatesFilter<"FloorPlanElement"> | string
   spaceId?: Prisma.StringNullableWithAggregatesFilter<"FloorPlanElement"> | string | null
 }
 
 export type FloorPlanElementCreateInput = {
   id?: string
-  type?: string | null
+  type: string
   attrs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floorPlan: Prisma.FloorPlanCreateNestedOneWithoutElementsInput
   space?: Prisma.SpaceCreateNestedOneWithoutFloorPlanElementInput
 }
 
 export type FloorPlanElementUncheckedCreateInput = {
   id?: string
-  type?: string | null
+  type: string
   attrs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floorPlanId: string
   spaceId?: string | null
 }
 
 export type FloorPlanElementUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   attrs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floorPlan?: Prisma.FloorPlanUpdateOneRequiredWithoutElementsNestedInput
   space?: Prisma.SpaceUpdateOneWithoutFloorPlanElementNestedInput
 }
 
 export type FloorPlanElementUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   attrs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floorPlanId?: Prisma.StringFieldUpdateOperationsInput | string
   spaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type FloorPlanElementCreateManyInput = {
   id?: string
-  type?: string | null
+  type: string
   attrs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floorPlanId: string
   spaceId?: string | null
 }
 
 export type FloorPlanElementUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   attrs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
 }
 
 export type FloorPlanElementUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   attrs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floorPlanId?: Prisma.StringFieldUpdateOperationsInput | string
   spaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -295,6 +310,7 @@ export type FloorPlanElementCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   attrs?: Prisma.SortOrder
+  featureProperties?: Prisma.SortOrder
   floorPlanId?: Prisma.SortOrder
   spaceId?: Prisma.SortOrder
 }
@@ -394,15 +410,17 @@ export type FloorPlanElementUncheckedUpdateOneWithoutSpaceNestedInput = {
 
 export type FloorPlanElementCreateWithoutFloorPlanInput = {
   id?: string
-  type?: string | null
+  type: string
   attrs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   space?: Prisma.SpaceCreateNestedOneWithoutFloorPlanElementInput
 }
 
 export type FloorPlanElementUncheckedCreateWithoutFloorPlanInput = {
   id?: string
-  type?: string | null
+  type: string
   attrs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   spaceId?: string | null
 }
 
@@ -437,23 +455,26 @@ export type FloorPlanElementScalarWhereInput = {
   OR?: Prisma.FloorPlanElementScalarWhereInput[]
   NOT?: Prisma.FloorPlanElementScalarWhereInput | Prisma.FloorPlanElementScalarWhereInput[]
   id?: Prisma.StringFilter<"FloorPlanElement"> | string
-  type?: Prisma.StringNullableFilter<"FloorPlanElement"> | string | null
+  type?: Prisma.StringFilter<"FloorPlanElement"> | string
   attrs?: Prisma.JsonFilter<"FloorPlanElement">
+  featureProperties?: Prisma.JsonFilter<"FloorPlanElement">
   floorPlanId?: Prisma.StringFilter<"FloorPlanElement"> | string
   spaceId?: Prisma.StringNullableFilter<"FloorPlanElement"> | string | null
 }
 
 export type FloorPlanElementCreateWithoutSpaceInput = {
   id?: string
-  type?: string | null
+  type: string
   attrs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floorPlan: Prisma.FloorPlanCreateNestedOneWithoutElementsInput
 }
 
 export type FloorPlanElementUncheckedCreateWithoutSpaceInput = {
   id?: string
-  type?: string | null
+  type: string
   attrs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floorPlanId: string
 }
 
@@ -475,43 +496,49 @@ export type FloorPlanElementUpdateToOneWithWhereWithoutSpaceInput = {
 
 export type FloorPlanElementUpdateWithoutSpaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   attrs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floorPlan?: Prisma.FloorPlanUpdateOneRequiredWithoutElementsNestedInput
 }
 
 export type FloorPlanElementUncheckedUpdateWithoutSpaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   attrs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   floorPlanId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FloorPlanElementCreateManyFloorPlanInput = {
   id?: string
-  type?: string | null
+  type: string
   attrs: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   spaceId?: string | null
 }
 
 export type FloorPlanElementUpdateWithoutFloorPlanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   attrs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   space?: Prisma.SpaceUpdateOneWithoutFloorPlanElementNestedInput
 }
 
 export type FloorPlanElementUncheckedUpdateWithoutFloorPlanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   attrs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   spaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type FloorPlanElementUncheckedUpdateManyWithoutFloorPlanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   attrs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  featureProperties?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   spaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -521,6 +548,7 @@ export type FloorPlanElementSelect<ExtArgs extends runtime.Types.Extensions.Inte
   id?: boolean
   type?: boolean
   attrs?: boolean
+  featureProperties?: boolean
   floorPlanId?: boolean
   spaceId?: boolean
   floorPlan?: boolean | Prisma.FloorPlanDefaultArgs<ExtArgs>
@@ -531,6 +559,7 @@ export type FloorPlanElementSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   type?: boolean
   attrs?: boolean
+  featureProperties?: boolean
   floorPlanId?: boolean
   spaceId?: boolean
   floorPlan?: boolean | Prisma.FloorPlanDefaultArgs<ExtArgs>
@@ -541,6 +570,7 @@ export type FloorPlanElementSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   type?: boolean
   attrs?: boolean
+  featureProperties?: boolean
   floorPlanId?: boolean
   spaceId?: boolean
   floorPlan?: boolean | Prisma.FloorPlanDefaultArgs<ExtArgs>
@@ -551,11 +581,12 @@ export type FloorPlanElementSelectScalar = {
   id?: boolean
   type?: boolean
   attrs?: boolean
+  featureProperties?: boolean
   floorPlanId?: boolean
   spaceId?: boolean
 }
 
-export type FloorPlanElementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "attrs" | "floorPlanId" | "spaceId", ExtArgs["result"]["floorPlanElement"]>
+export type FloorPlanElementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "attrs" | "featureProperties" | "floorPlanId" | "spaceId", ExtArgs["result"]["floorPlanElement"]>
 export type FloorPlanElementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   floorPlan?: boolean | Prisma.FloorPlanDefaultArgs<ExtArgs>
   space?: boolean | Prisma.FloorPlanElement$spaceArgs<ExtArgs>
@@ -577,8 +608,9 @@ export type $FloorPlanElementPayload<ExtArgs extends runtime.Types.Extensions.In
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    type: string | null
+    type: string
     attrs: runtime.JsonValue
+    featureProperties: runtime.JsonValue
     floorPlanId: string
     spaceId: string | null
   }, ExtArgs["result"]["floorPlanElement"]>
@@ -1009,6 +1041,7 @@ export interface FloorPlanElementFieldRefs {
   readonly id: Prisma.FieldRef<"FloorPlanElement", 'String'>
   readonly type: Prisma.FieldRef<"FloorPlanElement", 'String'>
   readonly attrs: Prisma.FieldRef<"FloorPlanElement", 'Json'>
+  readonly featureProperties: Prisma.FieldRef<"FloorPlanElement", 'Json'>
   readonly floorPlanId: Prisma.FieldRef<"FloorPlanElement", 'String'>
   readonly spaceId: Prisma.FieldRef<"FloorPlanElement", 'String'>
 }

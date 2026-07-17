@@ -20,23 +20,23 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
-import { SpaceDto } from "@/features/spaces/types"
 import { DateTimePicker } from "@/components/datetimepicker/datetimepicker"
 import { User } from "next-auth"
 import { useRef } from "react"
-import {AddBookingSchema} from "@/features/bookings/schemas";
-import {addBookingAction} from "@/features/bookings/server/actions";
+import { AddBookingSchema } from "@/features/bookings/schemas";
+import { addBookingAction } from "@/features/bookings/server/actions";
+import { BookableAssetDto } from "@/features/bookings/types";
 
-export function AddBookingForm({ space, user }: { space?: SpaceDto, user: User | null | undefined }) {
+export function AddBookingForm({ bookableAsset, user }: { bookableAsset: BookableAssetDto, user: User }) {
 
     const now = new Date();
     const form = useForm({
         defaultValues: {
-            title: space?.name || "",
+            title: bookableAsset.name || "",
             startTs: new Date(),
             endTs: new Date(now.getTime() + 3600000),
             allDay: false,
-            spaceId: space?.id || "",
+            bookableAssetId: bookableAsset.id || "",
             userId: user?.id || ""
         },
         validators: {
@@ -194,7 +194,7 @@ export function AddBookingForm({ space, user }: { space?: SpaceDto, user: User |
                                 },
                             }}
                         />
-                        <form.Field name="spaceId">
+                        <form.Field name="bookableAssetId">
                             {(field) => (
                                 <input
                                     type="hidden"

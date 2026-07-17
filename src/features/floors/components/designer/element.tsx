@@ -13,6 +13,7 @@ import { TextKonva } from "./elements/konva/text";
 import { LineKonva } from "./elements/konva/line";
 import { PolygonKonva } from "./elements/konva/polygon";
 import React from "react";
+import {StageElementDto} from "@/features/floors/types";
 
 export enum ElementType {
     Text = 'text',
@@ -28,25 +29,6 @@ export enum ElementType {
     Meeting4 = "meeting-table4",
     Meeting6 = "meeting-table6",
     Meeting10 = "meeting-table10",
-}
-
-export interface ElementProps {
-    id: string;
-    type?: string;
-    draggable: boolean;
-    isSelected: boolean;
-    attrs: {
-        points?: { x: number; y: number }[] | number[];
-        [key: string]: any
-    }
-    feature_properties?: { [name: string]: any } | null
-    onClick?: (evt: Konva.KonvaEventObject<MouseEvent>) => void;
-    onDblClick?: (evt: Konva.KonvaEventObject<MouseEvent>) => void;
-    onDragEnd?: (evt: Konva.KonvaEventObject<DragEvent>) => void;
-    onTransformEnd?: (evt: Konva.KonvaEventObject<MouseEvent>) => void;
-    onChangeAttrs?: (id: string, newAttrs: {
-        [key: string]: any
-    }) => void;
 }
 
 export function getElementDefaultAttrs(elementType: string | undefined): object {
@@ -74,7 +56,7 @@ export function getElementDefaultAttrs(elementType: string | undefined): object 
     }
 }
 
-export function SpawnedElement(props: ElementProps): React.ReactNode {
+export function SpawnedElement(props: StageElementDto): React.ReactNode {
 
     const { type, ...cleanProps } = props
     const newProps = {
